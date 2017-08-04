@@ -1,0 +1,21 @@
+﻿body { padding:10px; }
+td { vertical-align: top }
+.dt-disabled{
+    color: #fff;
+    background-color: red !important;
+    border-color: red !important;
+}
+.cal-bottom .paste-btn.pasteadvance{
+      /*opacity: .65;*/
+      background-color:#7ba9d0;
+      color:#555;
+}
+.cal-bottom .re-btn.resetadvance{
+      /*opacity: .65;*/     
+      color:#555;
+      background : #6cddf2;
+
+}
+.text-curr{
+      border:1px solid #c10509 !important;
+}

@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <link href="../../../css/styleDesktop.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="entrypopup teamMeetingPopup" data-ng-init="init()" id="viewDetailPopUp">
+        <h2><span ng-class="(meetingFlag | uppercase) == 'Y'?'meeting':'appointment'" ng-bind-html="subjectTitle"></span></h2><span class="closeCross" ng-click="cancel()"></span>
+        <div class="entrypopupInner">
+            <div class="entrypopupform" id="innerDetailDiv">
+                <section class="formBar">
+                    <ul>
+                        <li>
+                            <a class="changeable" href="javascript:void(0)" ng-click="selectMeeting()"> <strong class="selectMeeting">{{ ::'lbl_slct' | translate }}...</strong><span></span> </a>
+                           
+                        </li>
+                        <li>
+                            <a class="changeable" href="javascript:void(0)" ng-click="cancel()"> <strong class="closeMeeting">{{::'msg_close' | translate }}</strong><span></span> </a>
+                           
+                        </li>
+                    </ul>
+
+                   
+                </section> 
+
+                <section class="infoArea">
+                    <ul>
+                        <li><label>{{ ::'msg_Frm' | translate }}:</label><input type="text" readonly class="txtDisplay" ng-model="sender_from" /></li>
+                        <li><label>{{ ::'lbl_To' | translate }}:</label><textarea class="txtAreaDisplay" readonly ng-model="sender_to"></textarea></li>
+                        <li><label>{{ ::'lbl_Subject' | translate }}:</label><input type="text" class="txtDisplay" readonly ng-model="subject"/></li>
+                        <li><label>{{ ::'lbl_loc' | translate }}:</label><input type="text" class="txtDisplay" readonly ng-model="location" /></li>
+                        <li><label>{{ ::'lbl_StartTime' | translate }}:</label><input type="text" class="txtDisplay" readonly ng-model="start_time" /></li>
+                        <li><label>{{ ::'lbl_EndTime' | translate }}:</label><input type="text" class="txtDisplay" readonly ng-model="end_time" /></li>
+
+                    </ul>
+                </section>
+
+                <div class="showEmailContent" style="overflow: auto;">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+﻿<section ng-click="openCepFavTab()">
+    <div id="favCepPopUp" style="width:100%;" >
+        <div class="favTab upArrow" clsName="innerTab1">
+            <h2><span translate="lbl_CepCodeFav"></span><span class="cepfavmax"  ng-click="loadCepFavWindow($event)"></span><span class="downArrow"></span></h2>
+
+        </div>
+        <div class="favTabDesc" id="innerTab1" style="display:block;">
+            <div  style="display:block;">
+                <div  ng-style="{'height':'200px','width':'282px'}" id="cepRightFavGrid" ui-grid="gridCepFavoriteOptions" class="cepfavGrid" ui-grid-save-state ui-grid-pagination ui-grid-resize-columns ui-grid-move-columns ui-grid-edit ui-grid-cellNav ui-grid-grouping ui-grid-selection>
+                    <div style="top:42px;" class="gridblankdata" ng-if="gridCepFavoriteOptions.data.length==0"><span>{{::'msg_noFav' | translate}}..</span></div>
+                </div>
+            </div>
+            </div>
+        </div>
+</section>

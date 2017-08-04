@@ -1,0 +1,18 @@
+﻿<section class="center-block show-message-submit-cont" data-ng-init="init()" id="submitPopUp">
+
+    <div class="show-message-submit">
+
+        <span ng-bind="message"></span>
+
+    </div>
+   
+    <section class="message-btn-cont">
+        <ul>
+
+            <li><button class="btn btn-primary" ng-disabled="isSubmit" ng-click="ok()"  translate="btn_Ok"></button></li>
+
+
+            <li><button class="btn-primary  btn-grd2 btn" ng-show="isCancelBtnOn" ng-click="cancel()" style="border:none;"  translate="btn_Cancel"></button></li>
+        </ul>
+    </section>
+</section>

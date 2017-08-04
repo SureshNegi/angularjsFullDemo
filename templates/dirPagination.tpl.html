@@ -1,0 +1,53 @@
+﻿<!--<ul class="pagination" ng-if="1 < pages.length">
+    <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
+        <a href="" ng-click="setCurrent(1)">&laquo;</a>
+    </li>
+    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }" class="ng-scope">
+        <a href="" ng-click="setCurrent(pagination.current - 1)" class="ng-binding">‹</a>
+    </li>
+    <li ng-repeat="pageNumber in pages track by $index" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+        <a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+    </li>
+    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }" class="ng-scope">
+        <a href="" ng-click="setCurrent(pagination.current + 1)" class="ng-binding">›</a>
+    </li>
+    <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+        <a href="" ng-click="setCurrent(pagination.last)">&raquo;</a>
+    </li>
+</ul>-->
+<li class="paginationDesktop">
+    <div>
+
+        <table>
+            <tr>
+                <td ng-class="{ disabled : CurrentPageNumber <= 1 }" >
+                    <button ng-attr-title="{{ 'msg_frstPage' | translate }}" class="step-backward"  ng-disabled="CurrentPageNumber <= 1" ng-click="CurrentPageNumber=PageNumber=setCurrent(1,1,'firstPage')"><i id="firstPage" class="fa" ng-class="CurrentPageNumber <= 1?'fa-step-backward-disabled':'fa-step-backward'"></i></button>
+                </td>
+                <td ng-class="{ disabled : CurrentPageNumber <= 1 }">
+                    <button  ng-attr-title="{{ 'msg_prevPage' | translate }}" class="angle-left" ng-disabled="CurrentPageNumber <= 1" ng-click="CurrentPageNumber=PageNumber = setCurrent(((CurrentPageNumber-1)<1?1:(CurrentPageNumber-1)),2,'prevPage')"><i id="prevPage" class="fa"  ng-class="CurrentPageNumber <= 1?'fa-angle-left-disabled':'fa-angle-left'"></i></button>
+                </td>
+                <td>
+                    <span class="pageNumber_">Page</span>
+                    <input type="number" style="display:none" id="hdnPgNum" ng-model="CurrentPageNumber" />
+                    <input  type="number" id="pageNumber" ng-model="PageNumber"  ng-keyup="$event.keyCode == 13 ? CurrentPageNumber=PageNumber = setCurrent(PageNumber>TotalPages?TotalPages:(PageNumber<1?1:PageNumber)) : null" />
+                </td>
+                <td>
+                    <span>{{'lbl_of' |translate}}</span>
+                </td>
+                <td>
+                    <span>{{TotalPages}}</span>
+
+                </td>
+                <td ng-class="{ disabled : CurrentPageNumber >= TotalPages }">
+                    <button ng-attr-title="{{ 'msg_nxtPage' | translate }}" class="angle-right"  ng-disabled="CurrentPageNumber >= TotalPages" ng-click="CurrentPageNumber=PageNumber=setCurrent(((CurrentPageNumber+1)>TotalPages?TotalPages:(CurrentPageNumber+1)),3,'nextPage',TotalPages)"><i id="nextPage" class="fa" ng-class="CurrentPageNumber >= TotalPages?'fa-angle-right-disabled':'fa-angle-right'"></i></button>
+                </td>
+                <td ng-class="{ disabled : CurrentPageNumber >= TotalPages }">
+                    <button  ng-attr-title="{{ 'msg_lstPage' | translate }}" class="step-forward" ng-disabled="CurrentPageNumber >= TotalPages" ng-click="CurrentPageNumber=PageNumber=setCurrent(TotalPages,4,'lastPage')"><i id="lastPage" class="fa" ng-class="CurrentPageNumber >= TotalPages?'fa-step-forward-disabled':'fa-step-forward'"></i></button>
+                </td>
+                <td>
+                    <button ng-attr-title="{{ 'lbl_rfrsh' | translate }}" class="fa-spinner" ng-click="CurrentPageNumber=PageNumber=setCurrent(CurrentPageNumber,5)"><i class="fa fa-spinner"></i></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</li>

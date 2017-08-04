@@ -1,0 +1,48 @@
+﻿
+
+<div class="entrypopup activityContDesktop" id="activityPopUp" ng-style="{'overflow':windowConfig.overflow, 'margin':windowConfig.margin,'width': windowConfig.width,'height':windowConfig.height,'left':windowConfig.left,'top':windowConfig.top}">
+    <div ng-style="{'height':windowConfig.topHeader}">
+        <h2><span translate="lbl_actvtyFav"></span></h2><span class="min" ng-click="resizeWindow(0)"  ctrl="activity" ng-show="!isMinimize">Minimize</span><span class="max"  ctrl="activity" ng-click="resizeWindow(1)" ng-show="isMinimize">Maximize</span><span class="closeCross" ng-click="cancel()"></span>
+    </div>
+    <div class="entrypopupInner" data-ng-init="init()" id="innerActivityCont" ng-style="{'height':(windowConfig.innerHeight1)}">
+        <div class="entrypopupform" ng-style="{'height':windowConfig.innerHeight}">
+            <section class="formBar" ng-style="{'height':windowConfig.section1Hgt}">
+                <ul>
+                    <li><a class="showFav" ng-click="btnShowAllClick()" ng-show="isShowAllActivity"><span translate="btn_ShowAll"></span></a></li>
+                    <li ng-class="(isSameCompany == false) ? 'disable' : ''"><a href="javascript:void(0)" ng-show="!isShowAllActivity" class="showFav"><span ng-click="btnFavOnlyClick()" ng-disabled="!isSameCompany" translate="btn_ShowFavOnly"></span></a></li>
+                    <li ng-class="(isSameCompany == false || !isShowAllActivity || favActivityObj.length==0) ? 'disable' : ''" ><a  class="deleteAll"><span ng-disabled="(!isSameCompany || (!isShowAllActivity || favActivityObj.length==0))" ng-click="removeAllActivity()" translate="lbl_dltAll" title="{{dltAllVar}}"></span></a></li>
+                </ul>
+                <section class="searchBarActivity" >
+                    <a ng-class="showSrchSelection ? 'seachBtnAct activeSearch' : 'seachBtnAct'" ng-click="toggleSrchSelection()" ><span>{{ ::'lbl_srch' | translate }} <i class="glyphicon glyphicon-triangle-bottom"></i></span></a>
+                    <input type="text" class="seachAct" ng-model="searchText" ng-enter="refreshData()" title="{{srchTxtVar}}"/>
+                    <button class="crossSearchAct" ng-click="clearSearch()"></button>
+                    <button class="searchSearchAct" ng-click="refreshData()"></button>
+                    <div class="popupAbsDesktop"   ng-show="showSrchSelection" style="height:62px">
+                        <ul ng-show="showSrchSelection">
+                            <li><label>
+                                     <input type="checkbox" ng-model="isFilterByCode" ng-change="srchSelChange()"> 
+                                    </label><label style="padding-left: 10px;">Code</label></li>
+                            <li>
+                                <label>
+                                     <input type="checkbox" ng-model="isFilterByDesc" ng-change="srchSelChange()"> 
+                                </label><label style="padding-left: 10px;">Description</label>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </section>
+            </section>
+            <section id="gridSection" class="formSection" ng-show="isLoaded" ng-style="{'width': windowConfig.gridWidth,'height':windowConfig.gridHeight}">
+                <div ng-if="windowConfig.isRenderGrid"   style="background-color:#fff;" id="activityGrid" ui-grid="gridOptions" class="grid"   ui-grid-save-state ui-grid-resize-columns  ui-grid-move-columns ui-grid-edit ui-grid-cellNav ui-grid-grouping ui-grid-selection    >
+                    <div style="top:42px;" class="gridblankdata" ng-show="favActivityObj.length==0 && isLoaded==true"><span ng-bind-html="(isShowAllActivity)?('msg_noFav'|translate):('msg_NoRecord'|translate)"></span></div>
+                </div>
+                <!--<div ng-show="(!isCepValid || (!isShowAllActivity && gridOptions.data.length==0))" style="padding: 10px;color: #808080;font: 11px Trebuchet Ms,tahoma,arial,helvetica,sans-serif;">{{noRecordMsg}}</div>-->
+                <div  ng-if="isCepValid===false" style="padding: 10px;color: #808080;font: 11px Trebuchet Ms,tahoma,arial,helvetica,sans-serif;" >{{::'msg_ValidCep' |translate}}...</div>
+                <!--<div ng-show="isShowAllActivity && favActivityObj.length==0" style="padding: 10px;color: #808080;font: 11px Trebuchet Ms,tahoma,arial,helvetica,sans-serif;">No favorites to display</div>-->
+
+            </section>
+        </div>
+    </div>
+
+</div>

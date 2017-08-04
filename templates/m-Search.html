@@ -1,0 +1,104 @@
+﻿
+<div class="container-fluid container_fluid">
+    <div class="row">
+        <header class="page_header inner-header">
+
+            <a class="back-arrow" href="javascript:void(0)"><span ng-click="cancelSearch()" class="glyphicon glyphicon-menu-left"></span><span>&nbsp;</span><span>&nbsp;</span></a>
+
+            <div class="date-slide">
+            <span>{{isDailyMode==true?(startDate | date:'EEE MMM dd, yyyy'):('lbl_WeekOf' | translate) + (startDate | date:'EEE MMM dd, yyyy')}}</span></div>
+        </header>
+
+        <div class="search-page-padding-top" data-ng-init="initSearch()">
+            <div style="border-style: none; padding-bottom:5px">
+                <form name="userForm" id="searchForm" novalidate>
+                    <h4 translate="lbl_SrchPgeTitle"></h4>
+
+                    <ul class="search-for">
+
+                        <li class="search-opt col-xs-10 col-sm-10 col-md-10">
+                     <input id="txtSrch" maxlength="100" class="form-control" name="srchTxt" size="20"  ng-attr-placeholder={{paceHolderVal}}   ng-model="findCepCode" type="text" required>
+                        </li>
+                        <li class="search-sub col-xs-2 col-sm-2 col-md-2">
+                            <button id="btnSearch" type="submit" class="btn btn-primary" ng-click="mFindCEPCode()" ng-disabled="userForm.$invalid"><span class="fa fa-search"></span></button>
+                        </li>
+                    </ul>
+
+
+
+                    <p ng-show="userForm.srchTxt.$invalid && !userForm.srchTxt.$pristine" class="help-block">Please type before search</p>
+
+
+
+
+                </form>
+            </div>
+        </div>
+        <div class="divRslt" infinite-scroll='searchRslObj.nextPage()' infinite-scroll-disabled='searchRslObj.busy' infinite-scroll-distance='0'>
+
+
+            <div class="search-task-result" ng-repeat="x in searchRslObj.items" ng-click="sendDataBack({{x.index}})">
+
+                <section class="task-search">
+                    <strong class="task-code">
+                        <strong>
+                            <span ng-bind-html="x.CLIENO+ '-'"></span>
+                            <span ng-if="x.ENGNO.toString().length==3" ng-bind-html="x.ENGNO+'-'"></span>
+                            <span ng-if="x.ENGNO.toString().length==2" ng-bind-html="'0'+x.ENGNO+'-'"></span>
+                            <span ng-if="x.ENGNO.toString().length==1" ng-bind-html="'00'+x.ENGNO+'-'"></span>
+
+
+                            <span ng-if="x.PRJNO.toString().length==3" ng-bind-html="x.PRJNO"></span>
+                            <span ng-if="x.PRJNO.toString().length==2" ng-bind-html="'0'+x.PRJNO"></span>
+                            <span ng-if="x.PRJNO.toString().length==1" ng-bind-html="'00'+x.PRJNO"></span>
+                        </strong>
+
+                        <span class='star-fav' ng-click="removeCEPFavorites(true, x, $event )" ng-show="x.fav">
+                            <i class="fa fa-star"></i>
+                        </span>
+                        <span class='star-no-fav' ng-click="addCEPFavorited(true, x, $event)" ng-show="!x.fav">
+                            <i class="fa fa-star-o"></i>
+                        </span>
+                    </strong>
+                    <strong class='task-int'>
+
+                        <span class="task-type">Type : {{x.CHARBASIS}}</span>
+
+                        <span>Comp : {{x.OCOMP}}</span>
+
+                    </strong>
+                </section>
+                <section class="fav-desc">
+
+
+
+                    <span>
+
+                        <span>Client:{{x.CLIENAME}}</span>
+
+                    </span>
+
+                    <span>
+
+                        <span>Engagement:{{x.ENGNAME.trim()}}</span>
+
+                    </span>
+
+                    <span>
+
+                        <span> {{ 'lbl_Project' | translate }} : {{x.PRJNAME}}</span>
+
+                    </span>
+                </section>
+
+            </div>
+            
+            <section class="task-details1" ng-show="searchRslObj.items.length==0 && isNoMoreData" style="text-align: center;">
+                <span translate="lbl_NoResult"></span>                
+            </section>
+            <div ng-show='searchRslObj.busy && searchRslObj.items.length>0'>{{searchRslObj.loadMsg}}</div>
+
+        </div>
+    </div>
+</div>
+

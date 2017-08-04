@@ -1,0 +1,27 @@
+﻿<div class="entrypopup chartMax" id="mainChartDiv" data-ng-init="init()"  ng-style="{'overflow':windowConfig.overflow, 'margin':windowConfig.margin,'width': windowConfig.width,'height':windowConfig.height,'left':windowConfig.left,'top':windowConfig.top}" >
+    <div ng-style="{'height':windowConfig.topHeader}">
+        <h2 class="chartHeading"><span>{{windowTitle}}</span></h2><span class="min" ng-click="resizeWindow(0)"  ng-show="!isMinimize">Minimize</span><span class="max" ctrl="activity" ng-click="resizeWindow(1)" ng-show="isMinimize">Maximize</span><span class="closeCross" ng-click="close()"></span>
+      </div>
+          <div class="entrypopupInner" id="innerChartDiv" ng-style="{'height':(windowConfig.innerHeight)}">
+            <div class="entrypopupform" >
+                <div class="popupInnerBar" ng-style="{'height':windowConfig.section1Hgt}">
+                    <ul><li class="billable"><a href="javascript:void(0)">{{::'chartTileBillable' |translate}}</a></li><li class="chargeable"><a href="javascript:void(0)">{{::'chartTileChargeable' |translate}}</a></li><li class="nonBillable"><a href="javascript:void(0)">{{::'chartTileNon_Billable' |translate}}</a></li><li class="total"><a href="javascript:void(0)">{{::'chartTileTotal' |translate}}</a></li></ul>
+                    <div class="chartRight">
+                        <section class="weekend"><a href="javascript:void(0)" id="chartChkBoxContainer" title="{{'msgexclWknd' |translate}}"><span><input type="checkbox" id="chkExcludeWeekend" />{{::'lbl_excWknds' |translate}}</span></a></section> <ul>
+                            <li><input class="line" id="lineTypeExpanded" type="button" value="line" /></li>
+                            <li><input class="bar" id="barTypeExpanded" type="button" value="BAR" /></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <section class="formSection chartMax" ng-style="{'width': windowConfig.gridWidth,'height':windowConfig.gridHeight}">
+                    <div class="" ng-if="windowConfig.isChartRendered">
+                        <div id="mychartExpandedBar" style="display:none;" ng-style="{'width': windowConfig.gridWidth-30,'height':windowConfig.gridHeight-30}"></div>
+                        <div id="mychartExpanded" style="display:block;" ng-style="{'width': windowConfig.gridWidth-30,'height':windowConfig.gridHeight-30}"></div>
+                        <div id="mychartExpandedBarExcludeWeekend" style="display:none;" ng-style="{'width': windowConfig.gridWidth-30,'height':windowConfig.gridHeight-30}"></div>
+                        <div id="mychartExpandedExcludeWeekend" style="display:none;" ng-style="{'width': windowConfig.gridWidth-30,'height':windowConfig.gridHeight-30}"></div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>

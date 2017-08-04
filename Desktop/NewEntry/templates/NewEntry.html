@@ -1,0 +1,237 @@
+﻿    <div class="entrypopup" id="newEnteryWindow" ng-click="elementClick($event,true)" ng-class="isEnglishLang?'EN':'FR'">
+        <h2 id="header" ng-bind-html="isDailyMode?(weekName+ ', '+monthName+ ' '+(startDate | date:'dd, yyyy')):(('lbl_WeekOf' | translate) +weekName+ ', '+monthName+ ' '+(startDate | date:'dd, yyyy'))"> </h2><span class="closeCross" ng-click="cancelTE()" title="{{closeTitle}}"></span>
+        <div id="innerNewEntryDiv" class="entrypopupInner overflowVisible" data-ng-init="init()" >
+            <div class="entrypopupform">
+                <section class="formBar">
+                      <ul>
+                    <li><a class="changeable" href="javascript:void(0)" ng-class="showSaveMenu?'saveTmAct':''"> <strong ng-click="saveTEBtnClick(true,$event)"  class="entrySave" execute-save-on-key  id="saveTEBtn" >{{ ::'btn_Save' | translate }}</strong><span ng-click="colEntryShowMenu($event)"><i class="glyphicon glyphicon-triangle-bottom"></i></span></a>
+                        <div class="saveBtn bottomPopup" ng-show="showSaveMenu">
+                            <ul>
+                                <li ng-class="isMonthClosed?'disabled-ctrl':''"><span ng-click="!isMonthClosed && newTimeEntry()">{{ ::'btn_ANew' | translate }}</span></li>
+                                <li ng-class="isMonthClosed?'disabled-ctrl':''"><span  ng-click="!isMonthClosed && duplicateTimeEnrty()">{{ ::'btn_ADplct' | translate }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                          </li>
+                    <li><a class="changeable" href="javascript:void(0)" ng-class="showCancelMenu?'cancelTmAct':''"> <strong class="entryCancel" ng-click="cancelTE()">{{ ::'btn_Cancel' | translate }}</strong><span ng-click="colCancelMenu($event)"><i class="glyphicon glyphicon-triangle-bottom"></i></span></a>
+                        <div class="cancelBtn bottomPopup" ng-show="showCancelMenu">
+                            <ul>
+                                <li class="undoBtn" ng-class="undoClass"><span ng-disabled="(isMonthClosed || (undoClass.length>0))" ng-class="{{undoClass}}" ng-click="!isSubmit && !isMonthClosed && undoTimeEntry()" title="{{undoTitle}}">{{ ::'lbl_undo' | translate }}</span></li>
+                            </ul>
+                        </div>
+                          </li>
+                    </ul>                      
+                    
+                    <div ng-show="isDailyMode" >
+                        <a class="editTime" href="javascript:void(0)" ng-class="isEditMenuOn?((isSubmit || !checkRevMonthFlag) ? 'editTmActDisable':'activeEditChange'):((isSubmit || !checkRevMonthFlag) ? 'editTmActDisable':'editTmAct')"  ng-disabled="(isSubmit || !checkRevMonthFlag)">
+                            <strong ng-disabled="(isSubmit)" ng-click="updateEditMenu(!editMenu.isTime)" ng-bind="editMenu.title"></strong><span ng-disabled="(isSubmit)" ng-click="showEditMenuDropDown($event)"><i class="glyphicon glyphicon-triangle-bottom"></i></span>
+                        </a>
+                        <div class="bottomPopup editTimeSubmenu" ng-show="isEditMenuOn && !isSubmit && checkRevMonthFlag" >
+                            <ul>
+                                <li><span ng-class="editMenu.isTime?'active':''" ng-click="updateEditMenu(true)">{{ ::'lbl_Time' | translate }}</span></li>
+                                <li><span ng-class="!editMenu.isTime?'active':''" ng-click="updateEditMenu(false)">{{ ::'lbl_IC' | translate }}</span> </li>
+                            </ul>
+                        </div>
+                    </div>    
+                </section>
+                <!--<div class="tooltip1 ui-grid-cell-contents ng-binding" id="titleDiv" ng-show="showTitle">-->
+                    
+                 <!--DEVSEL-000-000 </div>-->
+                <section class="formSection"  ng-disabled="isSubmit" ng-class="{'enteryDisable':isSubmit}" >
+                   
+                         
+                    <span ng-disabled="isSubmit" class="absSearch">
+                     
+                        <input ng-click="cepIsSrchChkBoxClick()" id="srchChkbox" ng-model="isSrchChkd"  type="checkbox" class="check" /><span>{{ ::'lbl_srch' | translate }}</span>
+                        <div class="tooltip1">
+                          <div class="tooltiptext1 infoTooltip">
+                                <div class="tooltip-heading">
+                                    <ul>
+                                        <li>
+                                            <h4 class="ng-binding">{{::'msg_tipSrch' |translate}}</h4>
+
+                                        </li>
+
+                                    </ul>
+                                </div> <div class="tooltip-desc">
+                                    <ul>
+                                        <li>
+                                            <span class="flLeft ng-binding">MFIN01- :  </span>
+                                            <span class="flRight ng-binding">{{::'msg_rtrnPrj' |translate}}</span>
+                                        </li>
+                                        <li>
+                                            <span class="flLeft ng-binding">MFIN01-701- : </span>
+                                            <span class="flRight ng-binding">{{::'msg_rtrnPrjClient' |translate}}</span>
+                                        </li>
+                                        <li>
+                                            <span class="flLeft ng-binding">{{::'msg_finance' |translate}} :</span>
+                                            <span class="flRight ng-binding">{{::'msg_rtrnfinance' |translate}}</span>
+                                        </li>
+                                        <li>
+                                            <section class="overflowSpan">
+                                                <span class="flLeft ng-binding">{{::'msg_financeCons' |translate}} </span>
+                                                <span class="flRight ng-binding" ng-bind-html="'msg_rtrnfinanceCons' |translate"></span>
+                                            </section>
+                                            <section class="cepsearchnote"><span>{{::'msg_cepsearchNote' | translate}}</span></section>
+                                            <section class="examples">
+                                                <span class="flRight ng-binding">{{::'msg_exmpl' |translate}}</span>
+                                            </section>
+                                            <section class="client1">
+                                                <span class="flRight ng-binding"><em>Client -</em> <b>{{::'msg_finance' |translate}}</b> 101</span>
+                                                <span class="flRight ng-binding"><em>Engagement - </em><span ng-bind-html="'msg_financeTraining' |translate"></span></span>
+                                                <span class="flRight ng-binding"><em>{{::'lbl_Project' |translate}} - </em><span ng-bind-html="'msg_TrainingCons' |translate"></span></span>
+                                            </section>                                           
+                                        </li>
+                                            </ul>
+                                </div>
+                            </div>
+                            <strong><img src="img/desktop/information.gif" /></strong>
+                        </div>
+</span>
+                      
+                    <ul>
+                        <li>
+                            <label>{{::'lbl_CepCode' |translate}}:</label> 
+                            <div class="cepFav" ng-show="isSrchChkd" autofocus>
+                                <ui-select ng-disabled="isSubmit" ng-model="cpeDataItem.selected" on-select="onSelectCepFrmUiSelect($item, $select.search)" reset-search-input="false" theme="bootstrap" paging-directive style="width:242px;">
+                                    <ui-select-match>
+                                        {{$select.selected.CLIENO + "-" + ($select.selected.ENGNO.length==1?"00":($select.selected.ENGNO.length==2?"0":"")) + $select.selected.ENGNO + "-" + ($select.selected.PRJNO.length==1?"00":($select.selected.PRJNO.length==2?"0":"")) + $select.selected.PRJNO}}
+                                    </ui-select-match>
+                                    <ui-select-choices   id="space-for-buttons" repeat="c in cepSearList" refresh="refreshResults($select.search,$select)" refresh-delay="2">
+                                        <section class="cep-heading"><b>{{c.CLIENO + "-" + (c.ENGNO.length==1?"00":(c.ENGNO.length==2?"0":"")) + c.ENGNO + "-" + (c.PRJNO.length==1?"00":(c.PRJNO.length==2?"0":"")) + c.PRJNO}}</b><button class="star-fav star-icon"  ng-show="(c.CEPFAV == 'Y')"><i class="fa fa-star"></i></button> {{" " + c.OCOMP + " " + ((c.CHARBASIS === "S" || c.CHARBASIS === "C" || c.CHARBASIS === "R") ? ("Chargeable") : (c.CHARBASIS === "T" ? "Billable" : (c.CHARBASIS === "N" ? "Non-billable" : "Non-billable"))) + " -" + c.CHARBASIS}}</section>
+                                        <section class="cep-category">
+                                            <ul class="cep-subcategoryLeft">
+                                                <li><b>{{::RMTitle}}</b> <span> {{c.RMGR}}</span></li>
+                                                <li><b>{{::EMTitle}}</b> <span> {{c.ENGCON}}</span></li>
+                                                <li><b>{{::PMTitle}}</b> <span> {{c.PRJM}}</span></li>
+                                            </ul>
+                                            <ul class="cep-subcategoryRight">
+                                                <li><b>{{ ::'lbl_client' | translate }}</b> <span> {{c.CLIENAME}}</span></li>
+                                                <li><b>{{ ::'lbl_engmnt' | translate }}</b> <span> {{c.ENGNAME}}</span></li>
+                                                <li><b>{{ ::'lbl_Project' | translate }}</b> <span> {{c.PRJNAME}}</span></li>
+                                            </ul>
+                                        </section>
+                                       
+                                    </ui-select-choices>   
+                                                             
+                                </ui-select>                              
+                                <!--<button>
+                                    {{cpeDataItem.selected.CEPFAV}}
+                                </button>-->
+                               
+                            </div>
+                            <strong ng-show="isSrchChkd" style="margin-left:-17px;position:relative" class="inactive" ng-mousedown="openCepFavWindow(true)">&nbsp;</strong>
+                            <div ng-hide="isSrchChkd">
+                                <small  class="cepTxtCont cepFav">
+                                 <input ng-click="elementClick($event,false)" ng-class="{'cepTxt btmBgRed':frmParm.IsCepSelected==false,'cepTxt':frmParm.IsCepSelected==true,'disabled-ctrl':isSubmit}"  ng-disabled="isSubmit" is-valid-cep="{{isCepValdMsgOn}}" ng-mousedown="isMousOnCep=false" ng-mouseenter="isMousOnCep=true" ng-mouseleave="isMousOnCep=false" name="cepCode" class="cepTxt" type="text" id="cepTextBox"  ng-model="cepEnterText" ng-focus="onFocusCep()" 
+                                        ng-keydown="cepKeyPress($event)" ng-blur="onCepCodeBlur()" ui-mask="{{maskTest}}" ng-keyup="cepdelete($event)" />
+                               
+                                    <button class="cepTxtCross" ng-mousedown="clearCep()" ng-show="cepEnterText.length>0">
+                                        x
+                                    </button>
+                                    <button class="star-fav star-icon" ng-click="removeFrmFavCEP(cepObj.selected)" ng-show="cepEnterText.length>0 && frmParm.IsCepSelected &&  cepObj.selected.CEPFAV && cepObj.isValidCep">
+                                    <i class="fa fa-star"></i>
+                                </button>
+                                <button class="star-fav star-icon" ng-click="addToFavCEP(cepObj.selected)" ng-show="cepEnterText.length>0 && frmParm.IsCepSelected && !cepObj.selected.CEPFAV && cepObj.isValidCep">
+                                    <i class="fa fa-star-o"></i>
+                                </button>   
+                                 <span ng-show="isMousOnCep && !frmParm.IsCepSelected">{{::'msg_ValidCep' |translate}}...</span>
+                                </small>
+                                <strong class="inactive" ng-disabled="isSubmit" ng-class="isCEPFocusDownImg?'cepDownImgActive':''" ng-click="openCepFavWindow(false)">&nbsp;</strong>
+                            </div>
+                        </li>
+                        <li ng-if="IsActivity"><label>{{ ::'lbl_Activity' | translate }}:</label>
+                        <small  ng-mouseenter="isMousOnAct=true" ng-mouseleave="isMousOnAct=false" class="actTxtCont">
+                            <section ng-click="!isSubmit && loadActivityClick($event)" class="textboxOver">&nbsp;</section>
+                           <input id="activityTxt" type="text" class="actTxt disableInput" ng-class="{'actTxt disableInput btmBgRed':frmParm.isActivitySel==false,'actTxt disableInput':frmParm.isActivitySel==true,'disabled-ctrl':isSubmit, 'textBold':(activity.selected.DES != undefined && activity.selected.DES.trim()!='')}"    placeholder="{{frmParm.activityTitle}}" ng-model="activity.selected.DES" ng-readonly="true" /><span ng-show="isMousOnAct && !frmParm.isActivitySel" translate="msg_fieldReq"></span>                           
+                           
+                            <button class="star-fav star-icon" ng-mousedown="removeFrmFavActivity(activity.selected)" ng-show="activity.selected.STAT=='Y' && isSameCompany && activity.selected.IsFav && IsActivity==true && frmParm.isActivitySel">
+                                <i class="fa fa-star"></i>
+                            </button>
+                            <button class="star-fav star-icon" ng-mousedown="addToFavActivity(activity.selected)" ng-show="activity.selected.STAT=='Y' && isSameCompany && !activity.selected.IsFav && IsActivity==true && frmParm.isActivitySel">
+                                <i class="fa fa-star-o"></i>
+                            </button>
+                          
+                            
+                            </small><strong id="stractivityTxt"   class="inactive" ng-click="!isSubmit && loadActivityClick($event)">&nbsp;</strong></li>
+                        <li  ng-if="IsActivity==false" ><label>{{ ::'lbl_PrjctCT' | translate }}:</label>
+                        <small  ng-mouseenter="isMousOnComp=true" ng-mouseleave="isMousOnComp=false" class="actTxtCont">
+                            <section ng-click="!isSubmit && showProComClick()" class="textboxOver">&nbsp;</section>
+                              <input    id="txtCmpTask" type="text" class="actTxt disableInput" ng-class="{'actTxt disableInput btmBgRed':frmParm.isActivitySel==false,'actTxt disableInput':frmParm.isActivitySel==true,'disabled-ctrl':isSubmit, 'textBold':(component.text!='')}"   placeholder="{{'msg_selctProjCmp' |translate}}" ng-model="component.text" ng-readonly="true" /><span ng-show="isMousOnComp && !frmParm.isActivitySel" translate="msg_fieldReq"></span></small><strong  class="inactive" ng-click="!isSubmit && showProComClick()">&nbsp;</strong></li>
+                        <li ng-show="!editMenu.isTime">
+                            <label>{{ ::'lbl_IcItem' | translate }}:</label>
+                            <small ng-mouseenter="isMousOnIC=true" ng-mouseleave="isMousOnIC=false" class="actTxtCont">
+                                <section ng-click="!isSubmit && loadICItems($event)" class="textboxOver">&nbsp;</section>
+                                <input type="text" class="actTxt disableInput" ng-class="{'actTxt disableInput btmBgRed':frmParm.isICItemSelected==false,'actTxt disableInput':frmParm.isICItemSelected==true,'disabled-ctrl':isSubmit, 'textBold':(ICItem.selected.DES!='' && ICItem.selected.DES != undefined)}" ng-attr-placeholder={{frmParm.ICPlaceHolder}} ng-model="ICItem.selected.DES" ng-readonly="true" /><span ng-show="isMousOnIC && !frmParm.isICItemSelected" translate="msg_fieldReq"></span>
+                            </small><strong class="inactive" ng-click="!isSubmit && loadICItems($event)">&nbsp;</strong>
+                        </li>
+                        <li ng-show="editMenu.isTime && isDailyMode"><label>{{ ::'lbl_HrsFull' | translate }}:</label> <small ng-mouseenter="isMouseOnHrs=true" ng-mouseleave="isMouseOnHrs=false" class="hrsTxtCont"><input ng-disabled="isSubmit" ng-class="{'hrsTxt btmBgRed':(dailyHour===null || dailyHour===undefined),'hrsTxt':(dailyHour!==null || isValidHrs==true),'disabled-ctrl':isSubmit}" type="number" class="hrsTxt" id="dailyHours" ng-click="elementClick($event,false)" to-precision="" ng-paste="checkHoursOnPaste($event,'dailyHours')" ng-model="dailyHour" ng-focus="onHrsFocus('dailyHours',0)" ng-blur="checkHours('dailyHours',0)" /><span ng-show="((dailyHour===null ) && !isSubmit)" translate="msg_fieldReq"></span><span ng-show="((dailyHour===undefined) && !isSubmit)" translate="msg_InvalidHrs"></span></small>
+                        <li ng-show="!editMenu.isTime && isDailyMode">
+                            <label>{{ ::'lbl_IcCharge' | translate }}:</label> <small ng-mouseenter="isMouseOnCharge=true" ng-mouseleave="isMouseOnCharge=false" class="hrsTxtCont"><input ng-disabled="isSubmit" ng-class="{'hrsTxt btmBgRed':isValidCharge==false,'hrsTxt':isValidCharge==true,'disabled-ctrl':isSubmit}" type="number" class="hrsTxt" id="icCharge" to-precision="" ng-model="ICCharge"  ng-blur="checkCharge('icCharge')" /><span ng-show="isMouseOnCharge && !isValidCharge && !isSubmit" translate="msg_fieldReq"></span></small>
+
+                        </li>
+
+                        <li ng-show="!isDailyMode">
+                            <label>&nbsp;</label>
+
+                            <ul class="weeklyHrsInput">
+                                <li><lable>{{::'lbl_FulWkDy1' |translate | limitTo: 3}}</lable><small><input   type="number" class="hrsTxt" id="wkHrs1" ng-paste="checkHoursOnPaste($event,'wkHrs1',0)" ng-focus="onHrsFocus('wkHrs1',0)" ng-blur="checkHours('wkHrs1',0)" ng-disabled="isSubmit || revDisable(0)"  ng-class="{'disabled-ctrl':isSubmit}" to-precision ng-model="weeklyHours[0]" ng-mouseenter="isMouseOnHrs=true" ng-mouseleave="isMouseOnHrs=false" title="{{getWeeklyDayDate(0)}}" /><span ng-show="false && isMouseOnHrs && (weeklyHours[0]>200 || weeklyHours[0]<-200)" ng-bind-html="weeklyHours[0]>200?('msg_ExHrs'|translate):('msg_ExMinusHrs'|translate)"></span></small></li>
+                                <li><lable>{{::'lbl_FulWkDy2' |translate | limitTo: 3}}</lable><small><input   type="number" class="hrsTxt" id="wkHrs2" ng-paste="checkHoursOnPaste($event,'wkHrs2',1)" ng-focus="onHrsFocus('wkHrs2',1)"  ng-blur="checkHours('wkHrs2',1)"  ng-disabled="isSubmit || revDisable(1)"  ng-class="{'disabled-ctrl':isSubmit}" to-precision ng-model="weeklyHours[1]" title="{{getWeeklyDayDate(1)}}" /></small></li>
+                                <li><lable>{{::'lbl_FulWkDy3' |translate | limitTo: 3}}</lable><small><input   type="number" class="hrsTxt" id="wkHrs3" ng-paste="checkHoursOnPaste($event,'wkHrs3',2)" ng-focus="onHrsFocus('wkHrs3',2)" ng-blur="checkHours('wkHrs3',2)" ng-disabled="isSubmit || revDisable(2)"  ng-class="{'disabled-ctrl':isSubmit}" to-precision ng-model="weeklyHours[2]" title="{{getWeeklyDayDate(2)}}" /></small></li>
+                                <li><lable>{{::'lbl_FulWkDy4' |translate | limitTo: 3}}</lable><small><input   type="number" class="hrsTxt" id="wkHrs4" ng-paste="checkHoursOnPaste($event,'wkHrs4',3)" ng-focus="onHrsFocus('wkHrs4',3)" ng-blur="checkHours('wkHrs4',3)" ng-disabled="isSubmit || revDisable(3)"  ng-class="{'disabled-ctrl':isSubmit}" to-precision ng-model="weeklyHours[3]" title="{{getWeeklyDayDate(3)}}" /></small></li>
+                                <li><lable>{{::'lbl_FulWkDy5' |translate | limitTo: 3}}</lable><small><input   type="number" class="hrsTxt" id="wkHrs5" ng-paste="checkHoursOnPaste($event,'wkHrs5',4)" ng-focus="onHrsFocus('wkHrs5',4)" ng-blur="checkHours('wkHrs5',4)" ng-disabled="isSubmit || revDisable(4)"  ng-class="{'disabled-ctrl':isSubmit}" to-precision ng-model="weeklyHours[4]" title="{{getWeeklyDayDate(4)}}" /></small></li>
+                                <li><lable>{{::'lbl_FulWkDy6' |translate | limitTo: 3}}</lable><small><input   type="number" class="hrsTxt" id="wkHrs6" ng-paste="checkHoursOnPaste($event,'wkHrs6',5)" ng-focus="onHrsFocus('wkHrs6',5)"  ng-blur="checkHours('wkHrs6',5)" ng-disabled="isSubmit || revDisable(5)"  ng-class="{'disabled-ctrl':isSubmit}" to-precision ng-model="weeklyHours[5]" title="{{getWeeklyDayDate(5)}}" /></small></li>
+                                <li><lable>{{::'lbl_FulWkDy7' |translate | limitTo: 3}}</lable><small><input   type="number" class="hrsTxt" id="wkHrs7" ng-paste="checkHoursOnPaste($event,'wkHrs7',6)" ng-focus="onHrsFocus('wkHrs7',6)" ng-blur="checkHours('wkHrs7',6)" ng-disabled="isSubmit || revDisable(6)"  ng-class="{'disabled-ctrl':isSubmit}" to-precision ng-model="weeklyHours[6]" title="{{getWeeklyDayDate(6)}}"/></small></li>
+                            </ul>
+                        </li>
+
+                        <li><label>Description:</label> 
+                        <small class="desTxtCont"  ng-mouseenter="isMouseOnDes=true" ng-mouseleave="isMouseOnDes=false">                          
+                             <textarea class="hrsTxt" onfocus="$('#strdescription').addClass('cepDownImgActive')" onblur="$('#strdescription').removeClass('cepDownImgActive')" ng-focus="descriptionFocus()" select-txt-on-focus data-ng-trim="false" spellcheck="true"    ng-change="isFavDescription(description)" ng-paste="removeTabKey()" ng-blur="descriptionBlur()" maxlength="600" name="cepDes" class="desTxt" rows="3" cols="16" ng-model="description"
+                              ng-disabled="isSubmit" ng-attr-placeholder={{frmParm.titleDes}} id="description" ng-keypress="keyPress($event)" ng-class="{'desTxt btmBgRed':description.length==0,'desTxt':description.length>0,'disabled-ctrl':isSubmit, 'textBold':(description!='')}"   ></textarea>
+                            <button class="btn reset-btn" ng-show="(description.length>0)" ng-click="description=''"> X </button>
+                            <span ng-show="isMouseOnDes && description.length==0" translate="msg_fieldReq"></span>
+                            <button class="star-fav star-icon" ng-click="removeFromFavDescription()" ng-show='favDesc && description!=null && description.trim().length!=0'>
+                                <i class="fa fa-star"></i>
+                            </button>
+                            <button class="star-fav star-icon" ng-click="addToFavDescription()" ng-show='!favDesc && description!=null && description.trim().length!=0'>
+                                <i class="fa fa-star-o"></i>
+                            </button>
+                        </small>
+                        <strong class="inactive" id="strdescription"  ng-disabled="isSubmit" ng-click="loadDescription()">&nbsp;</strong></li>
+                        <li ng-show="isRegulated && editMenu.isTime">
+                            <!--<div ng-show="isRegulated">
+                                <section>
+                                    <input id="isRgltdChk" type="checkbox" ng-model="isRegulatedChkd"  />
+                                    <span translate="lbl_Regulated"></span>
+                                </section>
+
+                            </div>
+                        <li>-->
+                            <label>&nbsp;</label>
+                            <small>
+                                <label style="width: 23px;">
+                                    <input id="isRgltdChk" type="checkbox" ng-model="isRegulatedChkd" ng-class="(isSubmit) ? 'disabled-ctrl' : ''">
+                                </label>
+                                <label translate="lbl_Regulated"></label>
+                            </small>
+                        </li>
+                        <li>
+                            <label>{{ ::'lbl_Provience' | translate }}: </label>                     
+                            <div class="provTxt" ng-class="(isUpdPro == false || isSubmit) ? 'disabled-ctrl' : ''" > 
+                                <section class="select-input-container dropdownContainer"><section class="dropdownInner" ng-click="showStateDrp($event)"></section><input ng-disabled="!isUpdPro" ng-click="showStateDrp($event)" type="text" class="hideIEClearBtn select-input" ng-model="state.selected.PTXNAME"><strong ng-disabled="!isUpdPro" ng-click="showStateDrp($event)" class="clickIcon" ng-class="isStateProvDrpOpen?'arrowActive':''"></strong></section>
+                                <ul class="ul-select dropdownList" id="statePrvUl" ng-if="isStateProvDrpOpen">
+                                    <li li-mouse-over active-cls="actState" p-id="#statePrvUl" ng-click="selectStateProv(item)" ng-repeat="item   in state.stateprovlist | orderBy: ['PTXNAME']" ng-class="{'actState':item.PRSTID==state.selected.PRSTID,'':item.PRSTID!=state.selected.PRSTID}">{{item.PTXNAME}}</li>                                   
+                                </ul>                                                        
+                            </div>
+                        
+                        </li>
+
+                    </ul>
+
+
+                </section>
+            </div>
+        </div>
+
+    </div>

@@ -1,0 +1,23 @@
+﻿<div id="confirmDesktopBox" class="entrypopup alertMsgBoxCont" id="confirmMsgDiv" check-key-press ctrl-id="btnOk" dv-id="confirmMsgDiv" data-ng-init="init()">
+    <h2>Message</h2><span class="closeCross" ng-click="cancel(false)"></span>
+    <div class="entrypopupInner" id="confirmDesktopInnerBox">
+        <div class="entrypopupform">
+            <section class="formSection alertMsgBox">
+                <div class="overflowHiddenbox">
+                    <figure class="warningImg"></figure>
+                    <ul>
+                        <li ng-repeat="item in msgList" ng-bind="item"></li>
+                    </ul>
+                </div>               
+                <section class="btnOK">
+                    <div class="div-ok">
+                        <button ng-class="selectedBtn==1?'activeButton':''" id="btnOk" autofocus class="btn btn-sm btn-info waringMsgOk" ng-click="ok()">{{okBtnTxt}}</button>
+                    </div>
+                    <div  class="div-cancel">
+                        <button ng-class="selectedBtn==2?'activeButton':''" class="btn btn-sm btn-info waringMsgOk" ng-click="cancel(true)">{{noBtnTxt}}</button>
+                    </div>
+                      </section>
+            </section>
+        </div>
+    </div>
+</div>

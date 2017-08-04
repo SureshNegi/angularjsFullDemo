@@ -1,0 +1,9 @@
+﻿<div class="favTab" clsName="innerTab2">
+    <h2><span translate="lbl_ActivityFav"></span><span class="actfavmax" ng-click="openActivityFavWindow($event)"></span><span class="downArrow"></span></h2>
+    </div>
+    <div class="listingDescInner favTabDesc" id="innerTab2" >
+        <div ng-show="isActivityFavPaneOn" style="overflow-y:hidden; overflow-x: hidden;width:282px; height:200px; background-color:#fff " id="desGrid" ui-grid="gridActivityOptions" class="grid" ui-grid-save-state ui-grid-resize-columns ui-grid-move-columns ui-grid-edit ui-grid-cellNav ui-grid-grouping ui-grid-selection>
+        <div style="top:42px;" class="gridblankdata" ng-if="!gridActivityOptions.data.length"><span translate="msg_noFav"></span></div>
+    </div>
+    
+</div>  

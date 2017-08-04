@@ -1,0 +1,57 @@
+﻿
+<html>
+<head>
+    <script src="Scripts/jquery/jquery-2.1.0.min.js"></script>
+    </head>
+<style type="text/css">
+    div {
+        display: none;
+    }
+    section {
+        display: none;
+    }
+</style>
+<body>
+    <script>
+
+        function getParameterByName(name) {
+            //  alert(name);
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        $(document).ready(function () {
+            var code = getParameterByName('code');
+            var lan = getParameterByName('lan');            
+            if (code == 400 || code == 403 || code == 404 || code == 408 || code == 500) {
+                $("div.serverEr").toggle();
+                if (lan == 'en') $('.en1').show();
+                else $('.fr1').show();
+            }
+            else {
+
+                $("div.noConn").toggle();
+                if (lan == 'en') $('.en2').show();
+                else  $('.fr2').show();
+
+            }
+
+            $(".goLogin").click(function () {
+                window.location.href = "index.html";
+            });
+        });
+    </script>
+    <div class="serverEr">
+        <section class="en1">myTime Mobile is unavailable currently. Please <a class="goLogin" href="javascript:void(0)">click here</a> to re-login. If issue persists then  contact your local support.</section>
+                         <!--myTime Mobile est présentement non-disponible.                                             Cliquez ici     pour vous reconnecter. Si le problème persiste, contactez votre support local.-->
+        <section class="fr1">myTime Mobile est présentement non-disponible.<a class="goLogin" href="javascript:void(0)">Cliquez ici</a> pour vous reconnecter. Si le problème persiste, contactez votre support local.</section>
+
+    </div>
+    <div class="noConn">
+        <section class="en2">Network is unavailable. Please try again later.</section>
+        <section class="fr2">Réseau non disponible. Veuillez réessayer plus tard</section>
+
+    </div>
+</body>
+</html>

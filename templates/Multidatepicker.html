@@ -1,0 +1,110 @@
+﻿<div>
+
+    <div class="datepicker-modal-container" ng-if="isMobileOrTab" data-ng-init="init()">
+
+    <div class="well well-sm pasteAdvCalendar">
+            <div class="calendarOver mobileCalOver pasteAdvCalOver">
+                <div class="monthYearCont">
+                    <div class="yearContainer">
+                        <div class="yearContainerinner">
+                            <ul id="firstColYear"></ul>
+                        </div>
+                    </div>
+
+                    <div class="monthContainer">
+                        <ul>
+                            <li><a href="javascript:void(0)">Jan</a></li>
+                            <li><a href="javascript:void(0)">Feb</a></li>
+                            <li><a href="javascript:void(0)">Mar</a></li>
+                            <li><a href="javascript:void(0)">Apr</a></li>
+                            <li><a href="javascript:void(0)">May</a></li>
+                            <li><a href="javascript:void(0)">Jun</a></li>
+
+                            <li><a href="javascript:void(0)">Jul</a></li>
+                            <li><a href="javascript:void(0)">Aug</a></li>
+                            <li><a href="javascript:void(0)">Sep</a></li>
+                            <li><a href="javascript:void(0)">Oct</a></li>
+                            <li><a href="javascript:void(0)">Nov</a></li>
+                            <li><a href="javascript:void(0)">Dec</a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div class="selectOC">
+                    <ul>
+                        <li><button class="selectCalDate" ng-click="btnMobilePasteAdvOk()">OK</button></li>
+                        <li><button class="cancelCalPopup">Cancel</button></li>
+                    </ul>
+                </div>
+            </div>
+
+        <uib-datepicker ng-model='activeDate' multi-select='selectedDates' date-disabled="dateDisabled(date,mode);" ng-change="multidateChange(selectedDates)"></uib-datepicker>
+        <div class="cal-bottom">
+            <button class="paste-btn" type="button" ng-click="paste(selectedDates)" ng-class="IspasteEnabled ? 'paste-btn':'pasteadvance'" translate="btn_Paste"></button>
+            <button class="re-btn" type="button" ng-click="reset(selectedDates)" ng-class="IspasteEnabled ? 're-btn':'resetadvance'" translate="btn_Reset"></button>
+        </div>
+    </div>
+</div>
+
+    <div class="datepicker-modal-container datepickerModelDesktop" ng-class="isEnglishLang?'EN':'FR'" id="pasteAdvanceDiv" ng-if="!isMobileOrTab" data-ng-init="init()">
+        <span class="closeCross" ng-click="closeMultidatepicker(selectedDates)"></span>
+        <h4>{{ 'lbl_pstSelcDates' | translate }}</h4>
+    <div class="well well-sm pasteAdvCalendar desktopAdvCalendar">
+        <div class="calWeekbtnCont">
+                <div class="caltodayCont multidatecont">
+                    <div class="calendarOver calAdvCalOver">
+                        <div class="monthYearCont">
+                            <div class="yearContainer">
+                                <div class="yearContainerinner">
+                                    <ul id="firstColYear1"></ul>
+                                </div>
+                            </div>
+
+                            <div class="monthContainer">
+                                <ul>
+                                    <li><a href="javascript:void(0)" translate="lbl_MnthVal1"></a></li>
+                                    <li><a href="javascript:void(0)" translate="lbl_MnthVal2"></a></li>
+                                    <li><a href="javascript:void(0)" translate="lbl_MnthVal3"></a></li>
+                                    <li><a href="javascript:void(0)" translate="lbl_MnthVal4"></a></li>
+                                    <li><a href="javascript:void(0)" translate="lbl_MnthVal5"></a></li>
+                                    <li><a href="javascript:void(0)" translate="lbl_MnthVal6"></a></li>
+
+                                    <li><a href="javascript:void(0)" translate="lbl_MnthVal7"></a></li>
+                                    <li><a href="javascript:void(0)" translate="lbl_MnthVal8"></a></li>
+                                    <li><a href="javascript:void(0)" translate="lbl_MnthVal9"></a></li>
+                                    <li><a href="javascript:void(0)" translate="lbl_MnthVal10"></a></li>
+                                    <li><a href="javascript:void(0)" translate="lbl_MnthVal11"></a></li>
+                                    <li><a href="javascript:void(0)" translate="lbl_MnthVal12"></a></li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+                        <div class="selectOC">
+                            <ul>
+                                <li><button class="selectCalDate" ng-click="btnPasteAdvOk()">OK</button></li>
+                                <li><button class="cancelCalPopup" translate="btn_Cancel"></button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="datepickerCont">
+
+                        <uib-datepicker ng-model='activeDate' multi-select='selectedDates' jm-dp-refresh-view='dateDisablePromise' date-disabled='isDateDisabled(date,mode)' ng-change="multidateChange(selectedDates)"></uib-datepicker>
+                    </div>
+                <div class="cal-bottom">
+                        <button class="deskToday" type="button" ng-click="today(selectedDates)">{{'btn_Today' |translate}}</button>
+                    <button class="re-btn deskReset" type="button" value="{{IspasteEnabled}}" ng-click="reset(selectedDates)" ng-class="IspasteEnabled ? 're-btn':'resetadvance'" translate="btn_Reset"></button>
+                </div>
+            </div>
+
+            <div class="advCalFooter">
+                    <strong> <input type="checkbox" id="testChk" ng-click="includeWeekend('testChk',selectedDates)" />{{ 'lbl_incWknds' | translate }}</strong>
+                <!--<button type="button" class="btn btn-default" ng-click="toggleDisableMode()">Change disable mode</button>-->
+                <button class="paste-btn deskPasteAdv" type="button" ng-click="paste(selectedDates)" title="{{IspasteEnabled?'':('msg_NoDateSelPasteAdv'|translate)}}"  ng-class="IspasteEnabled ? 'paste-btn':'pasteadvance'">{{ ::'lbl_pstSlctd' | translate }}</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>

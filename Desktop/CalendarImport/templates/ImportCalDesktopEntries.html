@@ -1,0 +1,96 @@
+﻿<div class="entrypopup importCaledarPopup" ng-class="isEnglishLang?'EN':'FR'" ng-style="{ 'margin':windowConfig.margin,'width': windowConfig.width,'height':windowConfig.height,'left':windowConfig.left,'top':windowConfig.top}" id="importCalPopUp"  >
+    <div ng-style="{'height':windowConfig.topHeader}">
+        <h2><span ng-bind="isDailyMode==true?(currentDate | date:'EEEE, MMMM dd, yyyy') + (' - '+ ('lbl_ImportCalendar' | translate) ):('lbl_WeekOf' | translate) + (weeklyStartDate | date:'EEEE, MMMM dd, yyyy') + (' - '+ ('lbl_ImportCalendar' | translate) )"></span></h2><span class="min" ng-click="resizeWindow(true)" ctrl="activity" ng-show="!isMinimize" >Minimize</span><span class="max" max-min mode="max" ctrl="activity" ng-click="resizeWindow(false)" ng-show="isMinimize">Maximize</span><span class="closeCross" ng-click="cancel()"></span>
+       </div>
+    <div class="entrypopupInner" id="innerCalDiv" data-ng-init="init()"ng-style="{'height':windowConfig.innerHeight}" id="innerDescCont">
+        <div class="entrypopupform" ng-style="{'height':windowConfig.innerHeight}">
+            <section class="formBar" ng-style="{'height':windowConfig.section1Hgt}">
+                <ul>
+                   <li title="{{selectTitle}}&#013;{{selectTitle2}}"><a ng-class="(multipleRowsSelected || importCalObj.items.length==0 ) ? 'importSelect disableCal' : 'importSelect'" ng-disabled="multipleRowsSelected" ng-click="selectCal()"  ><strong><span>{{ ::'lbl_slct' | translate }}...</span></strong></a>
+                       
+                   </li>
+                    <li title="{{ViewDetailTitle}}&#013;{{ViewDetailTitle2}}"><a ng-class="(multipleRowsSelected || importCalObj.items.length==0 ) ? 'importView disableCal' : 'importView'" ng-disabled="multipleRowsSelected" ng-click="viewDetails()" ><strong><span>{{ ::'lbl_viewDtls' | translate }}...</span></strong></a>
+                    <li title="{{refreshTitle}}&#013;{{refreshTitle2}}"><a class="importRefresh" ng-click="refreshCal()"  ><strong><span translate="lbl_rfrsh"></span></strong></a></li>
+                    <li ><a class="importFilter" title="{{filterTitle}}&#013;{{filterTitle2}}" ng-class="showFilterMenu ? 'importFilter activeFilter' : 'importFilter'" ng-click="filterCal()" ><strong><span >{{ ::'lbl_Fltr' | translate }} <i class="glyphicon glyphicon-triangle-bottom"></i></span></strong></a>
+                        <div class="editlist_Menu calFilter" style="width:207px" ng-show="showFilterMenu">
+                                                    <ul class="menu __context" role="menu" id="Ul1">
+                                                        <li class="menu-item editClick" title="{{::'msg_ImportCalAllDay' |translate}}" ng-click="allDayEventFilter()">
+                                                          <input type="checkbox" style="float:left"  ng-model="isAllDayFlag" />  <span class="incEvents" translate="lbl_allDay"></span>
+                                                        </li>
+                                                        <li class="menu-item copyClick CI-icon" title="{{::'msg_ImportCalViewMeeting' |translate}}" ng-click="meetingFilter()">
+                                                           <input type="checkbox" style="float:left"  ng-model="isMeetingOnlyFlag" /> <span class="viewMeeting" translate="lbl_meetngsOnly"></span>
+                                                        </li>
+                                                       
+                                                    </ul>
+                                                </div>
+                    </li>
+                </ul>
+               
+                <section class="searchBarActivity">
+                    <a ng-class="showSrchSelection ? 'seachBtnAct activeSearch' : 'seachBtnAct'" ng-click="toggleSrchSelection()"><span>{{ ::'lbl_srch' | translate }}<i class="glyphicon glyphicon-triangle-bottom"></i></span></a>
+                    <input type="text" class="seachAct" ng-model="searchText" title="{{srchTxt}}" ng-enter="refreshData()" />
+                    <button class="crossSearchAct" ng-click="clearSearch()"></button>
+                    <button class="searchSearchAct" ng-click="refreshData()"></button>
+                    <div class="popupAbsDesktop searchImportDropdown" ng-show="showSrchSelection" style="height:100px">
+                        <ul ng-show="showSrchSelection">
+                            <li>
+                                <label>
+                                    <input type="checkbox" ng-model="searchOptions.sDate" ng-change="srchOptChange()">
+                                </label><label style="padding-left: 10px;">{{ ::'lbl_StartTime' | translate }}</label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="checkbox" ng-model="searchOptions.eDate" ng-change="srchOptChange()">
+                                </label><label style="padding-left: 10px;">{{ ::'lbl_EndTime' | translate }}</label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="checkbox" ng-model="searchOptions.hrs" ng-change="srchOptChange()">
+                                </label><label style="padding-left: 10px;">{{ ::'lbl_HrsFull' | translate }}</label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="checkbox" ng-model="searchOptions.subject" ng-change="srchSelChange()">
+                                </label><label style="padding-left: 10px;">{{ ::'lbl_Subject' | translate }}</label>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </section>
+
+            </section>
+            <section class="formSection" ng-style="{'width': windowConfig.gridWidth,'height':windowConfig.gridHeight}">
+                <div ng-if="windowConfig.isRendered"  style="background-color:#fff" id="calGrid" ui-grid="gridOptions" class="gridOutlook" ui-grid-save-state ui-grid-resize-columns ui-grid-move-columns ui-grid-edit ui-grid-cellNav ui-grid-grouping ui-grid-selection right-click="rightClick($event)">
+                    <div style="top:42px;" class="gridblankdata" ng-if="CalNoEntryMessage==1"><span ng-bind="noCalEntriesMsg"></span></div>
+                </div>
+                <!--<div ng-show="descriptionList.length==0" style="padding: 10px;color: #808080;font: 11px Trebuchet Ms,tahoma,arial,helvetica,sans-serif;">No favorites to display</div>-->
+
+           </section>
+        </div>
+    </div>
+    <div style="height:70px" class="edit_MenuCal" ng-show="showImpCalRightMenuFlag==true">
+        <ul class="menu __context" role="menu" id="cml_menu">
+            <li ng-class="(multipleRowsSelected || importCalObj.items.length==0 ) ? 'menu-item importSelect disableCal' : 'menu-item importSelect'" ng-disabled="multipleRowsSelected" title="{{multipleRowsSelected?('lbl_notMulEntries'|translate):('lbl_slctEntryImprt'|translate)}}" ng-click="selectCal()">
+                <span ng-class="(multipleRowsSelected || importCalObj.items.length==0 ) ? 'noHideMenu' : 'hideMenu'">{{ ::'lbl_slct' | translate }}...</span>
+            </li>
+            <li ng-class="(multipleRowsSelected || importCalObj.items.length==0 ) ? 'menu-item importView disableCal' : 'menu-item importView'" ng-disabled="multipleRowsSelected" title="{{multipleRowsSelected?('lbl_notMulEntries'|translate):ViewDetailTitle2}}" ng-click="viewDetails()">
+                <span ng-class="(multipleRowsSelected || importCalObj.items.length==0 ) ? 'noHideMenu' : 'hideMenu'">{{ ::'lbl_viewDtls' | translate }}...</span>
+            </li>
+            <li class="menu-item importRefresh" ng-click="refreshCal()">
+                <span translate="lbl_rfrsh"></span>
+            </li>
+
+
+
+        </ul>
+    </div>
+    <div class="edit_MenuCalOutsideGrid" ng-show="showMenuOutsideGrid==true" value="{{showMenuOutsideGrid}}">
+        <ul class="menu __context" role="menu" id="Ul2">
+            <li class="menu-item importRefresh" ng-click="refreshCal()">
+                <span translate="lbl_rfrsh"></span>
+            </li>
+
+        </ul>
+    </div>
+</div>

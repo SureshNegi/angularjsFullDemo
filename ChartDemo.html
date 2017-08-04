@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        #mychart {
+            width: 480px;
+            height: 490px;
+            background-color:white;
+        }
+        #mychart1 {
+            width: 480px;
+            height: 490px;
+        }
+        #mychart2 {
+            width: 480px;
+            height: 490px;
+        }
+    </style>
+</head>
+<script src="Scripts/angular.js"></script>
+<script src="Scripts/reusable_chart.js"></script>
+<script src="core/MyBarControler.js"></script>
+<script src="Scripts/jquery/jquery-2.1.0.min.js"></script>     
+ 
+ 
+<body>
+    <div ng-app="charts" class="tabCont" ng-controller="BarCtrl">
+        <input id="lineType" type="button" value="line" />
+        <input id="barType" type="button" value="BAR" />
+        <input id="stackedbarType" type="button" value="Stacked BAR" />
+        <div id="mychart" display="block"></div>
+        <div id="mychart1" display="none"></div>
+        <div id="mychart2" display="none"></div>
+    </div>
+
+
+</body>
+</html>

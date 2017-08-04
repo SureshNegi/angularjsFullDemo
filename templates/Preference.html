@@ -1,0 +1,57 @@
+﻿<div data-ng-init="init()" check-key-press ctrl-id="btnPref" dv-id="preferencesDiv" id="preferencesDiv">
+
+    <section class="popup_heading ui-gradient margin_less">
+        <span translate="lbl_Prefrence"></span>
+        <a class="modal-close" href="javascript:void(0)">
+            <span>&nbsp;</span><span>&nbsp;</span>
+            <!--<span ng-click="cancel()" class="glyphicon glyphicon-remove"></span>-->
+            <!--<span ng-click="cancel()" translate="btn_Cancel"></span>-->
+
+        </a>
+    </section>
+    <div class="popup-content-itm paddingTop-Non">
+
+
+        <div class="code-desc-container">
+            <div class="col-xs-6 col-sm-6 col-md-6 code_title"><strong class="textInc" translate="lbl_Name"></strong></div>
+            <div class="col-xs-6 col-sm-6 col-md-6 desc_title"><strong class="textInc" translate="lbl_Value"></strong></div>
+        </div>
+        <div class="record_pull pre_record_pull">
+           
+                <!--<div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 code_num"><strong translate="lbl_Language"></strong></div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-6 desc_list">
+                        <select class="form-control" name="ddllanguage" id="ddllanguage" ng-model="language.selected" focus-Drp>
+                            <option ng-repeat="option  in language.list" value="{{option.KEYVAL}}">{{option.KEYVALDESC}}</option>
+                        </select>                       
+
+                    </div>                   
+                </div>
+                <div class="row"></div>-->
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 code_num"><strong class="textInc" translate="lbl_View"></strong></div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 desc_list">
+                        <select class="form-control" name="view" id="viewMode" ng-model="view.selected" focus-Drp>
+                            <option ng-repeat="list   in view.list" value="{{list.KEYVAL}}">{{list.KEYVALDESC}}</option>
+                        </select> 
+                    </div>
+                </div>
+            <div class="row"></div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6 code_num"><strong class="textInc" translate="lbl_Detail"></strong></div>
+                <div class="col-xs-6 col-sm-6 col-md-6 desc_list">
+                    <select class="form-control" name="detail" id="detail" ng-model="detail.selected" focus-Drp>
+                        <option ng-repeat="list   in detail.list" value="{{list.KEYVAL}}">{{list.KEYVALDESC}}</option>
+                    </select>
+                </div>
+            </div>
+             <br /><br />
+                <button id="btnPref" class="btn btn-primary pre-btn" ng-click="save()" translate="btn_Save"></button>
+             
+             <button class="btn-primary  btn-grd2 btn ng-scope"  ng-click="cancel()" style="" 
+                     translate="btn_Cancel"></button>
+           
+        </div>
+    </div>
+</div>

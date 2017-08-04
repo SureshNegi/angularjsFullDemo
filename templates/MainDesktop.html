@@ -1,0 +1,642 @@
+﻿<div ng-controller="DailyTimeDesktopGridCtrl"  data-ng-init="init()" >
+<div class="page-wrapper" ng-click="mainDivClick()" ng-class="isEnglishLang?'EN':'FR'">
+    <!--<span id="hdnLngType" style="display:none;" ng-class="langType"></span>-->
+    <section class="mytime-bar">
+        <h2>myTime</h2>
+        <section class="mytime-bar-inner">
+            <section class="user-container">
+                <section class="user-containerHeader">
+                    <h4>{{displayUsername}}</h4>
+                    <section class="designate" designate-list>
+                       
+
+                        <!--<input ng-keydown="designateInputKeyDown($event)" onfocus="this.select();"  id="designateSrchInput" data-ng-trim="false" ng-focus="checkDesignateInputFocus($event) " ng-change="checkDesignateInput($event)"   ng-model="designateConfig.displayName" ng-class="designateConfig.displayName != '' ? 'textBold' : ''" class="hideIEClearBtn designateText" type="text" ng-attr-placeholder={{designateConfig.placeHolderVal}} ng-click="$event.stopPropagation()">
+                        <button class="cepTxtCross" ng-show="designateConfig.displayName.length>0" ng-mousedown="clearDesignateSrch($event)">
+                            x
+                        </button>
+                        <button id="designateDrpBtn" class="designateBtn" ng-click="designateDropDownClick($event);$event.stopPropagation();">&nbsp;</button>
+                        <ul class="designatedropdown" ng-show="designateConfig.showBecomeDesignate">
+                            <li ng-attr-id="{{ x.EMPLID }}" ng-mouseover="designateItemMouseOver($event)" ng-click="becomeDesignateOf(x)" ng-class="{'selected': $first}" ng-repeat="x in designateConfig.becomeDesignateList"  >{{ ::x.UIDISPNAME}}</li>
+                        </ul>-->                       
+                    </section>
+                    <section class="headerInfo" ng-controller="loginDesktopCtrl">
+                        <ul>
+                            <li><a class="helpBtn" href="{{HLPURL}}" target="_blank"><span translate="lbl_Help"></span></a></li>
+                            <li><a class="logoutBtn" ng-click="logout()"><span translate="lbl_Logout"></span></a></li>
+                        </ul>
+                    </section>
+                </section>
+                <section class="user-container-inner">
+                    <section class="sidebarSide"> <a class="openLeftBar">&nbsp;</a>
+<div class="verticalBar">&nbsp;</div></section>
+                    <section class="sidebar">
+                    <a class="leftbarBtn">&nbsp;</a>
+                   
+                            <section class="sidebar-header">
+                            <h5>{{calDate}}</h5>
+                        </section>
+                        <section class="sidebar-inner">
+                            <section class="calendar">
+                                <div class="calendarOver">
+                                    <div class="monthYearCont">
+                                        <div class="yearContainer">
+                                            <div class="yearContainerinner">
+                                                <ul id="firstColYear"></ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="monthContainer">
+                                            <ul>
+                                                <li><a href="javascript:void(0)" translate="lbl_MnthVal1"></a></li>
+                                                <li><a href="javascript:void(0)" translate="lbl_MnthVal2"></a></li>
+                                                <li><a href="javascript:void(0)" translate="lbl_MnthVal3"></a></li>
+                                                <li><a href="javascript:void(0)" translate="lbl_MnthVal4"></a></li>
+                                                <li><a href="javascript:void(0)" translate="lbl_MnthVal5"></a></li>
+                                                <li><a href="javascript:void(0)" translate="lbl_MnthVal6"></a></li>
+
+                                                <li><a href="javascript:void(0)" translate="lbl_MnthVal7"></a></li>
+                                                <li><a href="javascript:void(0)" translate="lbl_MnthVal8"></a></li>
+                                                <li><a href="javascript:void(0)" translate="lbl_MnthVal9"></a></li>
+                                                <li><a href="javascript:void(0)" translate="lbl_MnthVal10"></a></li>
+                                                <li><a href="javascript:void(0)" translate="lbl_MnthVal11"></a></li>
+                                                <li><a href="javascript:void(0)" translate="lbl_MnthVal12"></a></li>
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="selectOC">
+                                        <ul>
+                                            <li><button class="selectCalDate" ng-click="selectCalDate()">OK</button></li>
+                                            <li><button class="cancelCalPopup" translate="btn_Cancel"></button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--<img src="img/desktop/calendar.png" alt="" title="">-->
+                                <div ng-model="dt" ng-controller="calDesktopController" execute-cal-on-key class="calender-desktop-container">
+                                    <div style="top: 104px">
+                                        <div id="dvdatepicker">
+                                            <div id="divdatepicker" class="well well-sm">
+                                                <datepicker ng-model="dt" id="dpmytime" min="minDate" show-weeks="showWeeks" date-verified="dateVerified(date, mode);" date-available="dateAvailable(date, mode);" date-highlight="dateHighlight(date, mode);" date-Error="dateError(date,mode);"></datepicker> <input type="text" id="selectedValue" ng-model="dt" value="" class="hidden" ng-change="dateChange()" />
+                                                <!--<div class="calendar-bottom" style="text-align:center"><button type="button" class="btn btn-sm btn-info today" ng-click="currdate()" translate="btn_Today"></button></div>-->
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </section>
+                         
+                            <section class="monthlysummary">
+                                <section class="smheader">
+                                    <ul>
+                                        <li ng-class="chartsSectionVisible?'':'active'"><a class="sum" translate="lbl_Summary" ng-click="showSummary()"></a></li>
+                                        <li ng-class="chartsSectionVisible?'active':''"><a class="mon" translate="lbl_Monthly" ng-click="showCharts()"></a></li>
+                                    </ul>
+                                </section>
+                                <section class="smdescription" ng-show="!chartsSectionVisible && ischartShow">
+                                    <section class="dwm">
+                                        <ul>
+                                            <li  translate="lbl_Monthly"></li>
+                                            <li  translate="lbl_Weekly"></li>
+                                            <li  translate="lbl_Daily"></li>
+
+                                        </ul>
+                                    </section>
+                                    <section class="bill">
+                                        <ul><li><strong><span translate="lbl_Bill"></span>able</strong></li><li><span ng-bind="billableHrsDaily"></span></li><li><span ng-bind="billableHrsWeekly"></span></li><li><span ng-bind="billableHrsMonthly"></span></li></ul>
+                                        <ul><li><strong>{{ ::'chartSummLblCharge' | translate }}-<span>able</span></strong></li><li><span ng-bind="chargeableHrsDaily"></span></li><li><span ng-bind="chargeableHrsWeekly"></span></li><li><span ng-bind="chargeableHrsMonthly"></span></li></ul>
+                                        <ul><li><strong>Non<span translate="lbl_NonBill"></span></strong></li><li><span ng-bind="nonbillableHrsDaily"></span></li><li><span ng-bind="nonbillableHrsWeekly"></span></li><li><span ng-bind="nonbillableHrsMonthly"></span></li></ul>
+                                        <ul><li><strong translate="lbl_Total"></strong></li><li><span ng-bind="totalDailyHrs"></span></li><li><span ng-bind="totalWeeklyHrs"></span></li><li><span ng-bind="totalMonthlyHrs"></span></li></ul>
+
+                                    </section>
+                                </section>
+                                <section class="smdescription" ng-if="chartsRenderingFlag">
+                                      <div class="tabCont" ng-controller="ChartCtrl" ng-if="ChartCtrlActive" data-ng-init="init()" >
+                                            <input id="lineType" type="button" value="line" />
+                                            <input id="barType" type="button" value="BAR" />
+                                            <input id="expand" ng-click="showExpandedChart()" type="button" value="expand" />
+                                            <!--<input id="stackedbarType" type="button" value="Stacked BAR" />-->
+                                            <div class="backDropChart" id="mychart" style="display:inline-table"></div>
+                                            <div class="backDropChart" id="mychart1" style="display:none"></div>
+                                            <div class="backDropChart" id="mychartBarExcludeWeekend" style="display:none;"></div>
+                                            <div class="backDropChart" id="mychartExcludeWeekend" style="display:none;"></div>
+                                       </div>
+                                </section>
+                            </section>
+
+                            <section class="IC-total">
+                                <ul>
+                                        <li><span class="floatLeft" translate="lbl_ICDaily"></span><span ng-bind="customNumberFilter(icDaily)" class="floatRight"></span></li>
+                                        <li><span class="floatLeft" translate="lbl_ICWeekly"></span><span ng-bind="customNumberFilter(icWeekly)" class="floatRight"></span></li>
+                                        <li><span class="floatLeft" translate="lbl_ICMonthly"></span><span ng-bind="customNumberFilter(icMonthly)" class="floatRight"></span></li>
+                                </ul>
+                            </section>
+
+                        </section>
+                    </section>
+
+                    <section class="main-area">
+                        <section class="smheader">
+                            <span class="cutoffMsg" ng-if="isMonthEndCutOff" ng-bind="monthEndCutOff" ng-class="is24HrsLeft ? 'monthendhrs':'alertmonthend'"></span>
+                            <ul>
+                                <li  ng-class="isDailyMode?'active':'disabled'"><a href="javascript:void(0)" ng-click="weekDayToggle(false,true, 'Y',true)"  translate="lbl_Daily"></a></li>
+                                <li  ng-class="isDailyMode?'disabled':'active'"><a href="javascript:void(0)" ng-click="weekDayToggle(false,false, 'Y',true)"  translate="lbl_Weekly"></a></li>
+                                
+                             </ul>
+                            
+                        </section>
+
+                        <section class="main-area-wrapper">
+
+                            <section class="main-area-wrapperInner">
+                                <section class="main-area-inner">
+                                   <section class="entryItem">
+                                       <ul>
+                                           <li ng-disabled="!checkRevMonthFlag"  ng-class="{'disableNew':checkRevMonthFlag==false}">
+                                               <a ng-disabled="!checkRevMonthFlag" class="entryNew" ng-class="showNewFlag ?'newActive':''"><span ng-disabled="!checkRevMonthFlag" class="bgNew" ng-click="checkRevMonthFlag && openNewEntryWind($event)" title="{{newTitle}}&#013;{{newTitle2}}" translate="lbl_New"></span><span ng-disabled="!checkRevMonthFlag"  class="toggleNew" ng-click="showNewMenu()"><i class="glyphicon glyphicon-triangle-bottom"></i></span></a>
+                                               <div ng-disabled="!checkRevMonthFlag" class="editlist_Menu entryImport" ng-show="showNewFlag==true">
+                                                   <ul ng-disabled="!checkRevMonthFlag"  class="menu __context" role="menu" id="Ul1">
+                                                       <li title="{{checkRevMonthFlag==true?timeEntryTitle:revClosedTitle}}">
+                                                           <div ng-disabled="!checkRevMonthFlag" class="menu-item editClick" ng-class="!checkRevMonthFlag?'disable-menu-item':''">
+                                                               <span ng-disabled="!checkRevMonthFlag" ng-click="checkRevMonthFlag && openNewEntryWind($event)" >{{ ::'lbl_TimeEntry' | translate }} <small ng-disabled="!checkRevMonthFlag">CTRL-N</small></span>
+                                                           </div>
+                                                       </li>
+                                                       <li title="{{checkRevMonthFlag==true?calTimeEntryTitle:revClosedTitle}}">
+                                                           <div ng-disabled="!checkRevMonthFlag" class="menu-item copyClick CI-icon" ng-class="!checkRevMonthFlag?'disable-menu-item':''" ng-click="checkRevMonthFlag && loadImportCalEntriesRev()">
+                                                               <span ng-disabled="!checkRevMonthFlag" translate="lbl_CalImport" ></span>
+                                                           </div>
+                                                       </li>
+                                                   </ul>
+                                               </div>
+
+                                           </li>
+
+                                           <li>
+                                               <a class="entryEdit" ng-class="showEditFlag ? 'editActive':''" href=""><span title="{{editTitle}}&#013;{{editTitle2}}" class="bgEdit" ng-disabled="((isDailyMode && gridData.length==0) || (!isDailyMode && itemsDataFinal1.length==0) || multiSelectFlag)" ng-click="editEntry()">{{ ::'lbl_edit' | translate }} </span><span class="toggleEdit" ng-click="showEditMenu()"><i class="glyphicon glyphicon-triangle-bottom"></i></span></a>
+                                               <div class="editlist_Menu" ng-show="showEditFlag==true">
+                                                   <ul class="menu __context" role="menu" id="cml_menu">
+                                                       <li title="{{editMenuConfig.isEditOff ?(editMenuConfig.isMultiple?multiSelected: noSelected) : EditSelected}}" ng-disabled="editMenuConfig.isEditOff">
+                                                           <div class="menu-item editClick" ng-disabled="editMenuConfig.isEditOff" ng-class="(editMenuConfig.isEditOff || !checkRevMonthFlag)?'disable-menu-item':''">
+                                                               <span ng-click="editEntry()" ng-disabled="editMenuConfig.isEditOff || !checkRevMonthFlag" translate="lbl_edit"></span>
+                                                           </div>
+                                                       </li>
+                                                       <li title="{{editMenuConfig.isCopyOff ? noSelected:copySelected}}" ng-disabled="editMenuConfig.isCopyOff">
+                                                           <div class="menu-item copyClick" ng-click="copyRecords(isDailyMode)" ng-class="editMenuConfig.isCopyOff?'disable-menu-item':''" ng-disabled="editMenuConfig.isCopyOff">
+                                                               <span ng-disabled="editMenuConfig.isCopyOff">{{ ::'btn_Copy' | translate }} <small ng-disabled="editMenuConfig.isCopyOff">CTRL-C</small></span>
+                                                           </div>
+                                                       </li>
+                                                       <li ng-disabled="!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode)" title="{{pasteMsg}}">
+                                                           <div ng-disabled="!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode)" class="menu-item pasteClick" ng-class="{'menu-item pasteClick disable-menu-item':!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode),'menu-item pasteClick':checkRevMonthFlag && (isDailyFlag || isWeeklyFlag)}" ng-click="checkRevMonthFlag && pasteRecords(isDailyMode,1)">
+                                                               <span ng-disabled="!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode)">{{ ::'btn_Paste' | translate }} <small ng-disabled="!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode)">CTRL-V</small></span>
+                                                           </div>
+                                                       </li>
+                                                       <li ng-disabled="!isDailyFlag" title="{{isDailyMode && isDailyFlag ? pasteCopiedEntry:(isDailyMode && !isDailyFlag && !isWeeklyFlag ? noPaste : pasteMsg) }}">
+                                                           <div class="menu-item pasteAdvClick" ng-show="isDailyMode" ng-disabled="!isDailyFlag" ng-class="{'menu-item pasteClick disable-menu-item':!isDailyFlag ,'menu-item pasteClick':isDailyFlag}" ng-click="pasteAdvance(isDailyMode)">
+                                                               <span ng-disabled="!isDailyFlag"> {{ ::'btn_PasteAdvanced' | translate }} <small ng-disabled="!isDailyFlag">CTRL-ALT-V</small></span>
+                                                           </div>
+                                                       </li>
+                                                       <li ng-disabled="editMenuConfig.isCopyOff || (!checkRevMonthFlag || (!afterTecuttOff && !afterTecuttOffWeek))" title="{{editMenuConfig.isCopyOff ? noSelected : (checkRevMonthFlag ?  cpyPstClnSlcted :revClosed)}}">
+                                                           <div class="menu-item cloneClick" ng-click="Clone(isDailyMode)" ng-disabled="editMenuConfig.isCopyOff || (!checkRevMonthFlag || (!afterTecuttOff && !afterTecuttOffWeek))" ng-class="{'menu-item cloneClick disable-menu-item':editMenuConfig.isCopyOff || (!checkRevMonthFlag || (!afterTecuttOff && !afterTecuttOffWeek)) ,'menu-item cloneClick':!editMenuConfig.isCopyOff || checkRevMonthFlag  || afterTecuttOff || afterTecuttOffWeek}">
+                                                               <span ng-disabled="editMenuConfig.isCopyOff || (!checkRevMonthFlag || (!afterTecuttOff && !afterTecuttOffWeek))" translate="btn_Clone"></span>
+                                                           </div>
+                                                       </li>
+                                                       <li ng-disabled="editMenuConfig.isCopyOff || !copytoTodayCuttOff" title="{{(!copytoTodayCuttOff)?revClosed:(editMenuConfig.isCopyOff ? noSelected:copyTodayTitle)}}">
+                                                           <div ng-disabled="editMenuConfig.isCopyOff || !copytoTodayCuttOff " class="menu-item copyToClick" ng-class="{'menu-item copyToClick disable-menu-item':editMenuConfig.isCopyOff || !copytoTodayCuttOff ,'menu-item copyToClick':!editMenuConfig.isCopyOff || checkRevMonthFlag  || copytoTodayCuttOff}" ng-show="isDailyMode" ng-click="CopytoToday(isDailyMode)">
+                                                               <strong ng-disabled="editMenuConfig.isCopyOff || !copytoTodayCuttOff"><span ng-disabled="editMenuConfig.isCopyOff || !copytoTodayCuttOff" translate="btn_CopyToToday"></span></strong>
+                                                           </div>
+                                                       </li>
+                                                       <li ng-disabled="(editMenuConfig.isCopyOff  || (!copytoTodayCuttOff && !afterTecuttOffWeek))" title="{{(!copytoTodayCuttOff && !afterTecuttOffWeek)?revClosed:(editMenuConfig.isCopyOff ? noSelected:copyWeekTitle)}}">
+                                                           <div ng-disabled="(editMenuConfig.isCopyOff  || (!copytoTodayCuttOff && !afterTecuttOffWeek))" class="menu-item copyThisWeek" ng-class="{'menu-item copyThisWeek disable-menu-item':(editMenuConfig.isCopyOff || (!copytoTodayCuttOff && !afterTecuttOffWeek)) ,'menu-item copyThisWeek':!editMenuConfig.isCopyOff  || copytoTodayCuttOff || afterTecuttOffWeek}" ng-show="!isDailyMode" ng-click="CopytoThisWeek(isDailyMode)">
+                                                               <strong ng-disabled="(editMenuConfig.isCopyOff || (!copytoTodayCuttOff && !afterTecuttOffWeek))"><span ng-disabled="(editMenuConfig.isCopyOff || (!copytoTodayCuttOff && !afterTecuttOffWeek))" translate="btn_CopyToWeek"></span></strong>
+                                                           </div>
+                                                       </li>
+                                                       <li ng-disabled="editMenuConfig.isDeletedOff" title="{{editMenuConfig.isDeletedOff?dltdFalseTitle:dltSlctdTitle}}">
+                                                       <div ng-disabled="editMenuConfig.isDeletedOff" class="menu-item deleteClick" ng-click='deleteByRightClick()' ng-class="editMenuConfig.isDeletedOff?'disable-menu-item':''">
+                                                           <strong ng-disabled="editMenuConfig.isDeletedOff" ><span>{{ ::'btn_Delete' | translate }} <small ng-disabled="editMenuConfig.isDeletedOff">DEL</small></span></strong>
+                                                       </div>
+                                           </li>
+
+                                       </ul>
+                                                </div>
+                                            </li>
+                                           <li>
+                                               <a class="entrySubmit" href="" ng-class="{'submit-active':isShowSubmitMenu==true,'':isShowSubmitMenu==false,'disableSubmit':checkRevMonthFlag==false}"><span class="bgSubmit" title="{{submitEntry}}&#013;{{submitEntry2}}" ng-click="submitTimeEntries(currentDate)" ng-disabled="!checkRevMonthFlag" translate="lbl_Submit"></span><span class="toggleOpen" ng-click="toggleSummitMenu()"> <i class="glyphicon glyphicon-triangle-bottom"></i></span></a>
+                                               <div class="edit_Menu submitMainMenu isShowSubmitMenu" ng-class="isDailyMode?'':'weeklySubmit'" ng-show="isShowSubmitMenu">
+                                                   <ul class="menu __context" id="cml_menu" role="menu">
+                                                       <li title="{{checkRevMonthFlag ?  sbmtTimeICuptoTitle :revClosed}}" ng-click="submitTimeEntries(currentDate)">
+                                                           <div class="menu-item to-date showDateBd" ng-class="!checkRevMonthFlag?'disable-menu-item':''"  ng-click="" ng-mouseenter="isShowSubCal=false" ng-class="{'disableSubmit':checkRevMonthFlag==false}">
+                                                           <span >{{ ::'lbl_To' | translate }} {{currentDate | date:'dd-MMM-yyyy'}}</span>
+                                                           <!--<span> 5-May-2016</span>-->
+                                                           </div>
+                                                       </li>
+                                                       <li ng-class="!checkRevMonthFlag?'disable-menu-item':''">
+                                                           <div class="menu-item to-date" ng-mouseenter="onMouseEnterToDteSubmit()" ng-disabled="!checkRevMonthFlag" ng-class="{'disableSubmit':checkRevMonthFlag==false}">
+                                                               <span ng-disabled="!checkRevMonthFlag" class="calDropdown" title="{{sbmtDateTimeICuptoTitle}}">{{ ::'lbl_SelectDate' | translate }} <i ng-disabled="!checkRevMonthFlag" class="glyphicon glyphicon-triangle-right"></i></span>
+                                                           <ul ng-disabled="!checkRevMonthFlag" class="showCal" ng-show="isShowSubCal" ng-mouseenter="onMouseEnterToDteSubmit()">
+                                                               <!---->
+                                                               <li>
+                                                                   <div class="calendarOver submitOver" style="top:-229px;">
+                                                                       <div class="monthYearCont">
+                                                                           <div class="yearContainer">
+                                                                               <div class="yearContainerinner">
+                                                                                   <ul id="submitYearFirst"></ul>
+                                                                               </div>
+                                                                           </div>
+                                                                           <div class="monthContainer">
+                                                                               <ul>
+                                                                                   <li><a href="javascript:void(0)" translate="lbl_MnthVal1"></a></li>
+                                                                                   <li><a href="javascript:void(0)" translate="lbl_MnthVal2"></a></li>
+                                                                                   <li><a href="javascript:void(0)" translate="lbl_MnthVal3"></a></li>
+                                                                                   <li><a href="javascript:void(0)" translate="lbl_MnthVal4"></a></li>
+                                                                                   <li><a href="javascript:void(0)" translate="lbl_MnthVal5"></a></li>
+                                                                                   <li><a href="javascript:void(0)" translate="lbl_MnthVal6"></a></li>
+
+                                                                                   <li><a href="javascript:void(0)" translate="lbl_MnthVal7"></a></li>
+                                                                                   <li><a href="javascript:void(0)" translate="lbl_MnthVal8"></a></li>
+                                                                                   <li><a href="javascript:void(0)" translate="lbl_MnthVal9"></a></li>
+                                                                                   <li><a href="javascript:void(0)" translate="lbl_MnthVal10"></a></li>
+                                                                                   <li><a href="javascript:void(0)" translate="lbl_MnthVal11"></a></li>
+                                                                                   <li><a href="javascript:void(0)" translate="lbl_MnthVal12"></a></li>
+                                                                               </ul>
+
+                                                                           </div>
+
+                                                                       </div>
+                                                                       <div class="selectOC">
+                                                                           <ul>
+                                                                               <li><button class="selectCalDate" onclick="selectSubmitCalDate()">OK</button></li>
+                                                                               <li><button class="cancelCalPopup" translate="btn_Cancel"></button></li>
+                                                                           </ul>
+                                                                       </div>
+                                                                   </div>
+
+                                                                   <div class="submit-cal" id="inlineDatepicker" ng-click="submitCalDivClick($event)">
+                                                                   </div>
+                                                               </li>
+
+                                                           </ul>
+
+                                                           </div>
+                                                       </li>
+                                                       <li class="borderTopWhite"><div class="menu-item">&nbsp;</div></li>
+                                                       <li ng-class="!checkRevMonthFlag?'disable-menu-item':''" ng-show="isDailyMode">
+                                                           <div ng-disabled="!checkRevMonthFlag" class="menu-item pasteClick submit-ic" ng-class="{'disableSubmit':checkRevMonthFlag==false}" ng-mouseenter="isShowSubCal=false">
+                                                           <input type="checkbox" ng-model="isSubmitIC" ng-disabled="!checkRevMonthFlag" />
+                                                               <span ng-disabled="!checkRevMonthFlag" translate="lbl_AlwSubmtIC" title="{{chckbxICTitle}}"></span>
+                                                           </div>
+                                                       </li>
+                                                   </ul>
+                                               </div>
+
+                                           </li>
+                                           <li class="fRight">
+                                               <a class="entrySubmit saveChange" ng-class="!enableSaveLayout?'disable-menu-item entrySubmit saveChange':'entrySubmit saveChange'" href=""><span class="saveChg" ng-click="saveLayout()" translate="lbl_saveLayout"></span><span class="toggleOpen"> <i class="glyphicon glyphicon-triangle-bottom"></i></span></a>
+                                           </li>
+                                        </ul>
+
+                                       <div class="edit_Menu" ng-show="showRightMenuFlag==true">
+                                           <ul class="menu __context" role="menu" id="cml_menu">
+                                               <li ng-disabled="!checkRevMonthFlag||editMenuConfig.isMultiple"  title="{{editMenuConfig.isMultiple?multiSelected:EditSelected}}">
+                                                   <div ng-disabled="!checkRevMonthFlag||editMenuConfig.isMultiple"ng-class="!checkRevMonthFlag||editMenuConfig.isMultiple?'menu-item editClick disable-menu-item':'menu-item editClick'" ng-click="editEntry()">
+                                                       <span translate="lbl_edit"></span>
+                                                   </div>
+                                               </li>
+                                               <li>
+                                                   <div class="menu-item copyClick" ng-click="copyRecords(isDailyMode)" title="{{copySelected}}">
+                                                   <span> {{ ::'btn_Copy' | translate }} <small>CTRL-C</small></span>
+                                                   </div>
+                                               </li>
+                                               <li ng-disabled="!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode)"  title="{{pasteMsg}}">
+                                                   <div class="menu-item pasteClick" ng-disabled="!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode)" ng-class="{'menu-item pasteClick disable-menu-item':!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode),'menu-item pasteClick':checkRevMonthFlag && (isDailyFlag || isWeeklyFlag)}" ng-click="checkRevMonthFlag && pasteRecords(isDailyMode,1)" >
+                                                       <span ng-disabled="!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode)" > {{ ::'btn_Paste' | translate }} <small ng-disabled="!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode)" > CTRL-V</small></span>
+                                                   </div>
+                                               </li>
+                                               <li ng-disabled="!isDailyFlag" title="{{isDailyMode && isDailyFlag ? pasteCopiedEntry:(isDailyMode && !isDailyFlag && !isWeeklyFlag ? noPaste : pasteMsg) }}">
+                                                   <div class="menu-item pasteAdvClick" ng-disabled="!isDailyFlag" ng-show="isDailyMode" ng-class="{'menu-item pasteClick disable-menu-item':!isDailyFlag ,'menu-item pasteClick':isDailyFlag}" ng-click="pasteAdvance(isDailyMode)" >
+                                                       <span ng-disabled="!isDailyFlag"> {{ ::'btn_PasteAdvanced' | translate }} <small ng-disabled="!isDailyFlag">CTRL-ALT-V</small></span>
+                                                   </div>
+                                               </li>
+                                               <li ng-disabled="editMenuConfig.isCopyOff || (!checkRevMonthFlag || (!afterTecuttOff && !afterTecuttOffWeek))" title="{{(checkRevMonthFlag ?  cpyPstClnSlcted :revClosed)}}">
+                                                   <div class="menu-item cloneClick" ng-disabled="editMenuConfig.isCopyOff ||  (!checkRevMonthFlag || (!afterTecuttOff && !afterTecuttOffWeek))" ng-click="Clone(isDailyMode)"  ng-class="{'menu-item cloneClick disable-menu-item':editMenuConfig.isCopyOff ||  (!checkRevMonthFlag || (!afterTecuttOff && !afterTecuttOffWeek)) ,'menu-item cloneClick':!editMenuConfig.isCopyOff || checkRevMonthFlag  || afterTecuttOff || afterTecuttOffWeek}" >
+                                                       <span ng-disabled="editMenuConfig.isCopyOff ||  (!checkRevMonthFlag || (!afterTecuttOff && !afterTecuttOffWeek))" translate="btn_Clone"></span>
+                                                   </div>
+                                               </li>
+                                               <li ng-disabled="!copytoTodayCuttOff" title="{{(!copytoTodayCuttOff)?revClosed:(editMenuConfig.isCopyOff ? noSelected:copyTodayTitle)}}">
+                                                   <div class="menu-item copyToClick" ng-disabled="!copytoTodayCuttOff" ng-class="{'menu-item copyToClick disable-menu-item':(!copytoTodayCuttOff) ,'menu-item copyToClick':copytoTodayCuttOff}"  ng-show="isDailyMode" ng-click="CopytoToday(isDailyMode)" >
+                                                       <strong ng-disabled="!copytoTodayCuttOff"><span  translate="btn_CopyToToday" ng-disabled="!copytoTodayCuttOff"></span></strong>
+                                                   </div>
+                                               </li>
+                                               <li ng-disabled="(!copytoTodayCuttOff && !afterTecuttOffWeek)" title="{{(!copytoTodayCuttOff && !afterTecuttOffWeek)?revClosed:(editMenuConfig.isCopyOff ? noSelected:copyWeekTitle)}}" >
+                                                   <div class="menu-item copyThisWeek" ng-disabled="(!copytoTodayCuttOff && !afterTecuttOffWeek)"  ng-show="!isDailyMode"ng-class="{'menu-item copyThisWeek disable-menu-item':(!copytoTodayCuttOff && !afterTecuttOffWeek) ,'menu-item copyThisWeek':checkRevMonthFlag  || copytoTodayCuttOff || afterTecuttOffWeek}" ng-click="CopytoThisWeek(isDailyMode)">
+                                                       <strong title="{{(!copytoTodayCuttOff && !afterTecuttOffWeek)?revClosed:(editMenuConfig.isCopyOff ? noSelected:copyWeekTitle)}}"><span translate="btn_CopyToWeek" title="{{(!copytoTodayCuttOff && !afterTecuttOffWeek)?revClosed:(editMenuConfig.isCopyOff ? noSelected:copyWeekTitle)}}"></span></strong>
+                                                   </div>
+                                               </li>
+                                               <li ng-disabled="isDeletedRightClickOff" title="{{editMenuConfig.isDeletedOff?dltdFalseTitle:dltSlctdTitle}}">
+                                                   <div class="menu-item deleteClick" ng-class="isDeletedRightClickOff?'disable-menu-item':''" ng-click="deleteByRightClick()" ng-disabled="isDeletedRightClickOff" >
+                                                       <strong ng-disabled="isDeletedRightClickOff" ng-class="isDeletedRightClickOff?'disable-menu-item':''"><span> {{ ::'btn_Delete' | translate }} <small  ng-disabled="isDeletedRightClickOff">DEL</small></span></strong>
+                                                   </div>
+                                               </li>
+
+                                           </ul>
+                                       </div>
+                                       <div class="edit_MenuOutsideGrid" ng-show="showMenuOutsideGrid==true" value="{{showMenuOutsideGrid}}">
+                                           <ul class="menu __context" role="menu" id="cml_menu"> 
+                                               <li title="{{pasteMsg}}" ng-disabled="!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode)">
+                                                   <div class="menu-item pasteClick" ng-disabled="!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode)" ng-class="{'menu-item pasteClick disable-menu-item':!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode),'menu-item pasteClick':checkRevMonthFlag && (isDailyFlag || isWeeklyFlag)}" ng-click="checkRevMonthFlag && pasteRecords(isDailyMode,1)" >
+                                                       <span ng-disabled="!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode)"> {{ ::'btn_Paste' | translate }} <small ng-disabled="!checkRevMonthFlag || (isDailyMode && !isDailyFlag) || (!isWeeklyFlag && !isDailyMode)">CTRL-V</small></span>
+                                                   </div>
+                                               </li> 
+                                               <li ng-disabled="!isDailyFlag" title="{{isDailyFlag? pasteCopiedEntry:noPaste}}">
+                                                   <div ng-disabled="!isDailyFlag" class="menu-item pasteAdvClick" ng-show="isDailyMode" ng-class="{'menu-item pasteClick disable-menu-item':!isDailyFlag ,'menu-item pasteClick':isDailyFlag}" ng-click="pasteAdvance(isDailyMode)" >
+                                                       <span ng-disabled="!isDailyFlag"> {{ ::'btn_PasteAdvanced' | translate }} <small ng-disabled="!isDailyFlag">CTRL-ALT-V</small></span>
+                                                   </div>
+                                               </li>
+                                           </ul>
+                                       </div>
+                                    </section>
+                                        <section class="entrieslisting">
+                                        <input type="text" class="hidden" id="txtcurrentDate" ng-model=currentDate />
+                                        <div class="tab1" id="tab1List" ng-mouseenter="isShowSubCal=false">
+                                       
+                                            <div id="grid1" ng-if="!refreshGridMain" ui-grid="gridOptions" class="grid" execute-on-key ui-grid-auto-resize ui-grid-row-edit ui-grid-resize-columns ui-grid-move-columns ui-grid-edit ui-grid-cellNav ui-grid-grouping ui-grid-selection ui-grid-save-state ng-keyup="keyUpGrid($event);" right-click="rightClick($event)" ng-click="checkClick()">
+                                                <div ng-class="filterFlag()" ng-if="gridApi.grid.renderContainers.body.visibleRowCache.length == 0"><span ng-bind="blankfiltermessage"></span></div>
+                                            </div>
+                                           <!-- <div ui-grid-clipboard ></div>-->
+                                        </div>
+                                    </section>
+                                   
+                                    
+                                    <div class="main-area-bottom" style="">
+                                        <div class="bottomPopup footerMenu" ng-show="showColViewMenu">
+                                            <ul>
+                                                <li><span id="spnClmDailyViewTime" ng-click="bottomColPrefMenu(1,true)" class="active" translate="lbl_Time"></span></li>
+                                                <li><span id="spnClmDailyViewTimeIC" ng-click="bottomColPrefMenu(2,true)" translate="lbl_TimeIncCT"></span></li>
+                                                <li ng-show="isDailyMode"><span id="spnClmDailyViewIC" ng-click="bottomColPrefMenu(3,true)" translate="lbl_IC"></span></li>
+                                                <li ng-show="isDailyMode"><span id="spnClmDailyViewICNCT" ng-click="bottomColPrefMenu(4,true)" translate="lbl_ICIncCT"></span></li>
+                                                <li ng-show="isDailyMode"><span id="spnClmDailyViewCustomLayout" ng-click="bottomColPrefMenu(5,true)">{{dailyViewCustomLayout}}</span></li>
+                                                <li ng-show="!isDailyMode"><span id="spnClmWeeklyViewCustomLayout" ng-click="bottomColPrefMenu(5,true)">{{weeklyViewCustomLayout}}</span></li>
+
+                                            </ul></div>
+                                        <a class="changeable" id="changedMenu" href="javascript:void(0)"> <strong ng-click="colPrefMenu()">{{colprefBtnText}}</strong><span ng-click="colPrefShowMenu()"><i class="glyphicon glyphicon-triangle-bottom"></i></span></a>
+                                        <span ng-bind="gridOptions.data.length?(isDailyMode?(('lbl_HrsIcChrgTtl' | translate) + ' : ' + ttlHrs + ' / ' + (customNumberFilter(icChrge))) : (('lbl_HrsIcChrgTtl' | translate) + ' : ' + (weeklyTtlHours|decimal) + ' / ' + (customNumberFilter(icChrge)))) : ('lbl_noTimeEntry' | translate)"></span>
+                                    </div>
+                                </section>
+                            </section>
+
+                        </section>
+
+
+                    </section>
+
+                    <section class="colapse-bar" tabindex="-1">
+                        <a class="open-close" tabindex="-1">&nbsp;</a>
+                        <div class="verticalBarRight" tabindex="-1"><strong>Menu</strong></div>
+                    </section>
+                    <section class="right-section" tabindex="-1">
+                        <a class="rightbarBtn">&nbsp;</a>
+                       
+                        <section class="rightMenu"><h5>Menu</h5></section>
+                        <ul class="sections">
+                            <li><div class="listing expandableDiv" clsName="acc1"> {{ ::'lbl_rpt' | translate }} <span class="addBtn"></span></div>
+                            
+                            <div class="listingDesc reportingDesc" id="acc1" ng-controller="ReportCtrl" data-ng-init="init()" >
+                                <section class="reportSection">
+                                    <div class="formfillSection">
+
+                                        <ul>
+                                            <li>
+                                                <label> {{ ::'lbl_Name' | translate }}:</label>
+
+                                                <div class="fL reportingList">
+                                                  
+                                                    <section class="select-input-container dropdownContainer"><!--<section class="dropdownInner" ng-click="openReportingDropDown()"></section>-->
+                                                    <input ng-blur="reportingBlur($event)"  id="reportInput" ng-readonly="true" ng-keydown="reportingInputKeyDown($event)" ng-click="openReportingDropDown($event,false)" ng-class="isDisableReportName?'disableDots':''" type="text" class="hideIEClearBtn select-input" ng-model="repname" placeholder="{{repnamePlaceholder}}"/>
+                                                    <strong ng-keydown="reportingInputKeyDown()" class="clickIcon" ng-click="openReportingDropDown($event,false)"></strong></section>
+                                                    <ul class="ul-select dropdownList reportingDropdown" ng-show="isReportingDropDownOn">
+                                                        <li ng-attr-id="{{name.repname}}" ng-repeat="name   in ::reportnamelist"  value="{{name.value}}" ng-mouseover="reportingItemMouseOver($event)" ng-class="{'selected': $first}" ng-mousedown="reportselected(name)">{{ ::name.repname}}</li>
+                                                    </ul>
+                                                     
+                                                </div>
+</li>
+                                            <li ng-class="startCalSelectionInvalid ? 'calendarDisable' :false">
+                                                <label> {{ ::'lbl_start' | translate }}:</label>
+                                                <small class="fL datecls">
+                                                    <input class="hideIEClearBtn"  id="startDatepicker" type="text" ng-change="checkDateFormat(startDate,'start')" size="10" ng-model="startDate" ng-class="isStartDate||startInvalid||startCalSelectionInvalid?'startdateTxt invalid':'startdateTxt'" ng-keyup="checkStartDate()" />
+                                                    <span ng-if="isStartDate" class="startdtcls"  translate="msg_fieldReq"></span>
+                                                    <span ng-if="startInvalid" class="startdtcls" style="width:270px;"  translate="msg_inldDtFrmt"></span>
+                                                    <span ng-if="startCalSelectionInvalid" class="startdtcls" style="width:270px;" translate="msg_CalendarYear"></span>
+                                                </small>
+</li>
+                                            <li ng-class="endCalSelectionInvalid ? 'calendarDisable' :false">
+                                                
+                                                    <label>{{ ::'lbl_end' | translate }}:</label>
+                                                <small class="fL datecls">
+                                                    <input id="endDatepicker" type="text" size="5" ng-change="checkDateFormat(endDate,'end')" class="hideIEClearBtn" ng-model="endDate" ng-class="isEndDate||endInvalid||endCalSelectionInvalid?'enddateTxt invalid':'enddateTxt'" ng-keyup="checkEndDate()"/>
+                                                    <span ng-if="isEndDate" class="enddtcls" translate="msg_fieldReq"></span>                                                
+                                                     <span ng-if="endInvalid" class="startdtcls" style="width:270px;" translate="msg_inldDtFrmt"  ></span>
+                                                    <span ng-if="endCalSelectionInvalid" class="enddtcls" style="width:270px;" translate="msg_CalendarYear"></span>
+                                                    <strong class="clickIcon"></strong>
+                                                </small>
+</li>
+
+                                            <li>
+                                                <label> {{ ::'lbl_client' | translate }}:</label>
+                                                <small class="fL">
+                                                    <input class="inputData" type="text" maxlength="6" ng-model="clientno" />
+                                                    </small>
+</li>
+                                            <li>
+                                                <label>{{ ::'lbl_engmnt' | translate }}:</label>
+                                                <small class="fL">
+                                                    <input class="inputData" type="text" maxlength="3" ng-model="engno" only-digits/>
+                                                    </small>
+</li>
+                                            <li>
+                                                <label>{{ ::'lbl_Project' | translate }}:</label>
+                                                <small class="fL">
+                                                    <input class="inputData" type="text" maxlength="3" ng-model="prjno" only-digits />
+                                                    </small>
+</li>
+                                        </ul>
+
+                                    </div>
+                                    <button type="button" class="reportingBtn" ng-click="btnRun()" ng-class="{'enableHover':IsReportSelected,'disableHover':((IsReportSelected == false) || startInvalid || endInvalid || startCalSelectionInvalid || endCalSelectionInvalid)}" value="{{IsReportSelected}}" ng-disabled="((IsReportSelected == false) || startInvalid || endInvalid || startCalSelectionInvalid || endCalSelectionInvalid)" title="{{!IsReportSelected?rptNotSlctd:''}}">{{ ::'lbl_run' | translate }}</button>
+                                </section>
+
+
+
+
+                            </div>
+                            </li>
+                            <li id="designateLi"><div class="listing expandableDiv" id="designateDiv" clsName="acc2" ng-disabled="isDesigPanelDisabled">{{ ::'lbl_dsgnte' | translate }} <span class="addBtn" id="designatePlusBtn" ng-disabled="isDesigPanelDisabled"></span></div>
+                         
+                                <div class="listingDesc reportingDesc" id="acc2" ng-controller="designatesCtrl" data-ng-init="init()">                                    
+                                    <!--show only when user is global cordinate-->
+                                    <div class="desigName" ng-show="isGloCordinate">
+                                        <h4 ng-click="showHideInputText()">{{gloCordHeader}} <span></span></h4>
+                                        <div id="empSearch-Cont"  ng-if="isShowSearch" class="empSearch-Cont">
+                                        <input type="text" class="hideIEClearBtn empSearch" onkeyup="this.value.trim().length > 0 ? $(this).addClass('textBold') : $(this).removeClass('textBold')"  onblur="this.value.trim().length > 0 ? $(this).addClass('textBold') : $(this).removeClass('textBold')" onchange="this.value.trim().length > 0 ? $(this).addClass('textBold') : $(this).removeClass('textBold')" placeholder="{{srchEmpl}}" title="{{srchByNameID}}" id="gloCordInput"
+                                               ng-model="globalCordSrchInput"
+                                               ng-change="globalCordSrchInputChange(globalCordSrchInput)"
+                                               ng-model-options="{debounce: 500}"/>
+                                        <ul class="ul-select desigDetails" ng-show="glCordDesSrchRslt.length>0">
+                                            <li ng-repeat="name   in glCordDesSrchRslt"  ng-click="empSelectByGlocord(name)" ng-bind-html="'<strong class=designateName>' + name.FNAME + ' ' + (name.LNAME!==undefined?name.LNAME:'') + '</strong>' + '<span class=designatePSID>' + name.PSID + '</span>'"></li>
+                                        </ul>
+                                         </div>
+                                    </div>
+                                    <section class="desMsg topGridDesg">
+                                        <section class="desMsgInner">
+                                            <div ui-grid="gridDesignateList" style="width:274px" ng-if="isgridDesignateListRendered" ui-grid-auto-resize ui-grid-resize-columns ui-grid-move-columns ui-grid-edit ui-grid-cellNav ui-grid-grouping ui-grid-selection></div>
+                                            <div class="grid msgAbs" ng-if="(gridDesignateList.data < 1)"><span ng-bind="blankgridDesignateListmessage"></span></div>
+                                        </section>
+                                    </section>
+                                    <section class="reportSection" ng-show="isDesignateEntrySection">
+ 
+                                        <!--<div class="desigName">
+                                            <h4>Kumar Rahul <span class="closeDrop"></span></h4>
+                                            <div class="empSearch-Cont">
+                                                <input type="text" class="empSearch" />
+                                            </div>
+                                        </div>-->
+                                 
+                                            <fieldset>
+                                                <legend>{{ ::'lbl_srchEmpl' | translate }}</legend>
+                                                <ul>
+                                                    <li>
+                                                        <label>{{ ::'lbl_frstNm' | translate }}:</label>
+                                                        <small class="fL">
+                                                            <input type="text" class="txtInput hideIEClearBtn" ng-model="firstName" ng-enter="btnSearch()"/>
+                                                        </small>
+                                                    </li>
+                                                    <li>
+                                                        <label>{{ ::'lbl_lstNm' | translate }}:</label>
+                                                        <small class="fL">
+                                                            <input type="text" class="txtInput hideIEClearBtn" ng-model="lastName"  ng-enter="btnSearch()"/>
+                                                        </small>
+                                                    </li>
+                                                    <li>
+
+                                                        <label>{{ ::'lbl_PsNo' | translate }}:</label>
+                                                        <small class="fL">
+                                                            <input class="inputData txtInput num hideIEClearBtn" type="text" ng-model="psNumber" only-digits  ng-enter="btnSearch()" />
+                                                        </small>
+                                                    </li>
+                                                </ul>
+                                                </fieldset>
+
+                                        <button type="button" class="reportingBtn seachDesg" ng-click="btnSearch()">{{ ::'lbl_srch' | translate }}</button>
+                                    </section>
+
+                                    <!--<section ng-show="isDesignateViewSection">-->
+                                    <div ng-if="isDesignateViewSection">
+                                        <section class="desMsg bottomGridDesg">
+                                            <div id="gridDesignate" ui-grid="gridDesignateOptions" ui-grid-move-columns ui-grid-auto-resize ui-grid-resize-columns ui-grid-edit ui-grid-cellNav ui-grid-grouping ui-grid-selection></div>
+                                            <div class="grid msgAbs" ng-if="gridApi.grid.renderContainers.body.visibleRowCache.length == 0"><span ng-bind="blankgridDesignatemessage"></span></div>
+                                        </section>
+                                        <button type="button" class="reportingBtn newSearchBtn" ng-click="btnNewSearch()">{{ ::'lbl_newSrch' | translate }}</button>
+                                    </div> 
+
+                                </div>
+                           
+                            </li>
+                            <li id="preferenceContDiv">
+                                <div class="listing expandableDiv" id="acc3Cont" clsName="acc3" ng-disabled="isDesigPanelDisabled">{{ ::'lbl_Prefrence' | translate }} <span class="addBtn" id="prfBtn"ng-disabled="isDesigPanelDisabled"></span></div>                                 
+                                <div class="listingDesc reportingDesc" id="acc3">
+                                    <div emp-preference></div>
+                                   <div class="preferenceInnerTab">{{ ::'lbl_cstmLayout' | translate }}            </div>
+
+                                    <div class="preferenceInnerTabData" cstm-layout></div>
+                                </div>
+</li>
+                            <!--<li>
+                                <div class="listing expandableDiv" id="acc6Cont" clsName="acc6">{{ 'lbl_cstmLayout' | translate }} <span class="addBtn"></span></div>                                 
+                                   <div class="listingDesc reportingDesc" id="acc6" cstm-layout>
+                                </div>
+                           </li>-->
+                            <li>                               
+                            <div class="listing expandableDiv" clsName="acc4" >{{ ::'lbl_fav' | translate }} <span class="addBtn"></span></div>
+                                <div class="listingDesc reportingDesc" id="acc4">                                 
+                                    <div class="cepFavRP">
+                                        <cep-fav></cep-fav>
+                                    </div>
+                                    <div class="activityFavRP">
+                                        <activity-fav></activity-fav>
+                                    </div>
+                                    <div class="DescriptionFavRP">
+                                        <desc-fav></desc-fav>
+                                    </div>
+                                </div>
+                            
+                            </li>
+                            <li><div class="listing expandableDiv" clsName="acc5">{{ ::'lbl_lnks' | translate }} <span class="addBtn"></span></div>
+                            
+                                <div class="listingDesc reportingDesc links" id="acc5">
+                                    <ul class="">
+                                        <li><a href="{{DOCURL}}" target="_blank">{{ ::'lbl_FirmWide' | translate }}</a></li>
+                                        <li><a href="{{GOCURL}}" target="_blank">Workflow Wizard</a></li>
+                                    </ul>
+
+                                </div>
+</li>
+                        </ul>
+
+
+                    </section>
+
+
+
+                </section>
+            </section>
+        </section>
+    </section>
+   
+</div>
+
+
+<div class="DailyTimeDesktopGridCtrl" check-key-press  id="staticPopUp">
+    <div class="overlayStaticPopup"></div>
+    <div class="entrypopup alertMsgBoxCont staticMsgPopup"  ctrl-id="staticId" dv-id="staticPopUp">
+        <h2>Error</h2><span ng-click="calYearSelclose()" class="closeCross"></span>
+        <div id="innerAlertDiv">
+            <div class="entrypopupInner">
+                <div class="entrypopupform">
+                    <section class="formSection alertMsgBox">
+                        <div class="overflowHiddenbox">
+                            <figure class="errorImg"></figure>                            
+                            <span translate="msg_CalendarYear"></span>
+                        </div>
+                        <section class="btnOK">
+                            <input type="submit" autofocus id="staticId" ng-click="calYearSelclose()" class="btn btn-sm btn-info waringMsgOk" value="{{ ::'btn_Ok' | translate }}" />
+
+                        </section>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+    <div class="DailyTimeDesktopCtrlSubmit" check-key-press  id="staticPopUpSubmit">
+        <div class="overlayStaticPopup"></div>
+        <div class="entrypopup alertMsgBoxCont staticMsgPopup" ctrl-id="staticSubId" dv-id="staticPopUpSubmit">
+            <h2>Error</h2><span ng-click="calDateSelclose()" class="closeCross"></span>
+            <div id="innerAlertDiv">
+                <div class="entrypopupInner">
+                    <div class="entrypopupform">
+                        <section class="formSection alertMsgBox">
+                            <div class="overflowHiddenbox">
+                                <figure class="errorImg"></figure>
+                                <span translate="msg_CalendarDate"></span>
+                            </div>
+                            <section class="btnOK">
+                                <input type="submit" autofocus id="staticSubId" ng-click="calDateSelclose()" class="btn btn-sm btn-info waringMsgOk" value="{{ ::'btn_Ok' | translate }}" />
+
+                            </section>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

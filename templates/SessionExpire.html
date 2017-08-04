@@ -1,0 +1,43 @@
+﻿<div id="dvErrorExists" check-key-press ctrl-id="multipleSessionBtn" dv-id="dvErrorExists" >
+    <div class="main passwordReset errorTab">
+        <div class="inner-login">
+            <div class="login-box">
+                <div class="login-elements">
+                    <div class="login-header">
+                        <h3>Error <span class="closeCross" onclick="$('#dvErrorExists').hide()"></span></h3>
+                    </div>
+                    <!--div class="error-sign col-xs-2 col-sm-2 col-md-2">
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+        </div>-->
+                   <div class="textInfo-pw"><p ng-bind="globals.currentUser.username + ' is already logged into myTime. Users are only permitted to log into one session of myTime at a time. Please exit this page and return to the myTime session you already have opened.'"></p></div>
+                  <ul>
+                      <li><input id="multipleSessionBtn" class="confirmBtn activeButton" autofocus onclick="$('#dvErrorExists').hide()" type="button" value="OK" ></li>
+                      <!--<li><input class="confirmBtn" type="button" value="{{'btn_No'|translate}}" ng-click="close()"></li>-->
+                  </ul>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<section class="center-block warning-error-popup" >
+ <div class="waring-msg-cont" ng-hide="isError">
+     <div class="warning-sign col-xs-2 col-sm-2 col-md-2">
+         <span class="glyphicon glyphicon-info-sign"></span>
+     </div>
+     <div class="warning-msg col-xs-10 col-sm-10 col-md-10">
+         <span >Session is expired</span>
+     </div>
+ </div>
+    <div class="error-msg-cont" ng-show="isError">
+        <div class="error-sign col-xs-2 col-sm-2 col-md-2">
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+        </div>
+        <div class="error-msg col-xs-10 col-sm-10 col-md-10">
+            <span >Session is expired</span>
+        </div>
+    </div>
+   
+    <button class="btn btn-primary cnt" >OK</button>
+</section>-->

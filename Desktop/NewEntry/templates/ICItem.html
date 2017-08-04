@@ -1,0 +1,43 @@
+﻿<div class="entrypopup activityContDesktop ICPopup" id="icPopUp" ng-style="{'margin':windowConfig.margin,'width': windowConfig.width,'height':windowConfig.height,'left':windowConfig.left,'top':windowConfig.top}">
+    <div   ng-style="{'height':windowConfig.topHeader}">
+        <h2><span translate="lbl_cmpnyICitem"></span></h2><span class="min" ng-click="resizeWindow(0)"   ctrl="icItem" ng-show="!isMinimize">Minimize</span><span class="max"   ctrl="icItem" ng-click="resizeWindow(1)" ng-show="isMinimize">Maximize</span><span class="closeCross" ng-click="cancel()"></span>
+    </div>
+    <div class="entrypopupInner" data-ng-init="init()" id="innerIcCont" ng-style="{'height':windowConfig.innerHeight1}">
+        <div class="entrypopupform" ng-style="{'height':windowConfig.innerHeight}">
+            <section class="formBar" ng-style="{'height':windowConfig.section1Hgt}">               
+                <section class="searchBarActivity">
+                    <a class="seachBtnAct" ng-click="toggleSrchSelection()"><span>{{ ::'lbl_srch' | translate }} <i class="glyphicon glyphicon-triangle-bottom"></i></span></a>
+                    <input type="text" class="seachAct" ng-model="searchText" ng-enter="updateGridData()" />
+                    <button class="crossSearchAct" ng-click="clearSearch()"></button>
+                    <button class="searchSearchAct" ng-click="updateGridData()"></button>
+                    <div class="popupAbsDesktop" ng-show="showSrchSelection" style="height:75px">
+                        <ul ng-show="showSrchSelection">
+                            <li>
+                                <label>
+                                    <input type="checkbox" ng-model="isFilterByCode" ng-change="srchSelChange()">
+                                </label><label style="padding-left: 10px;">Code</label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="checkbox" ng-model="isFilterByDesc" ng-change="srchSelChange()">
+                                </label><label style="padding-left: 10px;">Description</label>
+                            </li>
+                            <li>
+                                <label>
+                                    <input type="checkbox" ng-model="isFilterByCharge" ng-change="srchSelChange()">
+                                </label><label style="padding-left: 10px;">{{ ::'lbl_Charge' | translate }}</label>
+                            </li>                            
+                        </ul>
+
+                    </div>
+
+                </section>
+            </section>
+            <section class="formSection">
+                <div ng-if="windowConfig.isRenderGrid" ng-style="{'width': '100%'}" id="icGrid" ui-grid="gridOptions" class="grid" ui-grid-save-state ui-grid-resize-columns ui-grid-move-columns ui-grid-edit ui-grid-cellNav ui-grid-grouping ui-grid-selection>
+                    <div style="top:42px;" class="gridblankdata" ng-show="filteredICItems.length==0"><span translate="msg_NoRecord"></span></div>
+                </div>
+              </section>
+        </div>
+    </div>
+</div>

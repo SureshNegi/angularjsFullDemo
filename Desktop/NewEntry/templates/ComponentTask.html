@@ -1,0 +1,80 @@
+﻿    <div class="entrypopup proCompTask" ng-class="isScope==true?'compScopeCont':''"  id="mainDiv" check-key-press ctrl-id="btnSelect" dv-id="mainDiv">     
+   <h2><span translate="lbl_prjCmpTsk"></span></h2><span class="closeCross" ng-click="cancel()"></span>
+            <div class="entrypopupInner" data-ng-init="init()" id="innerMainDiv">
+                <div class="entrypopupform" style="float:left">
+                    <div class="compTask" style="width:300px;float:left">
+                        <section class="formSection CompTaskContainer">
+                            <h4>{{::'lbl_cmpNTsk' |translate}}</h4>
+                            <section class="treeviewCont">
+                                <section class="treeview">
+                                    <!--<a href="javascript:void(0)"><span>Components</span></a>
+                                <ul>
+                                    <li class="active">
+                                        <strong><span>Application Enchancement</span></strong>
+                                        <ul>
+                                            <li><strong><span>Requirements Gathering &amp; Analysis</span></strong></li>
+                                            <li><strong><span>Design / Architecture</span></strong></li>
+                                            <li><strong><span>Environment Setup</span></strong></li>
+                                            <li><strong><span>Coding</span></strong></li>
+                                            <li><strong><span>Release Planning &amp; Communication</span></strong></li>
+                                            <li class="last"><strong><span>Application Release</span></strong></li>
+                                        </ul>
+                                    </li>
+                                    <li><strong><span>Quality &amp; Testing</span></strong></li>
+                                    <li><strong><span>Quality &amp; Testing</span></strong></li>
+                                    <li class="last"><strong><span>Quality &amp; Testing</span></strong></li>
+                                </ul>-->
+
+
+                                    <treecontrol class="tree-classic"
+                                                 tree-model="dataForTheTree"
+                                                 options="treeOptions"
+                                                 on-selection="showSelected(node)"
+                                                 expanded-nodes="expandedNodes"
+                                                 ng-dblClick="comTaskDblClick($event,node)"
+                                                 selected-node="selectedNode" >
+                                      <span title="{{(node.name=='Components')?'':node.name}}">{{node.name}}</span>  
+                                    </treecontrol>
+                                    <!--selected-node="dataForTheTree[0].children[1]"-->
+                                </section>
+
+
+                            </section>
+                            <section class="description-selectDesktop">
+                                <span>Description:</span>
+                                <section class="Desc_inputDetails">
+                                    <input maxlength="200" onfocus="$('#strdescriptionComp').addClass('cepDownImgActive')" onblur="$('#strdescriptionComp').removeClass('cepDownImgActive')"  data-ng-trim="false" type="text" id="txtDesc" ng-model="defaultDesc" ng-class="{'btmBgRed':(isDesRequired && (defaultDesc===null || defaultDesc.length===0)), 'textBold':defaultDesc.trim()!=''}" ng-change="isFavDescription(defaultDesc.trim())" class="desc_select hideIEClearBtn" placeholder="{{::'title_Description' | translate}}" />
+                                    <button class="star-fav star-icon" ng-click="removeFromFavDescription()" ng-show='isFavDesc && defaultDesc!=null && defaultDesc.trim().length!=0'>
+                                        <i class="fa fa-star"></i>
+                                    </button>
+                                    <button class="star-fav star-icon" ng-click="addToFavDescription()" ng-show='!isFavDesc && defaultDesc!=null && defaultDesc.trim().length!=0'>
+                                        <i class="fa fa-star-o"></i>
+                                    </button>
+                                    <strong id="strdescriptionComp" ng-click="loadDescription()"></strong>
+                                </section>
+
+                                <ul class="btnContDesktop">
+                                    <li><button class="selectBtn" id="btnSelect" ng-click="select()">{{ ::'lbl_slct' | translate }}</button></li>
+                                    <li><button class="cancelBtn" ng-click="cancel()">{{ ::'btn_Cancel' | translate }}</button></li>
+                                </ul>
+                            </section>
+                        </section>
+                    </div>
+                    <div class="compScope" style="width:200px;float:left" ng-if="isScope">
+
+                        <section class="formSection CompTaskContainer" ng-if="isScope">
+                            <h4>{{ ::'lbl_cmpScopes' | translate }}</h4>
+
+
+                            <div  style="height: 280px !important;width: 100% !important;overflow: hidden;" id="scopeGrid" ui-grid="gridOptions"
+                                 class="grid" ui-grid-resize-columns ui-grid-move-columns ui-grid-edit ui-grid-cellNav ui-grid-grouping ui-grid-selection >
+                            </div>
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+</div>
+    
+

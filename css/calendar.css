@@ -1,0 +1,217 @@
+﻿
+.well {
+    margin-bottom: 0px;
+}
+
+  
+.dt-available{
+    color: black;
+    /*background-color: lawngreen !important;*/
+  background: #F7FEF6;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#F7FEF6), to(#47E40C));
+background: -webkit-linear-gradient(#F7FEF6, #47E40C);
+background: -moz-linear-gradient(#F7FEF6, #47E40C);
+background: -ms-linear-gradient(#F7FEF6, #47E40C);
+background: -o-linear-gradient(#F7FEF6, #47E40C);
+background: linear-gradient(#F7FEF6, #47E40C);
+-pie-background: linear-gradient(#F7FEF6, #47E40C);
+  
+
+}
+.dt-verified {
+    color: black;
+    /* background-color: red !important;
+   border-color: green !important;*/
+    background: #fad5d5;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#fad5d5), to(#FC5757));
+    background: -webkit-linear-gradient(#fad5d5, #FC5757);
+    background: -moz-linear-gradient(#fad5d5, #FC5757);
+    background: -ms-linear-gradient(#fad5d5, #FC5757);
+    background: -o-linear-gradient(#fad5d5, #FC5757);
+    background: linear-gradient(#fad5d5, #FC5757);
+}
+.dt-available-year{
+    color: black;
+    /*background-color: lawngreen !important;*/
+  background-color: #d3d3d3;
+   border: 1px solid grey;
+
+}
+  .dt-verified-year{
+    color: black;
+    /* background-color: red !important;
+   border-color: green !important;*/
+    background-color: #d3d3d3;
+     border: 1px solid grey;
+}
+
+.ng-isolate-scope .btn.btn-default.btn-sm.btn-info.dt-selected.dt-available{ border: 1px solid #F00; background: #33cc33;}
+.ng-isolate-scope .btn.btn-default.btn-sm.btn-info.dt-selected.dt-available:hover{ border: 1px solid #F00; background: #33cc33;}
+.ng-isolate-scope .btn.btn-default.btn-sm.btn-info.dt-selected.dt-verified{ border: 1px solid #000; background: #FC5757;}
+  .text-muted {
+  /*color: transparent;*/
+  color:grey;
+/*background-color:none;*/
+}
+  .dt-highlight{  
+ /*background-color:lawngreen !important;*/
+
+ font-weight:bolder;
+ font:bold;
+ 
+}
+
+  .ng-isolate-scope .dt-highlightweek.dt-verified{background: #FC5757;}
+  .ng-isolate-scope .dt-highlightweek.dt-available{ background:#33cc33;}
+  .dt-selected{
+ /*border-right-color:red;
+ border-left-color:red;
+ border-top-color:red;*/
+  /*border-right-color:black;
+ border-left-color:black;
+ border-top-color:black;*/
+    
+
+  }
+
+.dt-Error {
+    /*background-color:lawngreen !important;*/
+ color: red;
+ font-weight:bolder;
+ font:bold;
+}
+.dt-Error:hover{color: red;
+ font-weight:bolder;
+ font:bold;}
+.today{
+   background:linear-gradient(#5fa4e8, #006d9e);
+   
+}
+/*.btn.btn-default.btn-sm.btn-info.dt-selected{background: #F7FEF6;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#F7FEF6), to(#47E40C));
+background: -webkit-linear-gradient(#F7FEF6, #47E40C);
+background: -moz-linear-gradient(#F7FEF6, #47E40C);
+background: -ms-linear-gradient(#F7FEF6, #47E40C);
+background: -o-linear-gradient(#F7FEF6, #47E40C);
+background: linear-gradient(#F7FEF6, #47E40C);
+-pie-background: linear-gradient(#F7FEF6, #47E40C);}*/
+/*.btn.btn-default.btn-sm.btn-info.dt-selected{ color:#000;}*/
+.ng-isolate-scope .btn.btn-default.btn-sm.dt-available.dt-selected.dt-month{
+ background: #47E40C;
+    color:black;
+    font-weight:bolder;
+    border: 1px solid #F00;
+  
+   
+}
+.ng-isolate-scope .btn.btn-default.btn-sm.dt-verified.dt-selected.dt-month{
+    border: 1px solid #000;
+    background: #FC5757;
+    font-weight:bolder;
+}
+/*.ng-isolate-scope .btn.btn-default.btn-sm.btn-info.dt-selected{
+      color: #333;  
+    background-color: #d3d3d3;
+   border: 1px solid grey;
+}*/
+.btn.btn-default.btn-sm.dt-available.dt-Error .text-muted{
+     color: red;
+}
+.btn.btn-default.btn-sm.dt-available .text-muted{
+     color:#000;
+}
+.btn.btn-default.btn-sm.dt-verified.dt-Error .text-muted{
+     color: red;
+}
+.btn.btn-default.btn-sm.dt-verified .text-muted{
+     color:#000;
+}
+.ng-isolate-scope .btn.btn-default.btn-sm.dt-available-year{
+   color: #333;
+    /*background-color: #fff;*/
+    background-color: #d3d3d3;
+   border: 1px solid grey;
+}
+.ng-isolate-scope .btn.btn-default.btn-sm.dt-verified-year{
+       color: #333;
+    /*background-color: #fff;*/
+    background-color: #d3d3d3;
+   border: 1px solid grey;
+}
+.ng-isolate-scope .btn.btn-default.btn-sm.dt-selected-year{
+    color: #333; 
+    background-color: #d3d3d3;
+   border: 1px solid grey;
+}
+/*#dvdatepicker{ overflow: hidden; height:285px;}
+#divdatepicker{ overflow: hidden; height:285px;}*/
+
+
+.calendarOver.mobileCalOver.pasteAdvCalOver{ width: 296px; left:2px; display:none; top:0;}
+.calendarOver.mobileCalOver.pasteAdvCalOver .yearContainerinner ul{ margin: 0 25px;}
+.calendarOver.mobileCalOver.pasteAdvCalOver .yearContainerinner ul li{ padding:8px 22px; }
+.calendarOver.mobileCalOver.pasteAdvCalOver .yearContainerinner ul li a{ color:#000; font: normal 14px/25px Trebuchet Ms, tahoma, arial, helvetica, sans-serif; height:auto;}
+.calendarOver.mobileCalOver.pasteAdvCalOver .monthContainer ul { margin: 0 25px;}
+.calendarOver.mobileCalOver.pasteAdvCalOver .yearContainerinner ul{padding: 10px 0 5px;}
+.calendarOver.mobileCalOver .yearContainerinner ul{padding: 15px 0 5px;}
+.calendarOver.mobileCalOver.pasteAdvCalOver .monthContainer ul li {padding: 7px 22px;}
+.calendarOver.mobileCalOver.pasteAdvCalOver .monthContainer ul li a{ font: normal 14px/25px Trebuchet Ms, tahoma, arial, helvetica, sans-serif; height:auto;}
+.calendarOver.mobileCalOver .selectOC{ padding: 12px 0px 12px;}
+.calendarOver.mobileCalOver .selectOC ul li .selectCalDate{ width: 70px; font: normal 14px/25px Trebuchet Ms, tahoma, arial, helvetica, sans-serif;}
+.calendarOver.mobileCalOver .selectOC ul li .cancelCalPopup{width: 70px; font: normal 14px/25px Trebuchet Ms, tahoma, arial, helvetica, sans-serif;}
+.calendarOver.mobileCalOver{ width: 300px; left:0px; top:0px; display:none; }
+.calendarOver.mobileCalOver .yearContainerinner ul{ margin: 0 25px;}
+.calendarOver.mobileCalOver .yearContainerinner ul li{ padding:8px 22px; }
+.calendarOver.mobileCalOver .yearContainerinner ul li a{ color:#000; font: normal 14px/25px Trebuchet Ms, tahoma, arial, helvetica, sans-serif; height:auto;}
+.calendarOver.mobileCalOver .monthContainer ul { margin: 0 25px;}
+.calendarOver.mobileCalOver .monthContainer ul li {padding: 3px 22px;}
+.calendarOver.mobileCalOver .monthContainer ul li a{ font: normal 14px/25px Trebuchet Ms, tahoma, arial, helvetica, sans-serif; height:auto;}
+
+.calendarOver{ width:186px; border:1px solid #aaaaaa; background:#fff; color:#15428b; left:0; top:-212px; z-index:1; position:absolute;}
+.calendarOver.mobileCalOver .selectOC{ background:#cde4f8;}
+.calendarOver.mobileCalOver .selectOC ul li .selectCalDate{ background:linear-gradient(#5fa4e8, #006d9e);}
+.calendarOver.mobileCalOver .selectOC ul li .cancelCalPopup{ background:linear-gradient(#5fa4e8, #006d9e);}
+.calendarOver.mobileCalOver .monthContainer ul li a{ color:#000;}
+.calendarOver.mobileCalOver .monthContainer ul li a{ text-decoration:none;}
+.calendarOver.mobileCalOver .monthContainer ul li a.liActive{  border:1px solid #aabbcc; background: #ebedee;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#ebedee), to(#cfdbe0));
+background: -webkit-linear-gradient(#ebedee, #cfdbe0);
+background: -moz-linear-gradient(#ebedee, #cfdbe0);
+background: -ms-linear-gradient(#ebedee, #cfdbe0);
+background: -o-linear-gradient(#ebedee, #cfdbe0);
+background: linear-gradient(#ebedee, #cfdbe0);}
+.calendarOver.mobileCalOver .monthContainer ul li a:hover{  border:1px solid #aabbcc; background: #ebedee;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#ebedee), to(#cfdbe0));
+background: -webkit-linear-gradient(#ebedee, #cfdbe0);
+background: -moz-linear-gradient(#ebedee, #cfdbe0);
+background: -ms-linear-gradient(#ebedee, #cfdbe0);
+background: -o-linear-gradient(#ebedee, #cfdbe0);
+background: linear-gradient(#ebedee, #cfdbe0);}
+
+.monthYearCont{ overflow:hidden;}
+.monthContainer{ /*float:left;*/ width:100%; }
+.monthContainer ul{ overflow:hidden;margin: 0 9px; padding:18px 0; }
+.monthContainer ul li{ padding:3px 10px;float:left;}
+.monthContainer ul li a{ text-align:center; display:block;border:1px solid #fff; width:35px; height:18px;color:#15428b;font:normal 12px/18px Trebuchet Ms, tahoma, arial, helvetica, sans-serif; }
+.monthContainer ul li a:hover{background:#cfdbe0; border:1px solid #aabbcc;}
+.monthContainer ul li a.liActive{background:#cfdbe0; border:1px solid #aabbcc;}
+.yearContainer{ /*float:left;*/ width:100%;}
+.navigator{ padding-bottom:1px; }
+.navigator ul{ padding:7px 15px; overflow:hidden;}
+.navigator ul li{}
+.navigator ul li a{ float:left; width:15px; height:15px;  }
+.navigator ul li .leftNavigate{ float:left; background:url(../img/desktop/tool-sprites.gif) left -105px no-repeat;  float:left; width:15px; height:15px; outline:none; border:none;}
+.navigator ul li .rightNavigate{ float:right; background:url(../img/desktop/tool-sprites.gif) left -120px no-repeat; float:right; width:15px; height:15px; outline:none; border:none;}
+.navigator ul li .leftNavigate:hover{ background:url(../img/desktop/tool-sprites.gif) -15px -105px no-repeat; }
+.navigator ul li .rightNavigate:hover{ background:url(../img/desktop/tool-sprites.gif) -15px -120px no-repeat; }
+.yearContainerinner{  }
+.yearContainerinner ul { overflow:hidden; padding:15px 0 5px; border-bottom:1px solid #c5d2df; margin: 0 9px;}
+.yearContainerinner ul li{ padding:6px 10px;float:left;}
+.yearContainerinner ul li a{ text-align:center; border:1px solid #fff; display:block; width:35px; height:18px;color:#15428b;font:normal 12px/18px Trebuchet Ms, tahoma, arial, helvetica, sans-serif; }
+.yearContainerinner ul li a:hover{background:#cfdbe0; border:1px solid #aabbcc;}
+.yearContainerinner ul li a.liActive{background:#cfdbe0; border:1px solid #aabbcc;}
+.selectOC{background: url(../img/desktop/cal-bottom.png) left bottom repeat-x; padding:5px 0px 5px;}
+.selectOC ul{ text-align:center;}
+.selectOC ul li{ display:inline-block; padding:0 2px;}
+.selectOC ul li .selectCalDate{ display:block; color:#fff; border-top:1px solid #aabbcc;border-left:1px solid #aabbcc;border-right:1px solid #005555;border-bottom:1px solid #005555; background:#405574; font:normal 12px/19px Trebuchet Ms, tahoma, arial, helvetica, sans-serif; padding:0 12px;}
+.selectOC ul li .cancelCalPopup{ display:block; color:#fff; border-top:1px solid #aabbcc;border-left:1px solid #aabbcc;border-right:1px solid #005555;border-bottom:1px solid #005555; background:#405574; font:normal 12px/19px Trebuchet Ms, tahoma, arial, helvetica, sans-serif; padding:0 12px;}

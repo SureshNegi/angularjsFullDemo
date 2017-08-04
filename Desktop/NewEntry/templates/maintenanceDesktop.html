@@ -1,0 +1,18 @@
+﻿<div style="width:339px" class="entrypopup alertMsgBoxCont" data-ng-init="init()">
+    <h2 style="height: 25px;">{{windowConfig.title}}</h2><span class="closeCross" ng-click="close()"></span>
+    <div class="entrypopupInner">
+        <div class="entrypopupform">
+            <section class="formSection alertMsgBox">
+                <div class="overflowHiddenbox maintenanceMsg">
+                    <ul class="innermaintenanceMsg">
+                        <li ng-repeat="item in errList" ng-bind-html="item"></li>
+                    </ul>
+                </div>
+                <section class="btnOK">
+                <button class="btn btn-sm btn-info waringMsgOk" ng-click="close()">{{ ::'btn_Ok' | translate }}</button>
+                
+                </section>
+            </section>
+        </div>
+    </div>
+</div>

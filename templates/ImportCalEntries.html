@@ -1,0 +1,48 @@
+﻿<style>
+    .modal-content {
+        /* ... */
+        overflow-y: scroll;
+    }
+</style>
+
+
+<div class="divRslt"  data-ng-init="initGetCalImport()" >
+    <section class="popup_heading ui-gradient popup-heading-margin">
+        <div class="float_left"><span ng-bind="isDailyMode==true?(currentDate | date:'EEE, MMM dd, yyyy'):('lbl_WeekOf' | translate) + (weeklyStartDate | date:'EEE, MMM dd, yyyy')"></span><span translate="lbl_CalenderImportTitle"></span></div>
+        <a class="modal-close" href="javascript:void(0)">
+            <span>&nbsp;</span><span>&nbsp;</span>
+            <span ng-click="cancel()" translate="btn_Cancel"></span>
+        </a>
+    </section>
+    <ul class="heading-import">
+
+        <li translate="lbl_StartTime"></li>
+        <li translate="lbl_Hrs"></li>
+        <li class="last">From</li>
+    </ul>
+    <div class="fixPaddingTop" ng-show="importCalObj.items!=null && importCalObj.items.length>0">
+        <div class="repeating" ng-repeat="x in importCalObj.items" style="text-align: center;" >
+            <div class="day-month-show" ng-show="(checkVisibilityFlag && (!isDailyMode))" ng-click="callClick(x.STRTTIM)">
+                <span class="plus_minus"><small ng-class="'s' + getStartTime(x.STRTTIM)"><i ng-class="'i' + getStartTime(x.STRTTIM)" class="fa fa-minus"></i></small></span><div class="meeting-acc" style=" padding:5px 0 5px;text-align:left;" ng-bind="(checkVisibility(x.STRTTIM, $index)| date:'EEEE, MMMM dd, yyyy')"></div>
+            </div>
+            <ul class="result-import" ng-class="'c' + getStartTime(x.STRTTIM)" ng-click="viewEntry(x.CALID,timediff(x.STRTTIM,x.ENDTIM ),x.SUBJ,x.STRTTIM)">
+                <li ng-bind="formatDates(x.STRTTIM)"></li>
+                <li ng-bind="timediff(x.STRTTIM,x.ENDTIM )"></li>
+                <li>{{(x.CALI_FROM )}}</li>
+                <li>{{(x.SUBJ )}}</li>
+
+            </ul>
+
+
+
+        </div>
+    </div>
+
+
+</div>
+<ul>
+    <li>
+        <section class="task-details1" style="margin-left: 11px; padding-bottom:10px" ng-bind="CalNoEntryMessage==1?(isDailyMode?'No calendar entries for this day.':'No calendar entries for this week.'):(CalNoEntryMessage==2 ? message : '')"></section>
+    </li>
+</ul>
+<!--<div ng-show='searchRslObj.busy'>{{favCEPlObj.loadMsg}}</div>-->

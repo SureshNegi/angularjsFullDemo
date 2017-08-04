@@ -1,0 +1,52 @@
+﻿
+<html>
+<head>
+    <script src="Scripts/jquery/jquery-2.1.0.min.js"></script>
+    </head>
+<style type="text/css">
+    div {
+        display: none;
+    }
+    section {
+        display: none;
+    }
+</style>
+<body>
+    <script>
+
+        function getParameterByName(name) {
+            //  alert(name);
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        $(document).ready(function () {
+            var code = getParameterByName('code');
+            var lan = getParameterByName('lan');
+            $('.en1').show();
+            $("div.serverEr").toggle();
+            //if (code == 400 || code == 403 || code == 404 || code == 408 || code == 500) {
+            //    $("div.serverEr").toggle();
+            //    if (lan == 'en') $('.en1').show();
+            //    else $('.fr1').show();
+            //}
+            //else {
+
+            //    $("div.noConn").toggle();
+            //    if (lan == 'en') $('.en2').show();
+            //    else  $('.fr2').show();
+
+            //}
+
+            $(".goLogin").click(function () {
+                window.location.href = "index.html";
+            });
+        });
+    </script>
+    <div class="serverEr">
+        <section class="en1">Network is not available or is too slow to load the page. Please <a class="goLogin" href="javascript:void(0)">click here</a> to try again.</section>
+
+    </div>
+</body>
+</html>

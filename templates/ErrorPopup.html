@@ -1,0 +1,39 @@
+﻿<!--<style>
+ .positionTop {
+  position:absolute;
+  top:30% !important;
+  margin:auto 25%;
+  width:50%;
+  height:10%;
+}
+.mcontent {
+  min-height:100%;
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0; 
+}
+
+
+</style>-->
+
+
+<section class="center-block warning-error-popup" data-ng-init="init()">
+ <div class="waring-msg-cont">
+     <div class="warning-sign col-xs-2 col-sm-2 col-md-2">
+         <span ng-class="isError=='z'?'glyphicon triangleWarningImg':(isError?'glyphicon glyphicon-exclamation-sign':'glyphicon glyphicon-info-sign')"></span>
+     </div>
+     <div class="warning-msg col-xs-10 col-sm-10 col-md-10">
+         <!--<span ng-bind-html="message"></span>-->
+         <ul>
+             <li ng-repeat="item in message" ng-bind-html="item"></li>
+         </ul>
+     </div>
+ </div>
+ 
+     
+   
+    <button class="btn btn-primary cnt" ng-disabled="isSubmit" ng-click="ok()" translate="btn_Ok"></button>
+    <button class="btn btn-primary cnt" ng-show="isCancelBtnOn" ng-click="cancel()" translate="btn_Cancel"></button>
+</section>

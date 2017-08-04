@@ -1,0 +1,196 @@
+﻿<!--<div ng-controller="calController">
+    <div class="calender-container" id="calender-container"  style="min-height:290px;" ng-model="dt">
+        <div>
+            <div style="display:inline-block; min-height:290px;">
+                <div  id="dvdatepicker" class="well well-sm">
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>-->
+
+<div id="vwMobile" class="container-fluid" ng-controller="DailyTimeGridCtrl" data-ng-init="init()" autoscroll="true">
+    <div class="overlay">&nbsp;</div>
+
+    <div class="row">
+        <div class="navigation" ng-controller="loginCtrl">
+            <section class="user"><a class="not-active"><span class="glyphicon glyphicon-user"></span> {{displayUsername}}</a> </section>
+            <section class="val-submit"><a ng-class="isSbmtOpen == true ? 'submit btn-grd' : 'submit btn-grd newclickdisable_'" ng-click="submitTimeEntries()"><span class="glyphicon glyphicon-lock"></span><span class="text_" translate="lbl_Submit"></span></a></section>
+            <!-- <nav>
+                 <ul>
+                     <li><a href="#"><span>&nbsp;</span> Preferences</a></li>
+                     <li><a href="#"><span>&nbsp;</span> Help</a></li>
+                 </ul>
+             </nav>-->
+            <section class="import-cal"><a ng-class="(checkRevMonthFlag) == true ? 'import' : 'import newclickdisable_'" ng-click="loadImportCalEntriesRev()"><i class="fa fa-clock-o"></i> <span translate="lbl_ImportCalendar"></span> </a></section>
+            <section class="val-submit"><a class="submit btn-grd" ng-click="loadPreferences()"><span class="glyphicon glyphicon-cog"></span><span class="text_" translate="lbl_Prefrence"></span></a></section>
+            <section class="val-submit"><a class="submit btn-grd" href="#" onclick='window.open("templates/help.html"); return false;'><span class="glyphicon glyphicon-question-sign"></span><span class="text_">Help</span></a></section>
+            <section class="logout"><a ng-click="logout()"><span class="glyphicon glyphicon-off"></span> <span translate="lbl_Logout"></span> </a></section>
+            <section class="nav-back"><a><span class="glyphicon glyphicon-chevron-left"></span></a></section>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-12">
+            <header class="page_header">
+
+                <a class="menu" href="javascript:void(0)"><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span></a>
+
+                <div class="date-slide my-cloak">
+                    <div class="closedMonthAlert"><span class="closed-month" ng-bind="closedmonth |date:'MMM yyyy'"></span></div>
+                    <div class="dateSlider">
+                        <a class="prev" ng-click="prevDate(true)"><i class="fa fa-angle-left"></i></a>
+                        <span ng-bind-html="isDailyMode==true?(currentDate | date:'EEEE dd<br/>MMM, yyyy'):('lbl_WeekOf' | translate) + (weeklyStartDate | date:'EEE dd<br/>MMM, yyyy')">
+                        </span>
+                        <!--<span ng-show="isDailyMode" ng-bind="(currentDate | date:'EEE MMM dd, yyyy')">
+                        </span>
+                        <span ng-show="!isDailyMode" ng-bind="('lbl_WeekOf' | translate) + (weeklyStartDate | date:'EEE MMM dd, yyyy')">
+                        </span>-->
+
+                        <a class="next" ng-click="nextDate(true)"><i class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+                <section class="time-show my-cloak">
+                    <p><span translate="lbl_MonthTtlHours"></span> <span ng-bind="monthlyTtlHrs"></span></p>
+                    <p><span ng-show="(isDailyMode==true)" translate="lbl_DailyTtlHours"></span><span ng-show="(isDailyMode==false)">Weekly Hrs: </span><span ng-bind="isDailyMode?ttlHrs:weeklyTtlHours"></span></p>
+                </section>
+                <input type="text" class="hidden" id="txtcurrentDate" ng-model=currentDate />
+
+            </header>
+
+            <section class="header-bottom my-cloak">
+                <a href="javascript:void(0)" class="expandCollapseAll" ng-click="expandCollapseAllClick()"><strong class="expandCollapse"><i ng-class="expandClass"></i></strong> {{expandAllText}}</a>
+                <a class="addNew" ng-class="(checkRevMonthFlag) == true ? 'entry btn-grd' : 'entry btn-grd newclickdisable_'" ng-click="NewClick((isDailyMode==true?currentDate:weeklyStartDate),currentDate, isDailyMode, false)"><span class="text_">Add New</span></a>
+
+                <section class="report-icon"><ul><li ng-if="isDailyMode == false"><a day-Tab class="day_ ui-gradient" href="javascript:void(0)" ng-click="weekDayToggle(true, 'Y')" translate="tab_Day"></a></li><li ng-if="isDailyMode == true"><a day-Tab class="week_ ui-gradient" href="javascript:void(0)" ng-click="weekDayToggle(false, 'Y')" translate="tab_Week"></a></li></ul></section>
+
+                <a class="cal-icon ui-gradient" ng-click="loadCalender()" href="javascript:void(0)"><span class="glyphicon glyphicon-calendar"></span></a>
+            </section>
+
+            <section class="content">
+
+                <div class="tab1" style="display: none;">
+
+                    <ul>
+                        <li ng-repeat="x in gridData" ng-class="'gridcolor' + ($index % 2)">
+                            <section class="task-container" id="{{'d' + x.TEID}}" ng-class="'task-container ' + x.TEID">
+
+                                <section class="task-container-inner">
+                                    <strong class="expandCollapse" ng-click="expandEntry('exp' + x.TEID,x.rowIndex)"><i ng-class="x.class"></i></strong>
+                                    <label class="task-checked" for="{{x.TEID}}" ng-click="entryCheckedUnchecked(isDailyMode, x.TEID);"><input ng-attr-id="{{x.TEID}}" class="checked" type="checkbox" name="chkEntries" value="{{x}}"></label>
+                                    <section class="clickEventTask" ng-click="editTimeEntry(x)">
+                                        <section class="task-hours">
+                                            <strong class="task-code"><span class="cepCode">{{x.CEP_REC.CLIENO + "-" + x.CEP_REC.ENGNO + "-" + x.CEP_REC.PRJNO}} <a ng-class="(x.TIMSUB | uppercase) == 'Y' ? 'glyphicon glyphicon-lock' : 'edit-delete'"></a></span><span class="chargeBase"><span>C/B: </span><span ng-bind="x.CEP_REC.CHARBASIS"></span> </span> </strong>
+                                            <strong class="hours">{{ 'lbl_Hrs' | translate }}: <span class="{{(x.HRS )< 0?'neghrs':''}}">{{x.HRS|decimal}}</span> </strong>
+                                        </section>
+                                        <section ng-style="{'display':x.isOpen?'block':'none'}" ng-class="'task-details' + ' ' + 'exp' + x.TEID">
+                                            <span class="heading">{{x.CEP_REC.CATID==0||x.CEP_REC.CATID==undefined?(x.ACTI_REC.DES ):((x.CTSDESC == undefined || x.CTSDESC == null || x.CTSDESC.trim() == '')?'Select a project component & task ...':x.CTSDESC)}}</span>
+                                            <span class="summary"><em>{{x.DES }}</em></span>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </li>
+                        <li>
+                            <section class="task-details1" style="text-align: center;" ng-bind="gridNoEntryMessage==1?('lbl_NoTEntryForDay' | translate):errorMessage"></section>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="tab2">
+                    <div class="top-show-hrs weekly-hours">
+                        <ul>
+                            <li><a><strong ng-bind="isDailyMode?'':('lbl_WkDy1' | translate)  + ((getWeeklyDayDate(weeklyStartDate, 0)) | date:'(dd)')"></strong><small class="{{(itemsDataTotal.HrsTotalSum1 )< 0?'neghrs':''}}">{{itemsDataTotal.HrsTotalSum1==undefined?0.00:itemsDataTotal.HrsTotalSum1|decimal}}</small></a></li>
+                            <li><a><strong ng-bind="isDailyMode?'':('lbl_WkDy2' | translate)  + ((getWeeklyDayDate(weeklyStartDate, 1)) | date:'(dd)')"></strong><small class="{{(itemsDataTotal.HrsTotalSum2 )< 0?'neghrs':''}}">{{itemsDataTotal.HrsTotalSum2==undefined?0.00:itemsDataTotal.HrsTotalSum2|decimal}}</small></a></li>
+                            <li><a><strong ng-bind="isDailyMode?'':('lbl_WkDy3' | translate)  + ((getWeeklyDayDate(weeklyStartDate, 2)) | date:'(dd)')"></strong><small class="{{(itemsDataTotal.HrsTotalSum3 )< 0?'neghrs':''}}">{{itemsDataTotal.HrsTotalSum3==undefined?0.00:itemsDataTotal.HrsTotalSum3|decimal}}</small></a></li>
+                            <li><a><strong ng-bind="isDailyMode?'':('lbl_WkDy4' | translate)  + ((getWeeklyDayDate(weeklyStartDate, 3)) | date:'(dd)')"></strong><small class="{{(itemsDataTotal.HrsTotalSum4 )< 0?'neghrs':''}}">{{itemsDataTotal.HrsTotalSum4==undefined?0.00:itemsDataTotal.HrsTotalSum4|decimal}}</small></a></li>
+                            <li><a><strong ng-bind="isDailyMode?'':('lbl_WkDy5' | translate)  + ((getWeeklyDayDate(weeklyStartDate, 4)) | date:'(dd)')"></strong><small class="{{(itemsDataTotal.HrsTotalSum5 )< 0?'neghrs':''}}">{{itemsDataTotal.HrsTotalSum5==undefined?0.00:itemsDataTotal.HrsTotalSum5|decimal}}</small></a></li>
+                            <li><a><strong ng-bind="isDailyMode?'':('lbl_WkDy6' | translate)  + ((getWeeklyDayDate(weeklyStartDate, 5)) | date:'(dd)')"></strong><small class="{{(itemsDataTotal.HrsTotalSum6 )< 0?'neghrs':''}}">{{itemsDataTotal.HrsTotalSum6==undefined?0.00:itemsDataTotal.HrsTotalSum6|decimal}}</small></a></li>
+                            <li class="last"><a><strong style="font-weight:bold;" ng-bind="isDailyMode?'':('lbl_WkDy7' | translate)  + ((getWeeklyDayDate(weeklyStartDate, 6)) | date:'(dd)')"></strong><small class="{{(itemsDataTotal.HrsTotalSum7 )< 0?'neghrs':''}}">{{itemsDataTotal.HrsTotalSum7==undefined?0.00:itemsDataTotal.HrsTotalSum7|decimal}}</small></a></li>
+                            <!-- <li><a><strong translate="lbl_Total"></strong><small class="{{(itemsDataTotal.HrsGrandTotalSum )< 0?'neghrs':''}}">{{itemsDataTotal.HrsGrandTotalSum==undefined?0.00:itemsDataTotal.HrsGrandTotalSum|decimal}}</small></a></li>-->
+                        </ul>
+                    </div>
+                    <ul id="weekRows">
+                        <li ng-repeat="x in itemsDataFinal1" ng-class="'gridcolor' + ($index % 2)">
+                            <section class="task-container weekly-details" id="{{'week' + x.data.TEID}}" ng-class="'task-container weekly-details w' + x.data.TEID">
+
+                                <section class="task-container-inner">
+                                    <strong class="expandCollapse" ng-click="expandEntry('expw' + x.data.TEID,x.data.rowIndex)"><i ng-class="x.data.class"></i></strong>
+                                    <label class="task-checked" for="{{'w' + x.data.TEID}}" ng-click="entryCheckedUnchecked(isDailyMode, 'w' + x.data.TEID);"><input ng-attr-id="{{'w' + x.data.TEID}}" class="checked" type="checkbox" name="chkEntries" value="{{x}}"></label>
+                                    <section class="clickEventTask" ng-click="editTimeEntry(x)">
+                                        <section class="task-hours">
+                                            <strong class="task-code"><span class="cepCode">{{x.CLIENO + "-" + x.ENGNO + "-" + x.PRJNO}} <a class="{{(x.data.TIMSUB | uppercase) == 'Y' ? 'glyphicon glyphicon-lock' : 'edit-delete'}}"></a></span></strong>
+                                            <strong class="hours">  <span class="chargeBase"><span>C/B: </span><span ng-bind="x.data.CEP_REC.CHARBASIS"></span></span></strong>
+                                            <strong class="hours" style="float: right;">{{ 'lbl_Hrs' | translate }}: <span ng-class="(x.HrsTotal )< 0?'neghrs':''">{{x.HrsTotal|decimal}}</span> </strong>
+                                        </section>
+
+                                        <section ng-style="{'display':x.data.isOpen?'block':'none'}" ng-class="'task-details' + ' ' + 'expw' + x.data.TEID">
+                                            <span class="heading">{{x.data.CEP_REC.CATID==0||x.data.CEP_REC.CATID==undefined?(x.data.ACTI_REC.DES ):((x.data.CTSDESC == undefined || x.data.CTSDESC == null || x.data.CTSDESC.trim() == '')?'Select a project component & task ...':x.data.CTSDESC)}}</span>
+                                            <span class="summary"><em>{{x.DES }}</em></span>
+                                        </section>
+                                    </section>
+                                </section>
+                                <div ng-style="{'display':x.data.isOpen?expandEntryWeekBlock('block', x.data.TEID):expandEntryWeekBlock('none', x.data.TEID)}" ng-class="'weekly-hours' + ' ' + 'expw' + x.data.TEID" ng-click="editTimeEntry(x)">
+                                    <ul>
+                                        <li><a><!--<strong translate="lbl_WkDy1"></strong>--><small class="{{(x.Hrs1 )< 0?'neghrs':''}}">{{x.Hrs1==null?x.Hrs1:(x.Hrs1|decimal)}}</small></a></li>
+                                        <li><a><!--<strong translate="lbl_WkDy2"></strong>--><small class="{{(x.Hrs2 )< 0?'neghrs':''}}">{{x.Hrs2==null?x.Hrs2:(x.Hrs2|decimal)}}</small></a></li>
+                                        <li><a><!--<strong translate="lbl_WkDy3"></strong>--><small class="{{(x.Hrs3 )< 0?'neghrs':''}}">{{x.Hrs3==null?x.Hrs3:(x.Hrs3|decimal)}}</small></a></li>
+                                        <li><a><!--<strong translate="lbl_WkDy4"></strong>--><small class="{{(x.Hrs4 )< 0?'neghrs':''}}">{{x.Hrs4==null?x.Hrs4:(x.Hrs4|decimal)}}</small></a></li>
+                                        <li><a><!--<strong translate="lbl_WkDy5"></strong>--><small class="{{(x.Hrs5 )< 0?'neghrs':''}}">{{x.Hrs5==null?x.Hrs5:(x.Hrs5|decimal)}}</small></a></li>
+                                        <li><a><!--<strong translate="lbl_WkDy6"></strong>--><small class="{{(x.Hrs6 )< 0?'neghrs':''}}">{{x.Hrs6==null?x.Hrs6:(x.Hrs6|decimal)}}</small></a></li>
+                                        <li class="last"><a><!--<strong translate="lbl_WkDy7"></strong>--><small class="{{(x.Hrs7 )< 0?'neghrs':''}}">{{x.Hrs7==null?x.Hrs7:(x.Hrs7|decimal)}}</small></a></li>
+                                        <!-- <li><a><strong translate="lbl_Total"></strong><small class="{{(x.HrsTotal )< 0?'neghrs':''}}">{{x.HrsTotal==null?x.HrsTotal:(x.HrsTotal|decimal)}} </small></a></li>-->
+                                    </ul>
+                                </div>
+
+                            </section>
+
+
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <section class="task-details1" style="text-align: center;" ng-bind="gridNoEntryMessage==1?('lbl_NoTEntryForWeek' | translate):errorMessage"></section>
+
+                        </li>
+                    </ul>
+
+
+
+
+
+                </div>
+                <section class="sub_popup-action">
+                    <ul class="show-dayWeek"><li><a class="copy" ng-class="IsSelectedForAll?'copy':'copy disable'" ng-click="copyRecords(isDailyMode)"><i class="fa fa-copy"></i><span translate="btn_Copy"></span></a></li><li><a class="paste" ng-class="(isDailyMode && DailyDataCopied && checkRevMonthFlag) || (!isDailyMode && WeeklyDataCopied && checkRevMonthFlag)? 'paste' : 'paste disable'" ng-click="pasteRecords(isDailyMode, 1)"><i class="fa fa-paste"></i><span translate="btn_Paste"></span></a></li><li><a class="clone" ng-class="(IsSelectedForAll && checkRevMonthFlag && (afterTecuttOff || afterTecuttOffWeek)) ? 'clone':'clone disable'" ng-click="Clone(isDailyMode)"><i class="fa fa-clone"></i><span translate="Clone"></span></a></li><li><a ng-class="selectedForDelete?'del':'del disable'" class="del" ng-click="deleteTimeEntriesConfirm(isDailyMode)"><i class="fa fa-trash"></i><span translate="btn_Delete"></span></a></li><li class="showInDay"><a class="more"><i class="fa fa-ellipsis-v"></i><span translate="lbl_More"></span></a></li><li class="showInWeek" style="display:none;"><a class="copyWeek" ng-click="CopytoThisWeek(isDailyMode)" ng-class="IsSelectedForAll && (afterTecuttOff || afterTecuttOffWeek) ? 'copyWeek':'copyWeek disable'"><i class="fa fa-copy"></i><span translate="btn_CopyToWeek"></span></a></li></ul>
+                    <!--<ul class="show-week"><li><a class="copy" ng-class="selectedForCopy?'copy':'copy disable'" ng-click="copyRecords(isDailyMode)"><i class="fa fa-copy"></i><span translate="btn_Copy"></span></a></li><li><a class="paste" ng-class="(isDailyMode && DailyDataCopied && checkRevMonthFlag) || (!isDailyMode && WeeklyDataCopied && checkRevMonthFlag)? 'paste' : 'paste disable'" ng-click="pasteRecords(isDailyMode)"><i class="fa fa-paste"></i><span translate="btn_Paste"></span></a></li><li><a class="clone"><i class="fa fa-clone"></i><span translate="Clone"></span></a></li><li><a ng-class="selectedForDelete?'del':'del disable'" class="del" ng-click="deleteTimeEntriesClicked(isDailyMode)"><i class="fa fa-trash"></i><span translate="btn_Delete"></span></a></li></ul>-->
+                    <ul class="expand-footer"><li><a class="copyToday" ng-click="CopytoToday(isDailyMode)" ng-class="IsSelectedForAll && afterTecuttOff ? 'copyToday':'copyToday disable'"><i class="fa fa-copy"></i><span translate="btn_CopyToToday"></span></a></li><li><a class="pasteAdv" ng-click="pasteAdvance(isDailyMode)" ng-class="(DailyDataCopied  || IsTodayCopied || IsClone) ? 'pasteAdv':'pasteAdv disable'"><i class="fa fa-paste"></i><span translate="btn_PasteAdv"></span></a></li></ul>
+                    <span class="dots"><small></small><small class="fa fa-angle-up"></small><small></small></span>
+                    <span class="cancel-cross"><span class="fa fa-angle-down"></span></span>
+                    <span class="cancel-cross-left"><span class="fa fa-angle-left"></span></span>
+                </section>
+
+            </section>
+        </div>
+
+
+        <div class="row marginNone">
+            <div class="col-xs-12 col-sm-12">
+                <section class="bottom-footer">
+                    <ul>
+                        <!-- <li><a ng-class="(checkRevMonthFlag) == true ? 'entry btn-grd' : 'entry btn-grd newclickdisable_'" ng-click="NewClick((isDailyMode==true?currentDate:weeklyStartDate),currentDate, isDailyMode, false)"><span class="text_">+</span></a></li>
+                        <li><a ng-class="(checkRevMonthFlag) == true ? 'submit btn-grd' : 'submit btn-grd newclickdisable_'" ng-click="submitTimeEntries()"><span class="glyphicon glyphicon-lock"></span><span class="text_">Submit</span></a></li>
+                         <li><a class="edit btn-grd"><span class="fa fa-tasks"></span><span class="text_">More</span></a></li> -->
+
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+    </div>
+
+</div>

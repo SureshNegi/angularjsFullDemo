@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div check-key-press ctrl-id="loginbtnImport" dv-id="importLoginDiv" id="importLoginDiv">
+        <section class="login-credentials import-login" style="width: 300px; margin-left: 151px;">
+            <section class="import-login-heading">Microsoft Exchange Login</section>
+
+            <ul>
+                <li>
+                    <label for="username">Username</label><input class="username form-control ng-pristine ng-valid ng-touched" ng-change="IsValue()" ng-model="username" id="username" ng-focus="isUsernameFocused=true" type="text">
+                    <button class="btn reset-btn" ng-show="(username.length>0)" ng-click="resetField('user')">X </button>
+                </li>
+                <li>
+                    <label for="password">Password</label><input ng-model="password" ng-change="IsValue()" class="password form-control ng-pristine ng-untouched ng-valid" id="password" type="password">
+                </li>
+                <li>
+                    <label for="password">Domain</label><input ng-model="domain" ng-change="IsValue()" class="form-control ng-pristine ng-untouched ng-valid" id="domain" type="text">
+                    <button class="btn reset-btn" ng-show="(domain.length>0)" ng-click="resetField('dom')">X </button>
+                </li>
+            </ul>
+            <span class="msg centerAlign" ng-bind="loginNote"></span>
+            <span class="invalid-user ng-binding" ng-bind="message"></span>
+
+            <ul class="btn-containers">
+                <li>
+                    <input id="loginbtnImport" ng-disabled="enableLoginFlag" ng-class="enableLoginFlag?'sub btn-grd copy disable':'sub btn-grd'" value="LOGIN" ng-click="login()" type="submit">
+                </li>
+                <li>
+                    <input class="sub btn-grd copy" id="cancel" value="Cancel" ng-click="cancel()" type="submit">
+                </li>
+
+            </ul>
+
+
+        </section>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+﻿<style>
+    .modal-content {
+        /* ... */
+        overflow-y: scroll;
+    }
+</style>
+<div class="container-fluid container_fluid" ng-cloak>
+    <div class="row">
+
+        <div class="divRslt" data-ng-init="initGetFavCEP()" infinite-scroll='favCEPlObj.getMoreFavCEP()' infinite-scroll-container="'.modal-content'" infinite-scroll-disabled='favCEPlObj.busy' infinite-scroll-distance='0'>
+            <section class="popup_heading ui-gradient">
+                <span translate="lbl_CepCodeFav"></span>
+                <a class="modal-close" href="javascript:void(0)">
+                    <span>&nbsp;</span><span>&nbsp;</span>
+                    <span ng-click="cancel()" translate="btn_Cancel"></span>
+                </a>
+            </section>
+            <div class="popup-content-itm">
+                <div class="show_all">
+                    <div class="btn_container">
+                        <button class="btn btn-primary" ng-click="getAllFav(true)" ng-show="showButton && isFavSearchOn" translate="btn_ShowAllFav"></button>
+                        <button class="btn btn-primary" ng-click="getAllFav(false)" ng-show="showButton && !isFavSearchOn" translate="btn_ShowSearchOnly"></button>
+                    </div>
+
+
+                </div>
+                <div class="overflowAutoList">
+                    <div class="search-task-result" ng-repeat="x in favCEPlObj.items" ng-click="sendFavDataBack({{x.index}})">
+                        <section class="task-search">
+                            <strong class="task-code">
+                                <strong>
+                                    <span ng-bind-html="x.CLIENO+ '-'"></span>
+                                    <span ng-if="x.ENGNO.toString().length==3" ng-bind-html="x.ENGNO+'-'"></span>
+                                    <span ng-if="x.ENGNO.toString().length==2" ng-bind-html="'0'+x.ENGNO+'-'"></span>
+                                    <span ng-if="x.ENGNO.toString().length==1" ng-bind-html="'00'+x.ENGNO+'-'"></span>
+
+
+                                    <span ng-if="x.PRJNO.toString().length==3" ng-bind-html="x.PRJNO"></span>
+                                    <span ng-if="x.PRJNO.toString().length==2" ng-bind-html="'0'+x.PRJNO"></span>
+                                    <span ng-if="x.PRJNO.toString().length==1" ng-bind-html="'00'+x.PRJNO"></span>
+                                </strong>
+
+                                <span class='star-fav' ng-click="removeCEPFavorites(true, x, $event )" ng-show="x.fav">
+                                    <i class="fa fa-star"></i>
+                                </span>
+                                <span class='star-no-fav' ng-click="addCEPFavorited(true, x, $event)" ng-show="!x.fav">
+                                    <i class="fa fa-star-o"></i>
+                                </span>
+                            </strong>
+                            <strong class='task-int'>
+
+                                <span class="task-type">Type : {{x.CHARBASIS}}</span>
+
+                                <span>Comp : {{x.OCOMP}}</span>
+
+                            </strong>
+                        </section>
+                        <section class="fav-desc">
+
+
+
+                            <span>
+
+                                <span>Client:{{x.CLIENAME}}</span>
+
+                            </span>
+
+                            <span>
+
+                                <span>Engagement:{{x.ENGNAME.trim()}}</span>
+
+                            </span>
+
+                            <span>
+
+                                <span> {{ 'lbl_Project' | translate }} : {{x.PRJNAME}}</span>
+
+                            </span>
+                        </section>
+
+                    </div>
+
+                    <div class="divEmpty" id="divNoRecord">
+                        <span translate="msg_NoRecord"></span>
+                    </div>
+                    <div ng-show='searchRslObj.busy'>{{favCEPlObj.loadMsg}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

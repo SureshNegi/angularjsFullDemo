@@ -1,0 +1,24 @@
+﻿<div id="layoutSave" class="entrypopup alertMsgBoxCont" check-key-press ctrl-id="btnOk" dv-id="layoutSave" data-ng-init="init()">
+    <h2>{{'lbl_newGridLayout'|translate}}</h2><span class="closeCross" ng-click="cancel(false)"></span>
+    <div class="entrypopupInner" id="layoutSaveInnerBox">
+        <div class="entrypopupform">
+            <section class="formSection alertMsgBox">
+                <div class="overflowHiddenbox">  
+                    
+                    <label>{{ 'lbl_LayoutName' | translate }}:</label>                 
+                    <input type="text" ng-model="layoutName" id="txt_LayoutName" replace="[^0-9a-zA-ZÀ-ÿ\s]" with="" class="hideIEClearBtn"><button class="btn reset-btn"  ng-show="(layoutName.length>0)"  ng-click="layoutName=''"> X </button>
+                        
+                <span class="invalid-user" ng-bind="message"></span>
+                </div>
+                <section class="btnOK">
+                    <div class="div-ok">
+                        <button ng-class="selectedBtn==1?'activeButton':''" id="btnOk" ng-click="saveLayout()" class="btn btn-sm btn-info waringMsgOk" translate="btn_Ok"></button>
+                    </div>
+                    <div class="div-cancel">
+                        <button ng-class="selectedBtn==2?'activeButton':''" class="btn btn-sm btn-info waringMsgOk" ng-click="$dismiss('nah')" translate="btn_Cancel"></button>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </div>
+</div>

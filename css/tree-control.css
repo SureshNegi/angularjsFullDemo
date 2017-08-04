@@ -1,0 +1,142 @@
+﻿treecontrol {
+    /* prevent user selection */
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    /* default */
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size:13px;
+    color: #555;
+    text-decoration: none;
+}
+
+treecontrol ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: none;
+    /*overflow: hidden;*/
+}
+
+treecontrol li {
+    position: relative;
+    padding: 0 0 0 20px;
+    line-height: 20px;
+}
+
+treecontrol li.tree-expanded i.tree-leaf-head, treecontrol li.tree-collapsed i.tree-leaf-head {display:none;}
+treecontrol li.tree-expanded i.tree-branch-head, treecontrol li.tree-collapsed i.tree-branch-head {display:inline;}
+treecontrol li.tree-leaf i.tree-branch-head {display:none;}
+treecontrol li.tree-leaf i.tree-leaf-head {display:inline;}
+
+treecontrol li i.tree-branch-head {
+    cursor: pointer;
+}
+
+treecontrol li .tree-label {
+    cursor: pointer;
+    display: inline;
+}
+
+treecontrol li .tree-unselectable {
+    cursor: not-allowed;
+}
+
+treecontrol.tree-classic li.tree-expanded i.tree-branch-head {
+    padding: 1px 10px;
+    background: url("../img/desktop/elbow-end-minus.gif") 2px 1px no-repeat;
+}
+
+treecontrol.tree-classic li.tree-collapsed i.tree-branch-head {
+    padding: 1px 10px;
+    background: url("../img/desktop/elbow-end-plus.gif") 2px 1px no-repeat;
+}
+
+treecontrol.tree-classic li.tree-leaf i.tree-leaf-head {
+    padding: 1px 10px;
+    background: url("../img/desktop/leaf.gif") no-repeat;
+}
+
+treecontrol.tree-classic li .tree-selected {
+   background-color: #D9E8FB;
+    /*font-weight: bold;*/
+}
+
+treecontrol.tree-classic li .tree-unselectable {
+    color: #ddd;
+}
+
+treecontrol.tree-light li.tree-expanded i.tree-branch-head {
+    padding: 1px 10px;
+    background: url("../images/node-opened-2.png") no-repeat;
+}
+
+treecontrol.tree-light li.tree-collapsed i.tree-branch-head {
+    padding: 1px 10px;
+    background: url("../images/node-closed-2.png") no-repeat;
+}
+
+treecontrol.tree-light li.tree-leaf i.tree-leaf-head {
+    padding: 1px 10px;
+    width: 16px; height: 16px;
+    background: none no-repeat;
+}
+
+treecontrol.tree-light li .tree-selected {
+    font-weight: bold;
+}
+
+treecontrol.tree-light li .tree-unselectable {
+    color: #ddd;
+}
+
+treecontrol.tree-dark li.tree-expanded i.tree-branch-head {
+    padding: 1px 10px;
+    background: url("../images/node-opened-light.png") no-repeat;
+}
+
+treecontrol.tree-dark li.tree-collapsed i.tree-branch-head {
+    padding: 1px 10px;
+    background: url("../images/node-closed-light.png") no-repeat;
+}
+
+treecontrol.tree-dark li.tree-leaf i.tree-leaf-head {
+    padding: 1px 10px;
+    width: 16px; height: 16px;
+    background: none no-repeat;
+}
+
+treecontrol.tree-dark li .tree-selected {
+    font-weight: bold;
+}
+
+treecontrol.tree-dark li .tree-unselectable {
+    color: #777;
+}
+
+treecontrol.tree-dark {
+    color: #ddd;
+}
+
+
+.tree-expanded .tree-label{ padding-left:18px; background: url("../img/desktop/folder-open.gif") left -2px no-repeat; }
+.tree-collapsed .tree-label{ background: url("../img/desktop/folder.gif") left -2px no-repeat; padding-left:18px; font:normal 11px/12px Trebuchet Ms,arial,tahoma,helvetica,sans-serif;}
+.tree-collapsed .tree-label span{white-space: nowrap;}
+.tree-expanded .tree-label{font:normal 11px/16px Trebuchet Ms,arial,tahoma,helvetica,sans-serif; white-space: nowrap;}
+.tree-expanded .tree-leaf .tree-label{ background:none; padding:0;}
+.tree-collapsed .tree-leaf .tree-label{ background:none; padding:0;}
+
+.treeview ul li ul li{ background: url("../img/desktop/elbow-line.gif") 2px top repeat-y;padding: 3px 0; line-height: 15px; margin-top:-1px; }
+.treeview ul li ul li:last-child{ background:none;}
+/*.treeview ul li ul li.tree-expanded:last-child i.tree-branch-head{ background: url("../img/desktop/elbow-end-minus.gif") 2px 3px no-repeat;}
+.treeview ul li ul li.tree-collapsed:last-child i.tree-branch-head{ background: url("../img/desktop/elbow-end-minus.gif") 2px 3px no-repeat;}*/
+.treeview ul li ul li ul { padding-top:3px;}
+.treeview ul li ul li ul li{ padding-left:21px;  background: url("../img/desktop/elbow.gif") 4px top no-repeat; margin-top:-2px;}
+.treeview ul li ul li ul li:last-child{  background: url("../img/desktop/elbow-end.gif") 4px top no-repeat;}
+
+.grid1464240402783 .ui-grid-render-container-body .ui-grid-viewport{ background:#fff;}
+
+.tree-expanded .tree-leaf .tree-label.tree-selected{ background-color:#d9e8fb; background-image:none;}

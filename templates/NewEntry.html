@@ -1,0 +1,47 @@
+﻿<!--<div class="row">
+    <div class="col-sm-1">
+        <span>CEP Code:</span>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5">
+        <ui-select ng-model="cpecode.selected" theme="bootstrap" reset-search-input="false" search-after>
+            <ui-select-match placeholder="Select a code... ">
+                {{$select.selected.code}}
+            </ui-select-match>
+            <ui-select-choices repeat="c in cpeListData | filter : $select.search" refresh="refreshResults($select)" refresh-delay="0">
+                {{c.code}} ({{c.description}})
+
+            </ui-select-choices>
+
+        </ui-select>
+    </div>
+</div>-->
+
+
+
+<div data-ng-init="init()">
+    <div>
+        <span> CEP Code :</span>&nbsp;&nbsp;
+        <input type="text" id="cepTextBox" ng-hide="IsSearch" autofocus text-box-formatter />
+        <button ng-hide="IsSearch"><i class="fa fa-caret-square-o-down"></i></button>
+        &nbsp;&nbsp;
+
+        <ui-select id="searchSelect" ng-model="cpecode.selected" theme="bootstrap" ng-show="IsSearch" reset-search-input="false" search-after paging-directive>
+            <ui-select-match placeholder="Select a code... ">
+                {{$select.selected.code}}
+                
+            </ui-select-match>
+            <!--<ui-select-choices repeat="c in cpeList | filter : $select.search" refresh="refreshResults($select)" refresh-delay="0">-->
+            <!--<ui-select-choices repeat="c in cpeList() | filter : $select.search">-->
+            <ui-select-choices id="space-for-buttons" repeat="c in cpeListData | filter : $select.search" refresh="refreshResults($select.search)" refresh-delay="2" >
+                {{c.CATID}} ({{c.CLIENAME}})
+
+            </ui-select-choices>
+            
+    </ui-select>
+
+    <input type="checkbox" name="search" value="search" elemToFocus="cepTextBox" ng-model="IsSearch">Search
+</div>   
+
+     
+</div>

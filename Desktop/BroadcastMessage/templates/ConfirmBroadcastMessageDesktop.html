@@ -1,0 +1,20 @@
+﻿<div class="entrypopup alertMsgBoxCont"  id="alertDiv" check-key-press ctrl-id="closeBtn" dv-id="alertDiv" data-ng-init="init()">
+    <h2>Message</h2><span class="closeCross" ng-click="cancel()"></span>
+    <div class="entrypopupInner">
+        <div class="entrypopupform">
+            <section class="formSection alertMsgBox">
+                <div class="overflowHiddenbox">
+                    <figure class="warningImg"></figure>
+                    <ul>
+                        <li ng-bind="message"></li>
+                    </ul>
+                </div>
+                <section class="btnOK">
+                <div class="div-ok">
+                        <button ng-class="selectedBtn==1?'activeButton':''" id="btnOk" autofocus class="btn btn-sm btn-info waringMsgOk" ng-click="ok()">{{'btn_Ok' |translate}}</button>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </div>
+</div>

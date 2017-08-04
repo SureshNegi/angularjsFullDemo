@@ -1,0 +1,21 @@
+﻿<div class="entrypopup saveMsgBoxCont"  id="saveDivDesktop" check-key-press ctrl-id="closeBtn" dv-id="saveDivDesktop" data-ng-init="init()">
+ <h2>{{windowConfig.title}}</h2><span class="closeCross" ng-click="close()"></span>
+    <div id="innerAlertDiv">
+        <div class="entrypopupInner">
+            <div class="entrypopupform">
+                <section class="formSection alertMsgBox">
+                    <div class="overflowHiddenbox">
+                        <figure ng-class="windowConfig.isWarning=='z'?'triangleWarningImg':(windowConfig.isWarning?'warningImg':'errorImg')"></figure>
+                        <ul>
+                            <li ng-repeat="item in errList" ng-bind-html="item"></li>
+                        </ul>
+                    </div>
+                    <section class="btnOK">
+                        <input type="submit" autofocus id="closeBtn" class="btn btn-sm btn-info waringMsgOk" ng-click="close()" value="{{ 'btn_Ok' | translate }}" />
+
+                    </section>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

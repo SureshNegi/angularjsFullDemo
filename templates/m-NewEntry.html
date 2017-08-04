@@ -1,0 +1,334 @@
+﻿<style>
+    .error-Msg{
+        color: red;
+        clear:both;
+    }
+
+    .errMsg {
+        color: #FF0000;
+        clear:both;
+    }
+</style>
+
+<div class="container-fluid" check-key-press ctrl-id="btnEntrySave" dv-id="mNewEntryDiv" id="mNewEntryDiv" ng-cloak>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <header class="page_header">
+
+                <!--<a class="menu" href="javascript:void(0)"><span>&nbsp;</span><span>&nbsp;</span><span>&nbsp;</span></a>-->
+
+                <div class="date-slide">
+                    <span ng-show="isDailyMode" ng-bind="startDate | date:'EEE MMM dd, yyyy'"></span>
+                    <span ng-hide="isDailyMode" ng-bind="('lbl_WeekOf' | translate)  +(startDate | date:'EEE MMM dd, yyyy')"></span>
+
+                </div>
+
+            </header>
+        </div>
+        <div class="col-xs-12 col-sm-12 content margin_top" data-ng-init="init()" id="divEntry">
+            <form id="saveDailyCalFrm" name="saveDailyCalFrm" novalidate>
+                <fieldset ng-disabled="isSubmit">
+                    <div class="dailyEntryForm">
+                        <div class="row">
+                            <!--<div class="col-sm-12">
+                                <span> CEP Code :</span>
+                            </div>-->
+                            <button class="search_btn btn-grd" ng-click="Search()" ng-show="!isSubmit "><i class="fa fa-search"></i></button>
+                            <div class="row">
+                                <div class="col-sm-12 Cep_label">
+                                    <span translate="lbl_CepCode">  </span>
+                                    <span class='star-fav' ng-click="removeCEPFavorites(false)" ng-show='selectCEPFev && cepEnterText!=null && cepEnterText.length!=0'>
+                                        <i class="fa fa-star"></i>
+                                    </span>
+                                    <span class='star-no-fav' ng-click="addCEPFavorited(false)" ng-show='selectCEPNonFev && cepEnterText!=null && cepEnterText.length!=0'>
+                                        <i class="fa fa-star-o"></i>
+                                    </span>
+                                    <span class="task-hours" ng-show="isSubmit"><strong class="hours"><a class="glyphicon glyphicon-lock"></a></strong></span>
+                                </div>
+
+
+                                <input type="hidden" id="cepfav"/>
+                                <input type="hidden" id="isChange" />
+                            </div>
+                            <div class="col-sm-12 error-Msg">
+
+                                <p ng-show="isCepValdMsgOn" ng-bind="frmValidationParms.cepMsg"></p>
+                            </div>
+                        </div>
+
+                        <div class="project-code cep_code" ng-class="(isSubmit) ? 'disableCtrl' : ''">
+                            <input name="cepCode" class="form-control" type="text" id="cepTextBox" ng-hide="IsSearch" ng-model="cepEnterText" ng-focus="onFocusCep()" ng-blur="onCEPEnter()" ui-mask="{{maskTest}}" ng-keyup="cepdelete($event)" />
+                            <button id="clearCepBtn" name="clearCepBtn" class="abs btn reset-btn cross-button" ng-hide="(isSubmit  || (cepEnterText==null || cepEnterText.length==0))" ng-click="clearCep()"> X </button>
+                            <button type="button" class="abs" ng-class="(isSubmit == true) ? 'eee' : ''" ng-hide="IsSearch" ng-click="loadFavCEP()" ng-disabled="isSubmit">
+                                <i class="fa fa-chevron-down" ng-class="(isSubmit == true) ? 'disableDrpDwn' : ''"></i>
+                            </button>
+                        </div>
+                        <div class="row">
+                            <div ng-show="IsActivity" class="col-sm-12 Activity_lbl">
+                                <span translate="lbl_Activity">  </span>
+                                <span class='star-fav' ng-click="removeActivityFavorites()" ng-show='activity.selected.ACTICD != null && AcivityFev && (isSameCompany) && isActivityActive'>
+                                    <i class="fa fa-star"></i>
+                                </span>
+                                <span class='star-no-fav' ng-click="addActivityFavorited()" ng-show='activity.selected.ACTICD != null && !AcivityFev && (isSameCompany) && isActivityActive'>
+                                    <i class="fa fa-star-o"></i>
+                                </span>
+                            </div>
+                            <div class="col-sm-12 error-Msg" ng-hide="!IsActivity">
+                                <!--<div class="col-sm-2" >-->
+                                <div>
+                                    <p ng-show="isActValdMsgOn" ng-bind=frmValidationParms.activityMsg></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="IsActivity" class="project-code" ng-disabled="!frmValidationParms.IsCepCodeSelected"
+                             ng-class="(frmValidationParms.IsCepCodeSelected == true && !isSubmit) ? 'enabledCtrl' : 'disableCtrl'">
+                            <!--<input ng-class="(frmValidationParms.IsCepCodeSelected == true && isSubmit==false) ? 'enabledCtrl' : 'disableCtrl'" ng-required="IsActivity" ng-click="loadActivity()" ng-readonly="true" placeholder={{frmValidationParms.activityTitle}} name="activity" class="form-control" type="text" id="activity" ng-hide="IsSearch" ng-model="activity.selected.DES" />-->
+                            <input ng-class="{'enabledCtrl': frmValidationParms.IsCepCodeSelected &&  !isSubmit}" ng-click="loadActivity()" ng-readonly="true" ng-focus="onFocusActivity()" ng-attr-placeholder={{frmValidationParms.activityTitle}} name="activity" class="form-control" type="text" id="activity" ng-hide="IsSearch" ng-model="activity.selected.DES" />
+                            
+                            <button class="abs" ng-class="(isSubmit == true) ? 'eee' : ''" ng-click="loadActivity()" ng-disabled="isSubmit">
+                                <i class="fa fa-chevron-down" ng-class="(isSubmit == true) ? 'disableDrpDwn' : ''"></i>
+                            </button>
+                        </div>
+
+
+                        <div class="row" ng-hide="IsActivity">
+                            <div ng-hide="IsActivity" class="col-sm-12 Component">
+                                <span translate="lbl_Component"> </span>
+                            </div>
+                            <div class="col-sm-12 error-Msg">
+                                <div>
+                                    <p ng-show="isCompoValMsgOn" ng-bind=frmValidationParms.projectMsg></p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div ng-hide="IsActivity" class="project-code" ng-class="(isSubmit || !frmValidationParms.IsCepCodeSelected) ? 'disableCtrl' : ''">
+                            <select ng-focus="onFocusComponent()" ng-disabled="!frmValidationParms.IsCepCodeSelected" class="form-control" name="component" id="component" ng-model="component.selected" ng-change="onSelectComponentCode()">
+                                <option value="" translate="opt_Component"></option>
+                                <option ng-repeat="component   in component.projectListData.PCAT_OBJ.ARR_PCOM " value="{{component}}">{{ component.DES }}</option>
+                            </select>
+                            <button class="abs" ng-class="(isSubmit == true) ? 'eee' : ''">
+                                <!--<i class="fa fa-chevron-down"></i>-->
+                            </button>
+                        </div>
+
+
+
+                        <div class="row" ng-hide="IsActivity">
+                            <div ng-hide="IsActivity" class="col-sm-12 Task">
+                                <span translate="lbl_Task">  </span>
+                            </div>
+                            <div class="col-sm-12 error-Msg">
+                                <div>
+                                    <p ng-show="isTaskValdMsgOn" ng-bind=frmValidationParms.compoMsg></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-hide="IsActivity" class="project-code" ng-class="(frmValidationParms.isProjectSelected == true && !isSubmit) ? 'enabledCtrl' : 'disableCtrl'">
+                            <select drp-Change ng-focus="onFocusTask()" ng-disabled="!frmValidationParms.isProjectSelected || !frmValidationParms.IsCepCodeSelected" class="form-control" name="task" id="task" ng-model="task.selected" ng-change="retrieveDescription()" search-after>
+                                <option value="" translate="opt_Task"></option>
+                                <option ng-repeat="task   in task.taskListData" value="{{task}}">{{ task.DES }}</option>
+                            </select>
+                            <button class="abs" ng-class="(isSubmit == true) ? 'eee' : ''">
+                                <!--<i class="fa fa-chevron-down"></i>-->
+                            </button>
+                        </div>
+
+                        <!--Dropdown for component ** Start-->
+                        <div ng-show="isScopeReq">
+                            <div class="row">
+                                <div class="col-sm-12 Scope">
+                                    <span translate="lbl_Scope">  </span>
+                                </div>
+                                <div class="col-sm-12 error-Msg">
+                                    <div>
+                                        <p ng-show="isScopeValdMsgOn" ng-bind="frmValidationParms.scopeMsg"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-code" ng-class="(frmValidationParms.isTaskSelected == true && !isSubmit) ? 'enabledCtrl' : 'disableCtrl'">
+                                <select drp-Change ng-focus="onFocusScope()" ng-disabled="!frmValidationParms.isTaskSelected" class="form-control" name="proScope" id="proScope" ng-change="retrieveScopeDescription()" ng-model="scopeObj.selected">
+                                    <option value="" translate="opt_Scope"></option>
+                                    <option ng-repeat="obj   in scopeObj.scopeListData | orderBy: ['DES']" value="{{obj}}">{{ obj.DES }}</option>
+                                </select>
+                                <button class="abs" ng-class="(isSubmit == true) ? 'eee' : ''">
+                                    <!--<i class="fa fa-chevron-down"></i>-->
+                                </button>
+                            </div>
+                        </div>
+                        <!--Dropdown for component ** End-->
+
+                        <div ng-show="isDailyMode" class="row">
+                            <div class="col-sm-12 Hours_"> <span translate="lbl_HrsFull">  </span></div>
+                            <div class="col-sm-12 error-Msg" ng-hide="isValidHrs">
+                                <p ng-bind="frmValidationParms.invalidHrs"></p>
+                            </div>
+                        </div>
+                        <div class="hoursSize" ng-show="isDailyMode" ng-class="(isSubmit) ? 'disableCtrl' : ''">
+                            <input class="form-control" name="hrs" type="number" ng-model="dailyHour" ng-focus="setHourValue('dailyHours',0)" ng-blur="checkHours('dailyHours',0)" id="dailyHours" step="0.01" to-precision />
+
+                        </div>
+                        <input type="hidden" id="oldValue" />
+                        <ul class="weekly-entry-daylist" ng-hide="isDailyMode">
+                            <li>
+                                <span translate="lbl_FulWkDyMobile1"> </span>
+                                <div ng-class="(isSubmit) ? 'disableCtrl' : ''">
+                                    <input class="form-control" type="number" ng-focus="setHourValue('wkHrs1',0)" ng-model="week[0]" ng-disabled="revDisable(0)" to-precision id="wkHrs1" ng-blur="checkHours('wkHrs1',0)" />
+                                </div>
+                            </li>
+
+                            <li>
+                                <span translate="lbl_FulWkDyMobile2"> </span>
+                                <div ng-class="(isSubmit) ? 'disableCtrl' : ''">
+                                    <input class="form-control" type="number" ng-focus="setHourValue('wkHrs2',1)" ng-model="week[1]" ng-disabled="revDisable(1)" to-precision id="wkHrs2" ng-blur="checkHours('wkHrs2',1)" />
+                                </div>
+                            </li>
+
+                            <li>
+                                <span translate="lbl_FulWkDyMobile3"> </span>
+                                <div ng-class="(isSubmit) ? 'disableCtrl' : ''">
+                                    <input class="form-control" type="number" ng-focus="setHourValue('wkHrs3',2)" ng-model="week[2]" ng-disabled="revDisable(2)" to-precision="2" id="wkHrs3" ng-blur="checkHours('wkHrs3',2)" />
+                                </div>
+                            </li>
+
+                            <li>
+                                <span translate="lbl_FulWkDyMobile4"></span>
+                                <div ng-class="(isSubmit) ? 'disableCtrl' : ''">
+                                    <input class="form-control" type="number" ng-focus="setHourValue('wkHrs4',3)" ng-model="week[3]" ng-disabled="revDisable(3)" to-precision id="wkHrs4" ng-blur="checkHours('wkHrs4',3)" />
+                                </div>
+                            </li>
+
+                            <li>
+                                <span translate="lbl_FulWkDyMobile5"></span>
+                                <div ng-class="(isSubmit) ? 'disableCtrl' : ''">
+                                    <input class="form-control" type="number" ng-focus="setHourValue('wkHrs5',4)" ng-model="week[4]" ng-disabled="revDisable(4)" to-precision="2" id="wkHrs5" ng-blur="checkHours('wkHrs5',4)" />
+
+                                </div>
+                            </li>
+
+                            <li>
+                                <span translate="lbl_FulWkDyMobile6"></span>
+                                <div ng-class="(isSubmit) ? 'disableCtrl' : ''">
+                                    <input class="form-control" type="number" ng-focus="setHourValue('wkHrs6',5)" ng-model="week[5]" ng-disabled="revDisable(5)" to-precision id="wkHrs6" ng-blur="checkHours('wkHrs6',5)" />
+                                </div>
+                            </li>
+
+                            <li>
+                                <span translate="lbl_FulWkDyMobile7"></span>
+                                <div ng-class="(isSubmit) ? 'disableCtrl' : ''">
+                                    <input class="form-control" type="number" ng-focus="setHourValue('wkHrs7',6)" ng-model="week[6]" ng-disabled="revDisable(6)" to-precision id="wkHrs7" ng-blur="checkHours('wkHrs7',6)" />
+                                </div>
+                            </li>
+
+                        </ul>
+                        <div class="row" ng-hide="isDailyMode">
+                            <div class="col-sm-12 error-Msg" ng-hide="isValidHrs">
+                                <p ng-bind=frmValidationParms.invalidHrs> </p>
+                            </div>
+                        </div>
+
+                        <ul class="weekly-entry-hourlist" ng-hide="isDailyMode">
+                            <li>
+
+                            </li>
+
+                            <li>
+
+                            </li>
+
+                            <li>
+
+                            </li>
+
+                            <li>
+
+                            </li>
+
+                            <li>
+
+                            </li>
+
+                            <li>
+
+                            </li>
+
+                            <li>
+
+                            </li>
+                            <li>
+                                <input class="form-control" type="number" ng-focus="setValue()" name="wkHrs" id="wkHrs" ng-model="wkHrsEntered" max="{{frmValidationParms.maxHours}}" min="{{frmValidationParms.minHour}}" ng-show="false" />
+
+                            </li>
+
+                        </ul>
+                        <div class="row">
+                            <div class="col-sm-12 description_label">
+                                <span translate="lbl_Descrption"></span>
+                                <span class='star-fav' ng-click="removeDescriptionFavorites()" ng-show='favDesc && description!=null && description.trim().length!=0'>
+                                    <i class="fa fa-star"></i>
+                                </span>
+                                <span class='star-no-fav' ng-click="addDescriptionFavorite()" ng-show='!favDesc && description!=null && description.trim().length!=0'>
+                                    <i class="fa fa-star-o"></i>
+                                </span>
+                            </div>
+                            <div class="col-sm-12 error-Msg">
+                                <p ng-show="isDesValMsgOn" ng-bind=frmValidationParms.desMsg></p>
+                                <input type='hidden' id="txthidden" />
+                            </div>
+                        </div>
+                        <div class="desc_" ng-class="(isSubmit) ? 'disableCtrl' : ''">
+                            <textarea data-ng-trim="false" focus-Desc ng-focus="onFocusDescrption()" ng-paste="removeTabKey($event)" ng-change="setFav()" ng-blur="descriptionBlur()" maxlength="600" name="cepDes" class="form-control" rows="3" cols="16" ng-model="description"
+                                      ng-disabled="isDescDisable" ng-attr-placeholder={{frmValidationParms.titleDes}}  id="description" ng-keypress="keyPress($event)"></textarea>
+                            <button class="abs btn reset-btn cross-button" ng-hide="(isSubmit || isDescDisable || (description==null || description.length==0))" ng-click="descCorssClick()"> X </button>
+                            <button class="abs" ng-class="{'eee': isSubmit == true || isDescDisable}" ng-click="loadDescription()" ng-hide="IsSearch" ng-disabled="isSubmit">
+                                <i class="fa fa-chevron-down" ng-class="(isSubmit == true) ? 'disableDrpDwn' : ''"></i>
+                            </button>
+                        </div>
+
+                        <div>
+                            <span translate="lbl_Provience"></span>
+                        </div>
+                        <div class="city_name_select" ng-class="(isUpdPro == true && !isSubmit) ? 'enabledCtrl' : 'disableCtrl'">
+                            <select class="form-control" name="state" id="state" ng-model="state.selected" ng-disabled="!isUpdPro">
+                                <option ng-repeat="state   in state.stateprovlist | orderBy: ['PTXNAME']" value="{{state}}">{{state.PTXNAME}}</option>
+                            </select>
+                            <button class="abs" ng-class="(isSubmit == true) ? 'eee' : ''">
+                                <!--<i class="fa fa-chevron-down"></i>-->
+                            </button>
+                        </div>
+
+                        <div class="row" ng-show="isRegulated">
+                            <!--<div class="col-sm-12" style="width: 2%;">
+                                <input type="checkbox" ng-model="isRegulatedChkd" />
+                            </div>
+                            <div class="col-sm-12">
+                                <span> Regulated</span>
+                            </div>-->
+                            <div class="col-sm-12">
+                                <section class="regulated">
+                                    <input id="isRgltdChk" type="checkbox" ng-model="isRegulatedChkd" ng-class="(isSubmit) ? 'disableCtrl' : ''" />
+                                    <label for="isRgltdChk" translate="lbl_Regulated"></label>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="btn-container_" style="align-content:center">
+                    <div class="button-container">
+                        <ul>
+                            <!--<li><button  class="btn btn-primary" ng-disabled="isSubmit || saveDailyCalFrm.$invalid || !frmValidationParms.cnfrmSubmit" ng-click="save()">Save</button></li>-->
+                            <li><button id="btnEntrySave" class="btn btn-primary" ng-disabled="isSubmit" ng-click="save()" translate="btn_Save"></button></li>
+                            <li><button ng-disabled="false" class="btn btn-default btn-grd2" ng-mousedown="cancel()" ng-click="cancel()" translate="btn_Cancel"></button></li>
+                        </ul>
+                    </div>
+
+
+
+                    <!--<button class="search_btn btn-grd" ng-click="Search()"><i class="fa fa-search"></i></button>-->
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

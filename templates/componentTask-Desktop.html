@@ -1,0 +1,88 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Untitled Document</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" href="../css/ui-grid.css" rel="stylesheet" />
+    <link href="../css/calendar.css" rel="stylesheet" />
+    <link href="../css/Multidatepicker.css" rel="stylesheet" />
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet" />
+    <link href="../css/styleDesktop.css" rel="stylesheet" />
+    <link href="../css/select.css" rel="stylesheet" />
+    <link href="../css/font-awesome.min.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        var is_ios = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
+        if (is_ios) {
+            $('<link rel="stylesheet" type="text/css" href="css/ipad.css" />').appendTo("head");
+        };
+    </script>
+
+
+</head>
+
+<body>
+
+
+    <div class="entrypopup proCompTask">
+        <h2><span>{{ 'lbl_prjCmpTsk' | translate }}</span></h2>
+
+        <div class="entrypopupInner" data-ng-init="init()">
+            <div class="entrypopupform">
+
+                <section class="formSection CompTaskContainer">
+                   <h4>{{ 'lbl_cmpNTsk' | translate }}</h4>
+
+                    <section class="treeviewCont">
+                        <section class="treeview">
+                            <a href="javascript:void(0)"><span>Components</span></a>
+                            <ul>
+                                <li class="active"><strong><span>Application Enchancement</span></strong>
+    <ul>
+                                        <li><strong><span>Requirements Gathering &amp; Analysis</span></strong></li>
+                                        <li><strong><span>Design / Architecture</span></strong></li>
+                                        <li><strong><span>Environment Setup</span></strong></li>
+                                        <li><strong><span>Coding</span></strong></li>
+                                        <li><strong><span>Release Planning &amp; Communication</span></strong></li>
+                                        <li class="last"><strong><span>Application Release</span></strong></li>
+                                    </ul>
+                                </li>
+                                <li><strong><span>Quality &amp; Testing</span></strong></li>
+                                <li><strong><span>Quality &amp; Testing</span></strong></li>
+                                <li class="last"><strong><span>Quality &amp; Testing</span></strong></li>
+</ul>
+                        </section>
+
+
+                    </section>
+                    <section class="description-selectDesktop">
+                        <span>{{ 'lbl_Descrption' | translate }}:</span>
+                        <section class="Desc_inputDetails">
+                            <input type="text" class="desc_select" placeholder="HTML5" />
+                            <strong></strong>
+                        </section>
+
+                        <ul class="btnContDesktop">
+                            <li><button class="selectBtn">{{ 'lbl_slct' | translate }}</button></li>
+                            <li><button class="cancelBtn">{{ 'btn_Cancel' | translate }}</button></li>
+                        </ul>
+                    </section>
+                </section>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

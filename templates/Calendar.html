@@ -1,0 +1,52 @@
+﻿<div>
+    <div class="calender-modal-container" id="calender-container" style="" ng-model="dt" data-ng-init="init()">
+        <div>
+            <div style="">
+                <div id="dvdatepicker">
+
+                    <div id="divdatepicker" class="well well-sm">
+                        <div class="calendarOver mobileCalOver">
+                            <div class="monthYearCont">
+                                <div class="yearContainer">
+                                    <div class="yearContainerinner">
+                                        <ul id="firstColYear"></ul>
+                                    </div>
+                                </div>
+
+                                <div class="monthContainer">
+                                    <ul>
+                                        <li><a href="javascript:void(0)">Jan</a></li>
+                                        <li><a href="javascript:void(0)">Feb</a></li>
+                                        <li><a href="javascript:void(0)">Mar</a></li>
+                                        <li><a href="javascript:void(0)">Apr</a></li>
+                                        <li><a href="javascript:void(0)">May</a></li>
+                                        <li><a href="javascript:void(0)">Jun</a></li>
+
+                                        <li><a href="javascript:void(0)">Jul</a></li>
+                                        <li><a href="javascript:void(0)">Aug</a></li>
+                                        <li><a href="javascript:void(0)">Sep</a></li>
+                                        <li><a href="javascript:void(0)">Oct</a></li>
+                                        <li><a href="javascript:void(0)">Nov</a></li>
+                                        <li><a href="javascript:void(0)">Dec</a></li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+                            <div class="selectOC">
+                                <ul>
+                                    <li><button class="selectCalDate" ng-click="selectCalendarDate()">OK</button></li>
+                                    <li><button class="cancelCalPopup">Cancel</button></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <datepicker ng-model="dt" id="dpmytime" min="minDate" show-weeks="showWeeks" date-verified="dateVerified(date, mode);" date-available="dateAvailable(date, mode);" date-highlight="dateHighlight(date, mode);" date-Error="dateError(date,mode);"></datepicker> <input type="text" id="selectedValue" ng-model="dt" value="" class="hidden" ng-change="dateChange()" />
+                        <div class="calendar-bottom" style="text-align:center"><button type="button" class="btn btn-sm btn-info today" ng-click="currdate()" translate="btn_Today"></button></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

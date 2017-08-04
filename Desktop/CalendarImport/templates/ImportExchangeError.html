@@ -1,0 +1,19 @@
+﻿<div class="entrypopup exchngMsgBoxCont"  id="exchngDiv" check-key-press ctrl-id="closeBtn" dv-id="exchngDiv" data-ng-init="init()">
+    <h2>{{::'msg_exchngError' |translate}}</h2><span class="closeCross" ng-click="close()"></span>
+    <div class="entrypopupInner">
+        <div class="entrypopupform">
+            <section class="formSection alertMsgBox">
+                <div class="overflowHiddenbox">
+                    <figure class="mytimelogo" style="width: 47px;"><img src="img/desktop/Outlook2003.png" alt="" title="" height="32" width="32"></figure>
+                    <ul>
+                        <li ng-repeat="item in errList" ng-bind-html="item" style="width: 568px;color: red;"></li>
+                    </ul>
+                </div>
+                <section class="btnOK">
+                <input type="submit" autofocus  id="closeBtn" class="btn btn-sm btn-info waringMsgOk" ng-click="close()" value="{{ ::'btn_Ok' | translate }}" />
+                
+                </section>
+            </section>
+        </div>
+    </div>
+</div>

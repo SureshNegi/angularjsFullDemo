@@ -1,0 +1,77 @@
+﻿<div class="description-popup">
+    <div class="">
+
+        <div class="divRslt" data-ng-init="init()">
+
+            <section class="popup_heading ui-gradient" ng-hide="selectedData.IsActivity">
+                <span>Description</span>
+                <a class="modal-close" href="javascript:void(0)">
+                    <span>&nbsp;</span><span>&nbsp;</span>
+                    <!--<span ng-click="cancel()" class="glyphicon glyphicon-remove"></span>-->
+                    <span ng-click="cancel()" translate="btn_Cancel"></span>
+
+                </a>
+            </section>
+            <section class="popup_heading ui-gradient" ng-show="selectedData.IsActivity">
+                <span translate="lbl_DesFav"></span>
+                <a class="modal-close" href="javascript:void(0)">
+                    <span>&nbsp;</span><span>&nbsp;</span>
+                    <span ng-click="cancel()" translate="btn_Cancel"></span>
+
+                </a>
+            </section>
+            <div class="container-desc-popup overflowAutoDesc">
+              
+                <div class="top-entry" ng-hide="selectedData.IsActivity">
+                    <span class="entry-title" translate="lbl_CompoTaskDes"></span>
+                    <span class='star-fav' ng-click="removeDescriptionFavorites(false, null, $event)" ng-show='favDesc && defDesc!=null && defDesc.length!=0'>
+                        <i class="fa fa-star"></i>
+                    </span>
+                    <span class='star-no-fav' ng-click="addDescriptionFavorite(false, null, $event)" ng-show='!favDesc && defDesc!=null && defDesc.length!=0'>
+                        <i class="fa fa-star-o"></i>
+                    </span>
+                    <div class="errormessageshow">
+                        <span class="redErrMsg" id="desValMsg" ng-hide="hideValidation || defDesc.length>0">{{valdMsg}}</span>
+                        <span class="redErrMsg"  ng-hide="hideLngValidMsg">{{LngvaldMsg}}</span>
+                    </div>
+                    <div class="component-task">
+                        <div class="component-task-input">
+                            <input class="form-control" ng-change="setFav()" type="text" id="defDesc" ng-model="defDesc" maxlength="{{maxCharLen}}" focus-me="shouldBeOpen" />
+
+                        </div>
+                        <div class="component-task-btn"><button class="btn btn-primary" id="btnOk" ng-click="sendDesc(defDesc)" translate="btn_Ok"></button></div>
+
+
+                    </div>
+                </div>
+                <div class="desc-fav-cont">
+                    <div class="code-desc-container" ng-hide="selectedData.IsActivity">
+
+                        <div class="desc_title"><strong translate="lbl_DesFav"> </strong></div>
+                    </div>
+                    <div class="overflowAutoList" ng-show="descriptionList!=null && descriptionList.length>0">
+                        <div class="search-task-result" ng-repeat="x in descriptionList" ng-click="rowSelected(x)">
+                            <section class="task-search star-generate">
+                                <span>
+                                    <span class='star-fav' ng-click="removeDescriptionFavorites(true,x, $event, $index)" ng-show='x.fav'>
+                                        <i class="fa fa-star"></i>
+                                    </span>
+                                    <span class='star-no-fav' ng-click="addDescriptionFavorite(true,x,  $event)" ng-show='!x.fav'>
+                                        <i class="fa fa-star-o"></i>
+                                    </span>
+                                    <span class="sys_support" ng-bind="x.data"></span>
+
+
+                                </span>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="divEmpty" id="divNoRecord">
+                    <span translate="msg_NoRecord"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

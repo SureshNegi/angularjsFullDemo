@@ -1,0 +1,44 @@
+﻿<div class="inner-login outlookLogin" ng-class="isEnglishLang?'EN':'FR'"  id="vwDesktopLogin" check-key-press ctrl-id="loginbtnDsktp" dv-id="vwDesktopLogin">
+    <div class="outlookLoginInner">
+        <div class="outlookLogMid">
+            <div class="login-box">
+                <div class="login-elements" >
+                    <div class="login-header">
+                        <h3>{{ ::'lbl_mcrsftLgn' | translate }}</h3>
+                    </div>
+                    <div class="loginControlsCont">
+
+                        <figure class="mytimelogo"><img src="img/desktop/Outlook2003.png" alt="" title="" height="40" width="40"></figure>
+                        <div class="login-details">
+                            <div class="usernameCred">
+                                <label>{{ ::'lbl_usrNm' | translate }}:</label>
+                                <small class="usernameTxt"><input id="txtCalLoginUserName" ng-keyup="showUntilSeconds()" placeholder="{{'lbl_enterUsrNm' |translate}}" ng-mouseover="showUntilSeconds()" class="timedDisplay" onfocus="this.select();" class="timedDisplay" ng-class="username.length==0?'untxt invalid':'untxt'" style="width:135px;" type="text"  ng-change="IsValue()" ng-model="username" /></small>
+                                <!--<button class="btn reset-btn" ng-show="(username.length>0)" ng-click="resetField('user')">X </button>-->
+                            </div>
+                            <div style="clear:both;">
+                                <label>{{ ::'lbl_Pswrd' | translate }}:</label>
+                                <small class="passwordTxt"><input id="txtCalLoginPassword" ng-keyup="showUntilSeconds()" placeholder="{{'lbl_enterPswrd' |translate}}" ng-mouseover="showUntilSeconds()"  class="timedDisplay hrsTxt" type="password" class="timedDisplay" ng-class="password.length==0?'passtxt invalid':'passtxt'" style="width:135px;" ng-change="IsValue()" ng-model="password" /></small>
+                            </div>
+                            <div style="clear:both;">
+                                <label>{{ ::'lbl_domain' | translate }}:</label>
+                                <small class="passwordTxt"><input id="txtLoginPassword" type="text" class="timedDisplay" placeholder="{{'lbl_enterDomain' |translate}}" ng-class="password.length==0?'passtxt invalid':'passtxt'" style="width:135px;" ng-change="IsValue()"  ng-model="domain" /></small>
+                            </div>
+                            <div id="divCapsIndicator" style="visibility:hidden;position:absolute;">Caps Lock is on</div>
+                            <div class="networkMsg"><p ng-bind="loginNote"</p></div>
+                            <div class="networkMsg"><p ng-bind="message"></p></div>
+                        </div>
+
+                    </div>
+                    <ul class="login_button">
+                        <li>
+                            <input type="submit" title="{{fieldEmpty}}" id="loginbtnDsktp" ng-class="enableLoginFlag?'submit_button disabled':'submit_button'" ng-disabled="enableLoginFlag" value="{{'lbl_login'|translate}}" ng-click="login()" />
+                        </li>
+                        <li>
+                            <input type="button" title="" id="cancel" class="cancel_button"  value="{{::'btn_Cancel' |translate}}" ng-click="cancel()" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

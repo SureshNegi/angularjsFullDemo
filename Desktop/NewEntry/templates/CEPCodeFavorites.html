@@ -1,0 +1,93 @@
+﻿<div class="entrypopup activityContDesktop cepFavForm cepSearchWindow" id="favCepPopUp" ng-style="{'overflow':windowConfig.overflow, 'margin':windowConfig.margin,'width': windowConfig.width,'height':windowConfig.height,'left':windowConfig.left,'top':windowConfig.top}">
+    <div ng-style="{'height':windowConfig.topHeader}">
+        <h2><span translate="lbl_CepCodeFav" ></span></h2><span class="min"  ctrl="cepFavWindow" ng-show="!isMinimize" ng-click="resizeWindow(true)">Minimize</span><span class="max"  ctrl="cepFavWindow" ng-show="isMinimize" ng-click="resizeWindow(false)">Maximize</span><span class="closeCross" ng-click="cancel()"></span>
+        <section class="smheader">
+            <ul>
+                <li ng-class="windowConfig.isFavMode?'active':'disabled'"><a href="javascript:void(0)" ng-click="showFavCEPTab()">{{ ::'lbl_fav' | translate }}</a></li>
+                <li ng-class="windowConfig.isFavMode?'disabled':'active'"><a href="javascript:void(0)" ng-click="showSearchCEPTab()">{{ ::'lbl_srch' | translate }}</a></li>
+
+            </ul>
+        </section>
+    </div>
+    <div class="entrypopupInner cepFavPopup" data-ng-init="init()" id="innerCepFavCont" ng-style="{'height':windowConfig.innerHeight}">
+        <div class="entrypopupform"  >
+            <section class="formBar" ng-style="{'height':windowConfig.section1Hgt}">
+
+
+                <section class="searchBarCep searchBarActivity">
+                    <a class="seachBtnAct" ng-click="toggleSrchSelection()" ng-show="false"><span>{{ ::'lbl_srch' | translate }} {{windowConfig.searchCepStr}}</span></a>
+                    <div class="tooltip1">
+                        <div class="tooltiptext1 infoTooltip">
+                            <div class="tooltip-heading">
+                                <ul>
+                                    <li>
+                                        <h4 class="ng-binding">{{::'msg_tipSrch' |translate}}</h4>
+
+                                    </li>
+
+                                </ul>
+                            </div> <div class="tooltip-desc">
+                                <ul>
+                                    <li>
+                                        <span class="flLeft ng-binding">MFIN01- :  </span>
+                                        <span class="flRight ng-binding">{{::'msg_rtrnPrj' |translate}}</span>
+                                    </li>
+                                    <li>
+                                        <span class="flLeft ng-binding">MFIN01-701- : </span>
+                                        <span class="flRight ng-binding">{{::'msg_rtrnPrjClient' |translate}}</span>
+                                    </li>
+                                    <li>
+                                        <span class="flLeft ng-binding">{{::'msg_finance' |translate}} :</span>
+                                        <span class="flRight ng-binding">{{::'msg_rtrnfinance' |translate}}</span>
+                                    </li>
+                                    <li>
+                                            <section class="overflowSpan">
+                                            <span class="flLeft ng-binding">{{::'msg_financeCons' |translate}} </span>
+                                            <span class="flRight ng-binding" ng-bind-html="'msg_rtrnfinanceCons' |translate"></span>
+                                            </section>
+                                            <section class="cepsearchnote"><span>{{::'msg_cepsearchNote' | translate}}</span></section>
+                                            <section class="examples">
+                                                <span class="flRight ng-binding">{{::'msg_exmpl' |translate}}</span>
+                                            </section>
+                                            <section class="client1">
+                                                <span class="flRight ng-binding"><em>Client -</em> <b>{{::'msg_finance' |translate}}</b> 101</span>
+                                                <span class="flRight ng-binding"><em>Engagement - </em><span ng-bind-html="'msg_financeTraining' |translate"></span></span>
+                                                <span class="flRight ng-binding"><em>{{::'lbl_Project' |translate}} - </em><span ng-bind-html="'msg_TrainingCons' |translate"></span></span>
+                                            </section>
+</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <strong class="infomationIcon"><img src="img/desktop/information_search_grid.png"></strong>
+
+                    </div>
+                    <input id="searchFavCepInput" maxlength="100" ng-attr-placeholder="{{::'lbl_srchFavCep' | translate}}" ng-show="windowConfig.isFavMode" type="text" class="seachCep hideIEClearBtn" ng-model="windowConfig.searchFavCepStr" ng-class="windowConfig.searchFavCepStr != '' ? 'textBold' : ''" ng-enter="searchInFavCEP()" />
+                    <input id="searchCepInput" maxlength="100" ng-attr-placeholder="{{::'msg_srchCEP' | translate}}" ng-show="!windowConfig.isFavMode" type="text" class="seachCep hideIEClearBtn" ng-model="windowConfig.searchCepStr" ng-class="windowConfig.searchCepStr != '' ? 'textBold' : ''" ng-enter="searchInAllCEP()" />
+                    <span class="searchCEPBtn" ng-click="searchBtnClick()"><small>{{ ::'lbl_srch' | translate }}</small></span>
+                    <span class="searchCEPBtn clearBtn" ng-click="clearSearch()" ng-show="windowConfig.isFavMode"><small>{{ ::'lbl_clear' | translate }}</small></span>
+                    <!--custom layout buttons-->
+                    <span class="searchCEPBtn" id="saveLayoutBtn" ng-click="saveLayout()"><small>{{ ::'btn_SaveSrchLayout' | translate }}</small></span>
+                    <span class="searchCEPBtn" id="resetLayoutBtn" ng-click="resetToDefaultLayout()"><small>{{ ::'btn_ResetSrchLayout' | translate }}</small></span>
+
+
+                </section>
+
+            </section>
+            <section class="formSection" id="cepFavGrdSec" style="background-color:#fff">   
+                            
+                <div style="overflow:hidden" ng-style="{'width': windowConfig.gridWidth,'height':windowConfig.gridHeight}" ng-if="windowConfig.isFavMode && windowConfig.isRendered" id="cepFavGrid" class="cepfavGrid">
+                    <ang-table mode="1" conf="config" on-column-move="onColumnMove" enable-paging="true" on-load-page="loadPageData" on-select-cep="onSelectCep" on-remove-fav="updateCepFavRecord" on-sort-data="sortGridData">
+                        <div style="top:42px;" class="gridblankdata" ng-if="windowConfig.isFavMode && config.myData.length==0"><span>{{::'msg_noFav'|translate}}..</span></div>
+
+                    </ang-table>
+                </div>               
+                <div ng-style="{'width': windowConfig.gridWidth,'height':windowConfig.gridHeight}" ng-if="!windowConfig.isFavMode && windowConfig.isRendered" id="cepSearchGrid"  class="cepfavGrid ">
+                    <ang-table conf="config" on-column-move="onColumnMove" enable-paging="true" on-load-page="loadPageData" on-select-cep="onSelectCep" on-remove-fav="updateCepFavRecord" on-sort-data="sortGridData">
+                        <div style="top:42px;" class="gridblankdata" ng-if="!windowConfig.isFavMode && config.myData.length==0"><span>{{noRecordMsg}}</span></div>
+                    </ang-table>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
